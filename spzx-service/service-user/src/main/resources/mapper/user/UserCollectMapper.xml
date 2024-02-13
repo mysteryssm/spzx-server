@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
-<mapper namespace="com.atguigu.spzx.user.mapper.UserCollectMapper">
+<mapper namespace="mapper.UserCollectMapper">
 
     <insert id="saveUserCollect" parameterType="com.atguigu.spzx.model.entity.user.UserCollect">
         INSERT INTO user_collect
