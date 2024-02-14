@@ -29,7 +29,7 @@ import java.util.List;
 public class IndexController {
 
     @Autowired
-    private SysUserService sysUserService ;
+    private SysUserService sysUserService;
 
     @Autowired
     private ValidateCodeService validateCodeService;
@@ -40,10 +40,9 @@ public class IndexController {
     @Operation(summary = "登录接口")
     @PostMapping(value = "/login")
     public Result<LoginVo> login(@RequestBody LoginDto loginDto) {
-        LoginVo loginVo = sysUserService.login(loginDto) ;
-        return Result.build(loginVo , ResultCodeEnum.SUCCESS) ;
+        LoginVo loginVo = sysUserService.login(loginDto);
+        return Result.build(loginVo, ResultCodeEnum.SUCCESS);
     }
-
 
     @Operation(summary = "生成图片验证码")
     @GetMapping(value = "/generateValidateCode")
@@ -56,11 +55,11 @@ public class IndexController {
     //1.从请求头获取tocken
     //2.根据token去查询redis获取用户信息
     //3.用户信息返回
-//    @GetMapping(value = "/getUserInfo")
-//    public Result<SysUser> getUserInfo(@RequestHeader(name = "token") String token) {
-//        SysUser sysUser = sysUserService.getUserInfo(token) ;
-//        return Result.build(sysUser , ResultCodeEnum.SUCCESS) ;
-//    }
+    @GetMapping(value = "/getUserInfo")
+    public Result<SysUser> getUserInfo(@RequestHeader(name = "token") String token) {
+        SysUser sysUser = sysUserService.getUserInfo(token) ;
+        return Result.build(sysUser , ResultCodeEnum.SUCCESS) ;
+    }
 
     //获取当前登录的用户信息
     //从ThreadLocal对象中获取用户信息
