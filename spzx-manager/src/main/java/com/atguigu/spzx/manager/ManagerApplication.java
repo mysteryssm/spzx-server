@@ -10,7 +10,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
- * @author ljl
+ * @author yck
  * @create 2023-10-22-16:34
  */
 
@@ -22,7 +22,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 public class ManagerApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ManagerApplication.class , args) ;
+        SpringApplication.run(ManagerApplication.class, args) ;
     }
 
 }

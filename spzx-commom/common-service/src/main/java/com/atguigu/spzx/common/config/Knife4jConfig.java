@@ -38,10 +38,10 @@ public class Knife4jConfig {
     public OpenAPI customOpenAPI() {
 
         return new OpenAPI().info(new Info()
-                        .title("药商扶贫计API接口文档")
+                        .title("尚品甄选API接口文档")
                         .version("1.0")
-                        .description("药商扶贫计API接口文档")
-                        .contact(new Contact().name("李佳乐"))); // 设定作者
+                        .description("尚品甄选API接口文档")
+                        .contact(new Contact().name("姚才康"))); // 设定作者
     }
 
 }
