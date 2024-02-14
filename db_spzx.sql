@@ -1,21 +1,9 @@
-/*
- Navicat Premium Data Transfer
-
- Source Server         : 192.168.10.100
- Source Server Type    : MySQL
- Source Server Version : 80020 (8.0.20)
- Source Host           : 192.168.10.100:3306
- Source Schema         : db_spzx
-
- Target Server Type    : MySQL
- Target Server Version : 80020 (8.0.20)
- File Encoding         : 65001
-
- Date: 24/11/2023 23:04:13
-*/
+CREATE DATABASE db_spzx;
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+USE db_spzx;
 
 -- ----------------------------
 -- Table structure for brand
