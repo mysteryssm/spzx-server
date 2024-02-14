@@ -10,8 +10,6 @@
 
 ![](http://s5316urxq.bkt.clouddn.com/SPZX/2.png)
 
-
-
 ## 二、项目技术
 
 ### 1、表的关系
@@ -26,14 +24,10 @@
 - product_sku 商品sku表，一个商品包含多个sku
 - product_details 商品详情表，商品详情图片
 
-
-
 #### （3）订单相关的表关系
 
 - order_info 订单基本信息表
 - order_item 订单项表，一个订单里面包含多个订单项
-
-
 
 ### 2、前端技术
 
@@ -42,14 +36,11 @@
 - NPM
 - Axios
 
-
-
 ### 3、后端技术
 
 ![](http://s5316urxq.bkt.clouddn.com/SPZX/4.png)
 
 ![](http://s5316urxq.bkt.clouddn.com/SPZX/5.png)
-
 
 ## 三、快速上手
 
