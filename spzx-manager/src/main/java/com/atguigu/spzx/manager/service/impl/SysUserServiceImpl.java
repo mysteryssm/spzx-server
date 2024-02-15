@@ -1,7 +1,7 @@
 package com.atguigu.spzx.manager.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.atguigu.spzx.common.exception.SpzxException;
+import com.atguigu.spzx.common.exception.GlobalException;
 import com.atguigu.spzx.manager.mapper.SysUserMapper;
 import com.atguigu.spzx.manager.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
@@ -52,7 +52,7 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser sysUser = sysUserMapper.queryUserByName(loginDto.getUserName());    //根据用户名查询用户
         if(sysUser == null) {
             log.info("用户名为{}的用户不存在", loginDto.getUserName());
-            throw new SpzxException(ResultCodeEnum.LOGIN_ERROR); //用户不存在时抛出异常
+            throw new GlobalException(ResultCodeEnum.LOGIN_ERROR); //用户不存在时抛出异常
         }
 
         String inputPassword = loginDto.getPassword(); //从loginDto中获取用户输入的密码
@@ -60,12 +60,12 @@ public class SysUserServiceImpl implements SysUserService {
         //验证密码是否正确
         if(!md5InputPassword.equals(sysUser.getPassword())) {
             log.info("用户名为{}的用户密码不为{}", loginDto.getUserName(), md5InputPassword);
-            throw new SpzxException(ResultCodeEnum.LOGIN_ERROR); //密码错误时抛出异常
+            throw new GlobalException(ResultCodeEnum.LOGIN_ERROR); //密码错误时抛出异常
         }
 
         String token = UUID.randomUUID().toString().replace("-", "");   // 生成token
         // 将token作为key放入Redis中，value为用户信息，并设置过期时间
-        redisTemplate.opsForValue().set("user:login:" + token , JSON.toJSONString(sysUser) , 30 , TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set("user:login:" + token , JSON.toJSONString(sysUser) , 7, TimeUnit.DAYS);
 
         // 构建响应结果对象
         LoginVo loginVo = new LoginVo() ;
@@ -99,7 +99,7 @@ public class SysUserServiceImpl implements SysUserService {
         // 根据输入的用户名查询用户
         SysUser dbSysUser = sysUserMapper.queryUserByName(sysUser.getUserName()) ;
         if(dbSysUser != null) {
-            throw new SpzxException(ResultCodeEnum.USER_NAME_IS_EXISTS) ;
+            throw new GlobalException(ResultCodeEnum.USER_NAME_IS_EXISTS) ;
         }
 
         // 对密码进行加密

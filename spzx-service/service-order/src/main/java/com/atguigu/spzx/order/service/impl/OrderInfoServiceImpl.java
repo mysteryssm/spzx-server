@@ -1,6 +1,6 @@
 package com.atguigu.spzx.order.service.impl;
 
-import com.atguigu.spzx.common.exception.SpzxException;
+import com.atguigu.spzx.common.exception.GlobalException;
 import com.atguigu.spzx.feign.cart.CartFeignClient;
 import com.atguigu.spzx.feign.product.ProductFeignClient;
 import com.atguigu.spzx.feign.user.UserFeignClient;
@@ -96,18 +96,18 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         //2、判断List<OrderItem>为空，抛出异常
         if (CollectionUtils.isEmpty(orderItemList)) {
-            throw new SpzxException(ResultCodeEnum.DATA_ERROR);
+            throw new GlobalException(ResultCodeEnum.DATA_ERROR);
         }
 
         //3、校验商品库存是否充足，遍历List<OrderItem>集合，
         for (OrderItem orderItem : orderItemList) {
             ProductSku productSku = productFeignClient.getBySkuId(orderItem.getSkuId());
             if(null == productSku) {
-                throw new SpzxException(ResultCodeEnum.DATA_ERROR);
+                throw new GlobalException(ResultCodeEnum.DATA_ERROR);
             }
             // 校验每一个OrderItem库存量是否充足，远程调用service-product模块的sku表（库存量）
             if(orderItem.getSkuNum().intValue() > productSku.getStockNum().intValue()) {
-                throw new SpzxException(ResultCodeEnum.STOCK_LESS);
+                throw new GlobalException(ResultCodeEnum.STOCK_LESS);
             }
         }
 

@@ -8,19 +8,19 @@ import lombok.Data;
  * @create 2023-10-24-22:13
  */
 @Data
-public class SpzxException extends RuntimeException {
+public class GlobalException extends RuntimeException {
 
     private Integer code;          // 错误状态码
     private String message;        // 错误消息
     private ResultCodeEnum resultCodeEnum;     // 封装错误状态码和错误消息
 
-    public SpzxException(ResultCodeEnum resultCodeEnum) {
+    public GlobalException(ResultCodeEnum resultCodeEnum) {
         this.resultCodeEnum = resultCodeEnum;
         this.code = resultCodeEnum.getCode();
         this.message = resultCodeEnum.getMessage();
     }
 
-    public SpzxException(Integer code, String message) {
+    public GlobalException(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
