@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: service-manager
+  profiles:
+    active: dev		# 使用application-dev.yml配置文件启动项目
+  jackson:
+    time-zone: Asia/Shanghai

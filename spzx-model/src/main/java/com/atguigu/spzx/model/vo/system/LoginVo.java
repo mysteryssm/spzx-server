@@ -7,10 +7,10 @@ import lombok.Data;
 @Schema(description = "登录成功响应结果实体类")
 public class LoginVo {
 
-    @Schema(description = "令牌")
+    @Schema(description = "token")
     private String token ;
 
-    @Schema(description = "刷新令牌,可以为空")
+    @Schema(description = "刷新token可以为空")
     private String refresh_token ;
 
 }

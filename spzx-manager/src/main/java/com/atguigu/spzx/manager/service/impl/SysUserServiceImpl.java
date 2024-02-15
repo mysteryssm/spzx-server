@@ -44,47 +44,39 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public LoginVo login(LoginDto loginDto) {
 
-        // 校验验证码是否正确
         String captcha = loginDto.getCaptcha();     // 用户输入的验证码
-        String codeKey = loginDto.getCodeKey();     // redis中验证码的数据key
+        String codeKey = loginDto.getCodeKey();     // 验证码的数据key，用于在Redis中查询对应的验证码
+        String redisCode = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);   //从Redis中获取验证码
 
-        // 从Redis中获取验证码
-        String redisCode = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);
+        // 校验验证码是否正确
         if(StrUtil.isEmpty(redisCode) || !StrUtil.equalsIgnoreCase(redisCode , captcha)) {
-            //验证码错误
-            throw new GuiguException(ResultCodeEnum.VALIDATECODE_ERROR) ;
+            throw new GuiguException(ResultCodeEnum.VALIDATECODE_ERROR);   //验证码错误时抛出异常
         }
 
-        // 验证通过删除redis中的验证码
-        redisTemplate.delete("user:login:validatecode:" + codeKey) ;
+        redisTemplate.delete("user:login:validatecode:" + codeKey);    //验证通过需要删除redis中的验证码
 
-        // 根据用户名查询用户
-        SysUser sysUser = sysUserMapper.selectByUserName(loginDto.getUserName());
+        SysUser sysUser = sysUserMapper.queryUserByName(loginDto.getUserName());    //根据用户名查询用户
         if(sysUser == null) {
-//            throw new RuntimeException("用户名或者密码错误") ;
-            throw new GuiguException(ResultCodeEnum.LOGIN_ERROR);
+            throw new GuiguException(ResultCodeEnum.LOGIN_ERROR); //用户不存在时抛出异常
         }
 
-        // 验证密码是否正确
-        String inputPassword = loginDto.getPassword();
-        String md5InputPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes());
+        String inputPassword = loginDto.getPassword(); //从loginDto中获取用户输入的密码
+        String md5InputPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes()); // 将用户输入密码进行md5加密
+        //验证密码是否正确
         if(!md5InputPassword.equals(sysUser.getPassword())) {
-//            throw new RuntimeException("用户名或者密码错误") ;
-            throw new GuiguException(ResultCodeEnum.LOGIN_ERROR);
+            throw new GuiguException(ResultCodeEnum.LOGIN_ERROR); //密码错误时抛出异常
         }
 
-        // 生成令牌，保存数据到Redis中
-        String token = UUID.randomUUID().toString().replace("-", "");
+        String token = UUID.randomUUID().toString().replace("-", "");   // 生成token
+        // 将token作为key放入Redis中，value为用户信息，并设置过期时间
         redisTemplate.opsForValue().set("user:login:" + token , JSON.toJSONString(sysUser) , 30 , TimeUnit.MINUTES);
-//        redisTemplate.opsForValue().set("user:login:" + token , JSON.toJSONString(sysUser) , 7, TimeUnit.DAYS);
 
         // 构建响应结果对象
         LoginVo loginVo = new LoginVo() ;
         loginVo.setToken(token);
         loginVo.setRefresh_token("");
 
-        // 返回
-        return loginVo;
+        return loginVo; // 返回loginVo
     }
 
     public SysUser getUserInfo(String token) {
@@ -109,7 +101,7 @@ public class SysUserServiceImpl implements SysUserService {
     public void saveSysUser(SysUser sysUser) {
 
         // 根据输入的用户名查询用户
-        SysUser dbSysUser = sysUserMapper.selectByUserName(sysUser.getUserName()) ;
+        SysUser dbSysUser = sysUserMapper.queryUserByName(sysUser.getUserName()) ;
         if(dbSysUser != null) {
             throw new GuiguException(ResultCodeEnum.USER_NAME_IS_EXISTS) ;
         }
