@@ -1,13 +1,9 @@
 package com.atguigu.spzx.manager.service.impl;
 
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import com.atguigu.spzx.common.exception.GuiguException;
-import com.atguigu.spzx.common.log.annotation.Log;
-import com.atguigu.spzx.manager.mapper.SysRoleUserMapper;
+import com.atguigu.spzx.common.exception.SpzxException;
 import com.atguigu.spzx.manager.mapper.SysUserMapper;
 import com.atguigu.spzx.manager.service.SysUserService;
-import com.atguigu.spzx.model.dto.system.AssginRoleDto;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
@@ -15,10 +11,10 @@ import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.LoginVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.util.List;
@@ -30,6 +26,7 @@ import java.util.concurrent.TimeUnit;
  * @create 2023-10-22-16:37
  */
 @Service
+@Slf4j
 public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
@@ -38,33 +35,32 @@ public class SysUserServiceImpl implements SysUserService {
     @Autowired
     private RedisTemplate<String , String> redisTemplate ;
 
-    @Autowired
-    private SysRoleUserMapper sysRoleUserMapper ;
-
     @Override
     public LoginVo login(LoginDto loginDto) {
 
-        String captcha = loginDto.getCaptcha();     // 用户输入的验证码
-        String codeKey = loginDto.getCodeKey();     // 验证码的数据key，用于在Redis中查询对应的验证码
-        String redisCode = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);   //从Redis中获取验证码
-
-        // 校验验证码是否正确
-        if(StrUtil.isEmpty(redisCode) || !StrUtil.equalsIgnoreCase(redisCode , captcha)) {
-            throw new GuiguException(ResultCodeEnum.VALIDATECODE_ERROR);   //验证码错误时抛出异常
-        }
-
-        redisTemplate.delete("user:login:validatecode:" + codeKey);    //验证通过需要删除redis中的验证码
+//        String captcha = loginDto.getCaptcha();     // 用户输入的验证码
+//        String codeKey = loginDto.getCodeKey();     // 验证码的数据key，用于在Redis中查询对应的验证码
+//        String redisCode = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);   //从Redis中获取验证码
+//
+//        // 校验验证码是否正确
+//        if(StrUtil.isEmpty(redisCode) || !StrUtil.equalsIgnoreCase(redisCode , captcha)) {
+//            throw new GuiguException(ResultCodeEnum.VALIDATECODE_ERROR);   //验证码错误时抛出异常
+//        }
+//
+//        redisTemplate.delete("user:login:validatecode:" + codeKey);    //验证通过需要删除redis中的验证码
 
         SysUser sysUser = sysUserMapper.queryUserByName(loginDto.getUserName());    //根据用户名查询用户
         if(sysUser == null) {
-            throw new GuiguException(ResultCodeEnum.LOGIN_ERROR); //用户不存在时抛出异常
+            log.info("用户名为{}的用户不存在", loginDto.getUserName());
+            throw new SpzxException(ResultCodeEnum.LOGIN_ERROR); //用户不存在时抛出异常
         }
 
         String inputPassword = loginDto.getPassword(); //从loginDto中获取用户输入的密码
-        String md5InputPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes()); // 将用户输入密码进行md5加密
+        String md5InputPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes()); // 将用户输入密码进行md5加密，32位小
         //验证密码是否正确
         if(!md5InputPassword.equals(sysUser.getPassword())) {
-            throw new GuiguException(ResultCodeEnum.LOGIN_ERROR); //密码错误时抛出异常
+            log.info("用户名为{}的用户密码不为{}", loginDto.getUserName(), md5InputPassword);
+            throw new SpzxException(ResultCodeEnum.LOGIN_ERROR); //密码错误时抛出异常
         }
 
         String token = UUID.randomUUID().toString().replace("-", "");   // 生成token
@@ -103,7 +99,7 @@ public class SysUserServiceImpl implements SysUserService {
         // 根据输入的用户名查询用户
         SysUser dbSysUser = sysUserMapper.queryUserByName(sysUser.getUserName()) ;
         if(dbSysUser != null) {
-            throw new GuiguException(ResultCodeEnum.USER_NAME_IS_EXISTS) ;
+            throw new SpzxException(ResultCodeEnum.USER_NAME_IS_EXISTS) ;
         }
 
         // 对密码进行加密
@@ -122,21 +118,5 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void deleteById(Long userId) {
         sysUserMapper.deleteById(userId) ;
-    }
-
-
-    @Log(title = "用户分配角色" , businessType = 0 )
-    @Transactional
-    @Override
-    public void doAssign(AssginRoleDto assginRoleDto) {
-
-        // 删除之前的用户所对应的角色数据
-        sysRoleUserMapper.deleteByUserId(assginRoleDto.getUserId()) ;
-
-        // 分配新的角色数据
-        List<Long> roleIdList = assginRoleDto.getRoleIdList();
-        roleIdList.forEach(roleId->{
-            sysRoleUserMapper.doAssign(assginRoleDto.getUserId(),roleId);
-        });
     }
 }

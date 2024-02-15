@@ -1,0 +1,9 @@
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\PayApplication.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\properties\AlipayProperties.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\configuration\AlipayConfiguration.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\service\PaymentInfoService.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\mapper\PaymentInfoMapper.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\service\AlipayService.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\controller\AlipayController.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\service\impl\AlipayServiceImpl.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-service\service-pay\src\main\java\com\atguigu\spzx\pay\service\impl\PaymentInfoServiceImpl.java

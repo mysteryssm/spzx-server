@@ -4,7 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.alipay.api.response.AlipayTradeWapPayResponse;
-import com.atguigu.spzx.common.exception.GuiguException;
+import com.atguigu.spzx.common.exception.SpzxException;
 import com.atguigu.spzx.model.entity.pay.PaymentInfo;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.pay.properties.AlipayProperties;
@@ -63,7 +63,7 @@ public class AlipayServiceImpl implements AlipayService {
             return response.getBody();
         } else {
             log.info("调用失败");
-            throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+            throw new SpzxException(ResultCodeEnum.DATA_ERROR);
         }
     }
 

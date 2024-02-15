@@ -1,7 +1,7 @@
 package com.atguigu.spzx.user.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.atguigu.spzx.common.exception.GuiguException;
+import com.atguigu.spzx.common.exception.SpzxException;
 import com.atguigu.spzx.feign.product.ProductFeignClient;
 import com.atguigu.spzx.model.dto.h5.UserLoginDto;
 import com.atguigu.spzx.model.dto.h5.UserRegisterDto;
@@ -67,20 +67,20 @@ public class UserInfoServiceImpl implements UserInfoService {
 				StringUtils.isEmpty(password) ||
 				StringUtils.isEmpty(nickName) ||
 				StringUtils.isEmpty(code)) {
-			throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+			throw new SpzxException(ResultCodeEnum.DATA_ERROR);
 		}
 		//2、验证码校验
 		//2.1 从redis获取验证码
 		String codeValueRedis = redisTemplate.opsForValue().get("phone:code:" + username);
 		//2.2 校验验证码
 		if(!code.equals(codeValueRedis)) {
-			throw new GuiguException(ResultCodeEnum.VALIDATECODE_ERROR);
+			throw new SpzxException(ResultCodeEnum.VALIDATECODE_ERROR);
 		}
 
 		//3、检验用户名不能重复
 		UserInfo userInfo = userInfoMapper.getByUsername(username);
 		if(null != userInfo) {
-			throw new GuiguException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+			throw new SpzxException(ResultCodeEnum.USER_NAME_IS_EXISTS);
 		}
 
 		//4、保存用户信息
@@ -108,23 +108,23 @@ public class UserInfoServiceImpl implements UserInfoService {
 		//校验参数
 		if(StringUtils.isEmpty(username) ||
 				StringUtils.isEmpty(password)) {
-			throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+			throw new SpzxException(ResultCodeEnum.DATA_ERROR);
 		}
 
 		UserInfo userInfo = userInfoMapper.getByUsername(username);
 		if(null == userInfo) {
-			throw new GuiguException(ResultCodeEnum.LOGIN_ERROR);
+			throw new SpzxException(ResultCodeEnum.LOGIN_ERROR);
 		}
 
 		//校验密码
 		String md5InputPassword = DigestUtils.md5DigestAsHex(password.getBytes());
 		if(!md5InputPassword.equals(userInfo.getPassword())) {
-			throw new GuiguException(ResultCodeEnum.LOGIN_ERROR);
+			throw new SpzxException(ResultCodeEnum.LOGIN_ERROR);
 		}
 
 		//校验是否被禁用
 		if(userInfo.getStatus() == 0) {
-			throw new GuiguException(ResultCodeEnum.ACCOUNT_STOP);
+			throw new SpzxException(ResultCodeEnum.ACCOUNT_STOP);
 		}
 
 		String token = UUID.randomUUID().toString().replaceAll("-", "");
@@ -238,7 +238,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 				userBrowseHistoryMapper.updatecollect(skuId, userInfo.getId());
 			}
 		} else {
-			throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+			throw new SpzxException(ResultCodeEnum.DATA_ERROR);
 		}
 	}
 
@@ -254,7 +254,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 				return true;
 			}
 		} else {
-			throw new GuiguException(ResultCodeEnum.DATA_ERROR);
+			throw new SpzxException(ResultCodeEnum.DATA_ERROR);
 		}
 	}
 

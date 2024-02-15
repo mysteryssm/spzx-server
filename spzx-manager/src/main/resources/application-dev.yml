@@ -15,7 +15,7 @@ spring:
     redis:
       host: localhost
       port: 6379
-      #password: root
+#      password: 1448381936yckYCK
 
 # mybatis的配置
 mybatis:
@@ -23,18 +23,18 @@ mybatis:
   mapper-locations: classpath:/mapper/*/*.xml
 
 # 自定义配置
-spzx:
-  auth:
-    noAuthUrls:
-      - /admin/system/index/login
-      - /admin/system/index/generateValidateCode
-      - /swagger-resources/**
-      - /doc.html
-      - /webjars/**
-      - /swagger-ui/**
-      - /*/api-docs/**
-  minio:
-    endpointUrl: http://127.0.0.1:9000
-    accessKey: minioadmin
-    secreKey: minioadmin
-    bucketName: spzx-bucket
+#spzx:
+#  auth:
+#    noAuthUrls:
+#      - /admin/system/index/login
+#      - /admin/system/index/generateValidateCode
+#      - /swagger-resources/**
+#      - /doc.html
+#      - /webjars/**
+#      - /swagger-ui/**
+#      - /*/api-docs/**
+#  minio:
+#    endpointUrl: http://127.0.0.1:9000
+#    accessKey: minioadmin
+#    secreKey: minioadmin
+#    bucketName: spzx-bucket

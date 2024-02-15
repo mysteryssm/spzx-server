@@ -7,7 +7,7 @@
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
-		id,username userName ,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
+		id, username userName, password, name, phone, avatar, description,status, create_time, update_time, is_deleted
 	</sql>
 
 	<update id="deleteById">
@@ -15,10 +15,7 @@
 	</update>
 
 	<select id="queryUserByName" resultType="com.atguigu.spzx.model.entity.system.SysUser">
-		select <include refid="columns" />
-		    from sys_user
-		        where username = #{userName}
-		          and is_deleted = 0
+		select <include refid="columns" /> from sys_user where username = #{userName} and is_deleted = 0
 	</select>
 
 	<sql id="findPageWhere">

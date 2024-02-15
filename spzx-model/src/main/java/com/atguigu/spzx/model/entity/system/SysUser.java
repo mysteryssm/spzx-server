@@ -4,9 +4,11 @@ import com.atguigu.spzx.model.entity.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.io.Serializable;
+
 @Data
 @Schema(description = "系统用户实体类")
-public class SysUser extends BaseEntity {
+public class SysUser extends BaseEntity implements Serializable {
 
 	@Schema(description = "用户名")
 	private String userName;

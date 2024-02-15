@@ -1,7 +1,5 @@
 package com.atguigu.spzx.user.service.impl;
 
-import com.atguigu.spzx.common.exception.GuiguException;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.user.service.SmsService;
 import com.atguigu.spzx.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
