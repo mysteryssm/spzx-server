@@ -30,6 +30,16 @@ public class IndexController {
     @Autowired
     private SysUserService sysUserService;
 
+    @Autowired
+    private ValidateCodeService validateCodeService;
+
+    @Operation(summary = "验证码生成接口")
+    @GetMapping("/generateValidateCode")
+    public Result<ValidateCodeVo> generateValidateCode() {
+        ValidateCodeVo validateCodeVo = validateCodeService.generateValidateCode();
+        return Result.build(validateCodeVo, ResultCodeEnum.SUCCESS);
+    }
+
     @Operation(summary = "登录接口")
     @PostMapping(value = "/login")
     public Result<LoginVo> login(@RequestBody LoginDto loginDto) {

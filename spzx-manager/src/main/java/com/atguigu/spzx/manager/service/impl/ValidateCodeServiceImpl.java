@@ -24,25 +24,19 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
     @Override
     public ValidateCodeVo generateValidateCode() {
 
-        // 使用hutool工具包中的工具类生成图片验证码
-        //参数：宽  高  验证码位数 干扰线数量
-        CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(150, 48, 4, 20);
-        String codeValue = circleCaptcha.getCode();//4位验证码值
-        String imageBase64 = circleCaptcha.getImageBase64();//返回图片验证码base64编码
+        CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(150, 48, 4, 20);  // 生成图片验证码，参数：宽  高  验证码位数 干扰线数量
+        String codeValue = circleCaptcha.getCode();     //  获取4位验证码值
+        String imageBase64 = circleCaptcha.getImageBase64();    //返回图片验证码base64编码
+        String codeKey = UUID.randomUUID().toString().replace("-", "");     // 生成uuid作为图片验证码的key
 
-        // 生成uuid作为图片验证码的key
-        String codeKey = UUID.randomUUID().toString().replace("-", "");
-
-        // 将验证码存储到Redis中
-        redisTemplate.opsForValue().set("user:login:validatecode:" + codeKey , codeValue , 5 , TimeUnit.MINUTES);
+        redisTemplate.opsForValue().set("user:login:validatecode:" + codeKey, codeValue, 5 , TimeUnit.MINUTES);   // 将验证码存储到Redis中
 
         // 构建响应结果数据
         ValidateCodeVo validateCodeVo = new ValidateCodeVo() ;
         validateCodeVo.setCodeKey(codeKey);
         validateCodeVo.setCodeValue("data:image/png;base64," + imageBase64);
 
-        // 返回数据
-        return validateCodeVo;
+        return validateCodeVo;   // 返回数据
     }
 
 }

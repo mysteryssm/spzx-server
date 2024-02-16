@@ -1,5 +1,6 @@
 package com.atguigu.spzx.manager.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.atguigu.spzx.common.exception.GlobalException;
 import com.atguigu.spzx.manager.mapper.SysUserMapper;
@@ -38,16 +39,16 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public LoginVo login(LoginDto loginDto) {
 
-//        String captcha = loginDto.getCaptcha();     // 用户输入的验证码
-//        String codeKey = loginDto.getCodeKey();     // 验证码的数据key，用于在Redis中查询对应的验证码
-//        String redisCode = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);   //从Redis中获取验证码
-//
-//        // 校验验证码是否正确
-//        if(StrUtil.isEmpty(redisCode) || !StrUtil.equalsIgnoreCase(redisCode , captcha)) {
-//            throw new GuiguException(ResultCodeEnum.VALIDATECODE_ERROR);   //验证码错误时抛出异常
-//        }
-//
-//        redisTemplate.delete("user:login:validatecode:" + codeKey);    //验证通过需要删除redis中的验证码
+        String captcha = loginDto.getCaptcha();     // 用户输入的验证码
+        String codeKey = loginDto.getCodeKey();     // 验证码的key，用于在Redis中查询对应的验证码
+        String redisCaptcha = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);   //从Redis中获取验证码
+
+        // 校验验证码是否正确
+        if (StrUtil.isEmpty(redisCaptcha) || !StrUtil.equalsIgnoreCase(redisCaptcha, captcha)) {
+            throw new GlobalException(ResultCodeEnum.VALIDATECODE_ERROR);   //验证码错误时抛出异常
+        }
+
+        redisTemplate.delete("user:login:validatecode:" + codeKey);    //验证通过需要删除redis中的验证码
 
         SysUser sysUser = sysUserMapper.queryUserByName(loginDto.getUserName());    //根据用户名查询用户
         if(sysUser == null) {
