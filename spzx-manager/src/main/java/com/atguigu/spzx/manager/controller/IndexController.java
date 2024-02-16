@@ -12,13 +12,15 @@ import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
 import com.atguigu.spzx.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 /**
- * @author ljl
+ * @author yck
  * @create 2023-10-22-16:35
  */
 
@@ -45,5 +47,19 @@ public class IndexController {
     public Result<LoginVo> login(@RequestBody LoginDto loginDto) {
         LoginVo loginVo = sysUserService.login(loginDto);
         return Result.build(loginVo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "获取用户信息接口")
+    @GetMapping(value = "/getUserInfo")
+    public Result<SysUser> getUserInfo(@RequestHeader(name = "token") String token) {
+        SysUser sysUser = sysUserService.getUserInfo(token);    // 利用token获取对应用户的用户信息
+        return Result.build(sysUser, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "用户退出登录接口")
+    @GetMapping(value = "/logout")
+    public Result logout(@RequestHeader(name = "token") String token) {
+        sysUserService.logout(token);    // 利用token获取对应用户的用户信息
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 }

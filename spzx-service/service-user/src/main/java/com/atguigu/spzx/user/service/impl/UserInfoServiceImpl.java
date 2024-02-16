@@ -74,7 +74,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		String codeValueRedis = redisTemplate.opsForValue().get("phone:code:" + username);
 		//2.2 校验验证码
 		if(!code.equals(codeValueRedis)) {
-			throw new GlobalException(ResultCodeEnum.VALIDATECODE_ERROR);
+			throw new GlobalException(ResultCodeEnum.CAPTCHA_ERROR);
 		}
 
 		//3、检验用户名不能重复

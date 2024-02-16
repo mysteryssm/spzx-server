@@ -3,6 +3,8 @@ package com.atguigu.spzx.manager.service.impl;
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
 import com.atguigu.spzx.manager.service.ValidateCodeService;
+import com.atguigu.spzx.model.vo.common.RedisKeyEnum;
+import com.atguigu.spzx.model.vo.common.RedisValueEnum;
 import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -27,14 +29,14 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(150, 48, 4, 20);  // 生成图片验证码，参数：宽  高  验证码位数 干扰线数量
         String codeValue = circleCaptcha.getCode();     //  获取4位验证码值
         String imageBase64 = circleCaptcha.getImageBase64();    //返回图片验证码base64编码
-        String codeKey = UUID.randomUUID().toString().replace("-", "");     // 生成uuid作为图片验证码的key
+        String captchaKey = UUID.randomUUID().toString().replace("-", "");     // 生成uuid作为图片验证码的key
 
-        redisTemplate.opsForValue().set("user:login:validatecode:" + codeKey, codeValue, 5 , TimeUnit.MINUTES);   // 将验证码存储到Redis中
+        redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + captchaKey, codeValue, 5 , TimeUnit.MINUTES);   // 将验证码存储到Redis中
 
-        // 构建响应结果数据
+        // 构建验证码响应结果数据
         ValidateCodeVo validateCodeVo = new ValidateCodeVo() ;
-        validateCodeVo.setCodeKey(codeKey);
-        validateCodeVo.setCodeValue("data:image/png;base64," + imageBase64);
+        validateCodeVo.setCodeKey(captchaKey);
+        validateCodeVo.setCodeValue(RedisValueEnum.USER_LOGIN_CAPTCHA.getValuePrefix() + imageBase64);
 
         return validateCodeVo;   // 返回数据
     }

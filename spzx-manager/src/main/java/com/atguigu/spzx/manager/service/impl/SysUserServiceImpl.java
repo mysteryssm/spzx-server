@@ -8,6 +8,7 @@ import com.atguigu.spzx.manager.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
+import com.atguigu.spzx.model.vo.common.RedisKeyEnum;
 import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.LoginVo;
 import com.github.pagehelper.PageHelper;
@@ -41,16 +42,22 @@ public class SysUserServiceImpl implements SysUserService {
 
         String captcha = loginDto.getCaptcha();     // 用户输入的验证码
         String codeKey = loginDto.getCodeKey();     // 验证码的key，用于在Redis中查询对应的验证码
-        String redisCaptcha = redisTemplate.opsForValue().get("user:login:validatecode:" + codeKey);   //从Redis中获取验证码
+        String redisCaptcha = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + codeKey);   //从Redis中获取验证码
+
+        // 校验验证码是否过期
+        if (StrUtil.isEmpty(redisCaptcha)) {
+            log.info("验证码已过期");
+            throw new GlobalException(ResultCodeEnum.CAPTCHA_EXPIRED_ERROR);   //验证码过期时抛出异常
+        }
 
         // 校验验证码是否正确
         if (StrUtil.isEmpty(redisCaptcha) || !StrUtil.equalsIgnoreCase(redisCaptcha, captcha)) {
-            throw new GlobalException(ResultCodeEnum.VALIDATECODE_ERROR);   //验证码错误时抛出异常
+            log.info("验证码{}错误，正确验证码为{}", captcha, redisCaptcha);
+            throw new GlobalException(ResultCodeEnum.CAPTCHA_ERROR);   //验证码错误时抛出异常
         }
 
-        redisTemplate.delete("user:login:validatecode:" + codeKey);    //验证通过需要删除redis中的验证码
-
         SysUser sysUser = sysUserMapper.queryUserByName(loginDto.getUserName());    //根据用户名查询用户
+        //验证用户是否存在
         if(sysUser == null) {
             log.info("用户名为{}的用户不存在", loginDto.getUserName());
             throw new GlobalException(ResultCodeEnum.LOGIN_ERROR); //用户不存在时抛出异常
@@ -64,9 +71,11 @@ public class SysUserServiceImpl implements SysUserService {
             throw new GlobalException(ResultCodeEnum.LOGIN_ERROR); //密码错误时抛出异常
         }
 
+        redisTemplate.delete(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + codeKey);    //用户成功登录需要删除redis中的验证码
+
         String token = UUID.randomUUID().toString().replace("-", "");   // 生成token
         // 将token作为key放入Redis中，value为用户信息，并设置过期时间
-        redisTemplate.opsForValue().set("user:login:" + token , JSON.toJSONString(sysUser) , 7, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token , JSON.toJSONString(sysUser) , 7, TimeUnit.DAYS);
 
         // 构建响应结果对象
         LoginVo loginVo = new LoginVo() ;
@@ -77,13 +86,13 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     public SysUser getUserInfo(String token) {
-        String userJson = redisTemplate.opsForValue().get("user:login:" + token);
-        return JSON.parseObject(userJson , SysUser.class) ;
+        String userJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);   // 通过 token 获取用户信息
+        return JSON.parseObject(userJson , SysUser.class) ; // 将 json 格式的用户信息转换为 SysUser 类
     }
 
     @Override
     public void logout(String token) {
-        redisTemplate.delete("user:login:" + token) ;
+        redisTemplate.delete(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token) ;
     }
 
     @Override
