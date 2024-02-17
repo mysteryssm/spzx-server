@@ -1,6 +1,6 @@
 package com.atguigu.spzx.common.exception;
 
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import lombok.Data;
 
 /**

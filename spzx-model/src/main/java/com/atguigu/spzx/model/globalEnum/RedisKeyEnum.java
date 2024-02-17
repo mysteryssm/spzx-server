@@ -1,4 +1,4 @@
-package com.atguigu.spzx.model.vo.common;
+package com.atguigu.spzx.model.globalEnum;
 
 import lombok.Getter;
 

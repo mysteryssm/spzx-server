@@ -8,8 +8,8 @@ import com.atguigu.spzx.manager.service.SysUserService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
-import com.atguigu.spzx.model.vo.common.RedisKeyEnum;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.RedisKeyEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.LoginVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -86,8 +86,8 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     public SysUser getUserInfo(String token) {
-        String userJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);   // 通过 token 获取用户信息
-        return JSON.parseObject(userJson , SysUser.class) ; // 将 json 格式的用户信息转换为 SysUser 类
+        String sysUserInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);   // 通过 token 获取用户信息
+        return JSON.parseObject(sysUserInfoJson , SysUser.class) ; // 将 json 格式的用户信息转换为 SysUser 类
     }
 
     @Override

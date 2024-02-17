@@ -2,7 +2,7 @@ package com.atguigu.spzx.product.controller;
 
 import com.atguigu.spzx.model.entity.product.Brand;
 import com.atguigu.spzx.model.vo.common.Result;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.product.service.BrandService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

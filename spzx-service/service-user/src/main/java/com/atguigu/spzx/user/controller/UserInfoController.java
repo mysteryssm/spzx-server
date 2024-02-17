@@ -1,25 +1,17 @@
 package com.atguigu.spzx.user.controller;
 
-import com.atguigu.spzx.model.dto.h5.ProductSkuDto;
 import com.atguigu.spzx.model.dto.h5.UserLoginDto;
 import com.atguigu.spzx.model.dto.h5.UserRegisterDto;
-import com.atguigu.spzx.model.entity.product.ProductSku;
-import com.atguigu.spzx.model.entity.system.SysRole;
 import com.atguigu.spzx.model.entity.user.UserBrowseHistory;
 import com.atguigu.spzx.model.entity.user.UserCollect;
-import com.atguigu.spzx.model.entity.user.UserInfo;
 import com.atguigu.spzx.model.vo.common.Result;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.UserInfoVo;
-import com.atguigu.spzx.user.mapper.UserCollectMapper;
 import com.atguigu.spzx.user.service.UserInfoService;
-import com.atguigu.spzx.utils.AuthContextUtil;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

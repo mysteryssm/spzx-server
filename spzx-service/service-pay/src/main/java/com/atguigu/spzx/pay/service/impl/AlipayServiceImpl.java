@@ -6,7 +6,7 @@ import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.alipay.api.response.AlipayTradeWapPayResponse;
 import com.atguigu.spzx.common.exception.GlobalException;
 import com.atguigu.spzx.model.entity.pay.PaymentInfo;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.pay.properties.AlipayProperties;
 import com.atguigu.spzx.pay.service.AlipayService;
 import com.atguigu.spzx.pay.service.PaymentInfoService;

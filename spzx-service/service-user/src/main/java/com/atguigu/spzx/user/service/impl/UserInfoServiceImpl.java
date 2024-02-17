@@ -9,7 +9,7 @@ import com.atguigu.spzx.model.entity.product.ProductSku;
 import com.atguigu.spzx.model.entity.user.UserBrowseHistory;
 import com.atguigu.spzx.model.entity.user.UserCollect;
 import com.atguigu.spzx.model.entity.user.UserInfo;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.UserInfoVo;
 import com.atguigu.spzx.model.vo.product.ProductSkuVO;
 import com.atguigu.spzx.user.mapper.UserBrowseHistoryMapper;

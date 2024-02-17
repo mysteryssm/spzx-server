@@ -2,12 +2,11 @@ package com.atguigu.spzx.product.controller;
 
 import com.atguigu.spzx.feign.user.UserFeignClient;
 import com.atguigu.spzx.model.dto.h5.ProductSkuDto;
-import com.atguigu.spzx.model.dto.h5.UserRegisterDto;
 import com.atguigu.spzx.model.dto.product.SkuSaleDto;
 import com.atguigu.spzx.model.entity.product.ProductSku;
 import com.atguigu.spzx.model.entity.user.UserBrowseHistory;
 import com.atguigu.spzx.model.vo.common.Result;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.ProductItemVo;
 import com.atguigu.spzx.product.service.ProductService;
 import com.github.pagehelper.PageInfo;

@@ -4,7 +4,7 @@ import com.atguigu.spzx.feign.user.UserFeignClient;
 import com.atguigu.spzx.model.dto.h5.OrderInfoDto;
 import com.atguigu.spzx.model.entity.order.OrderInfo;
 import com.atguigu.spzx.model.vo.common.Result;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.TradeVo;
 import com.atguigu.spzx.order.service.OrderInfoService;
 import com.github.pagehelper.PageInfo;

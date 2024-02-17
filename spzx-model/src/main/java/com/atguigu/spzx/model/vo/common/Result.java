@@ -1,5 +1,6 @@
 package com.atguigu.spzx.model.vo.common;
 
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

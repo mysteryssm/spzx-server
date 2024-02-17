@@ -12,7 +12,7 @@ import com.atguigu.spzx.model.entity.order.OrderLog;
 import com.atguigu.spzx.model.entity.product.ProductSku;
 import com.atguigu.spzx.model.entity.user.UserAddress;
 import com.atguigu.spzx.model.entity.user.UserInfo;
-import com.atguigu.spzx.model.vo.common.ResultCodeEnum;
+import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.h5.TradeVo;
 import com.atguigu.spzx.order.mapper.OrderInfoMapper;
 import com.atguigu.spzx.order.mapper.OrderItemMapper;
