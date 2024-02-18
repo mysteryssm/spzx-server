@@ -36,7 +36,6 @@ public class Knife4jConfig {
      */
     @Bean
     public OpenAPI customOpenAPI() {
-
         return new OpenAPI().info(new Info()
                         .title("尚品甄选API接口文档")
                         .version("1.0")
