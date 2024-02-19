@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
  * @create: 2024-02-18
  */
 
-@Tag(name = "用户角色接口")
+@Tag(name = "用户角色管理接口")
 @RestController
 @RequestMapping(value = "admin/system/sysRole")
 public class SysRoleController {
@@ -25,7 +25,7 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
-    @Operation(summary = "分页查询接口")
+    @Operation(summary = "分页查询角色接口")
     @PostMapping(value = "/findByPage/{current}/{limit}")
     public Result<PageInfo<SysRole>> findByPage(@PathVariable("current") Integer current, @PathVariable("limit") Integer limit,
                              @RequestBody SysRoleDto sysRoleDto) {

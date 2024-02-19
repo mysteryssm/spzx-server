@@ -26,8 +26,8 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public PageInfo<SysRole> findByPage(SysRoleDto sysRoleDto, Integer current, Integer limit) {
         PageHelper.startPage(current, limit);   //设置分页参数
-        List<SysRole> list = sysRoleMapper.findByPage(sysRoleDto);
-        PageInfo<SysRole> pageInfo = new PageInfo<>(list);
+        List<SysRole> sysRoleList = sysRoleMapper.findByPage(sysRoleDto);
+        PageInfo<SysRole> pageInfo = new PageInfo<>(sysRoleList);
         return pageInfo;
     }
 

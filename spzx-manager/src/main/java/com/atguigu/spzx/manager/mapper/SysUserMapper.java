@@ -18,7 +18,7 @@ public interface SysUserMapper {
      * @param userName
      * @return
      */
-    public abstract SysUser queryUserByName(String userName) ;
+    SysUser queryUserByName(String userName) ;
 
     /**
      * @Description: 用户条件分页查询接口

@@ -12,7 +12,7 @@
 
     <sql id = "findPageWhere">
         <where>
-            <if test = "roleName != null and roleName != ''">
+            <if test = "roleName != null and roleName != '' ">
                 and role_name like CONCAT('%', #{roleName}, '%')
             </if>
             and is_deleted = 0
@@ -44,13 +44,13 @@
     <!-- 修改角色 -->
     <update id = "updateSysRole">
         update sys_role set
-        <if test = "roleName != null and roleName != ''">
+        <if test = "roleName != null and roleName != '' ">
             role_name = #{roleName},
         </if>
-        <if test = "roleCode != null and roleCode != ''">
+        <if test = "roleCode != null and roleCode != '' ">
             role_code = #{roleCode},
         </if>
-        <if test = "description != null and description != ''">
+        <if test = "description != null and description != '' ">
             description = #{description},
         </if>
         update_time =  now()

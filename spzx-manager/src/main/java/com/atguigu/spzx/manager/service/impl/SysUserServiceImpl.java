@@ -97,7 +97,7 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public PageInfo<SysUser> findByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize) {
-        PageHelper.startPage(pageNum , pageSize);
+        PageHelper.startPage(pageNum, pageSize);
         List<SysUser> sysUserList = sysUserMapper.findByPage(sysUserDto) ;
         PageInfo pageInfo = new PageInfo(sysUserList) ;
         return pageInfo;
@@ -106,27 +106,25 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void saveSysUser(SysUser sysUser) {
 
-        // 根据输入的用户名查询用户
-        SysUser dbSysUser = sysUserMapper.queryUserByName(sysUser.getUserName()) ;
-        if(dbSysUser != null) {
-            throw new GlobalException(ResultCodeEnum.USER_NAME_IS_EXISTS) ;
+        // 验证用户名是否已存在
+        if(sysUserMapper.queryUserByName(sysUser.getUserName()) != null) {
+            throw new GlobalException(ResultCodeEnum.USER_NAME_IS_EXISTS);  // 若用户名已存在，抛出 USER_NAME_IS_EXISTS 异常
         }
 
-        // 对密码进行加密
         String password = sysUser.getPassword();
-        String digestPassword = DigestUtils.md5DigestAsHex(password.getBytes());
-        sysUser.setPassword(digestPassword);
+        String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());    // 对用户密码进行 md5 加密
+        sysUser.setPassword(md5Password);
         sysUser.setStatus(1);
-        sysUserMapper.saveSysUser(sysUser) ;
+        sysUserMapper.saveSysUser(sysUser); // 将用户信息存入数据库
     }
 
     @Override
     public void updateSysUser(SysUser sysUser) {
-        sysUserMapper.updateSysUser(sysUser) ;
+        sysUserMapper.updateSysUser(sysUser);
     }
 
     @Override
     public void deleteById(Long userId) {
-        sysUserMapper.deleteById(userId) ;
+        sysUserMapper.deleteById(userId);
     }
 }

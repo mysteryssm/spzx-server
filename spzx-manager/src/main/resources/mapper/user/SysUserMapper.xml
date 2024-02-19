@@ -10,10 +10,6 @@
 		id, username userName, password, name, phone, avatar, description,status, create_time, update_time, is_deleted
 	</sql>
 
-	<update id="deleteById">
-		update sys_user set update_time = now() , is_deleted = 1 where id = #{userId}
-	</update>
-
 	<select id="queryUserByName" resultType="com.atguigu.spzx.model.entity.system.SysUser">
 		select <include refid="columns" /> from sys_user where username = #{userName} and is_deleted = 0
 	</select>
@@ -21,7 +17,6 @@
 	<sql id="findPageWhere">
 		<where>
 			<if test="keyword != null and keyword != ''">
- 				<!--and username like CONCAT('%',#{keyword},'%')-->
 				and (username like CONCAT('%',#{keyword},'%')
 				or name like CONCAT('%',#{keyword},'%')
 				or phone like CONCAT('%',#{keyword},'%'))
@@ -93,4 +88,7 @@
 		id = #{id}
 	</update>
 
+	<update id="deleteById">
+		update sys_user set update_time = now() , is_deleted = 1 where id = #{userId}
+	</update>
 </mapper>

@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @create 2023-10-22-16:35
  */
 
-@Tag(name = "用户接口")
+@Tag(name = "用户登录接口")
 @RestController
 @RequestMapping(value = "/admin/system/index")
 public class IndexController {
