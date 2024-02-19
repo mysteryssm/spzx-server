@@ -6,28 +6,28 @@
     <resultMap id="sysRoleMap" type="com.atguigu.spzx.model.entity.system.SysRole" autoMapping="true"></resultMap>
 
     <!-- 用于select查询公用抽取的列 -->
-    <sql id="columns">
+    <sql id ="columns">
         id, role_name, role_code, description, create_time, update_time, is_deleted
     </sql>
 
-    <sql id="findPageWhere">
+    <sql id ="findPageWhere">
         <where>
-            <if test="roleName != null and roleName != ''">
-                and role_name like CONCAT('%',#{roleName},'%')
+            <if test = "roleName != null and roleName != ''">
+                and role_name like CONCAT('%', #{roleName}, '%')
             </if>
             and is_deleted = 0
         </where>
     </sql>
 
-    <select id="findByPage" resultMap="sysRoleMap">
-        select <include refid="columns" />
+    <select id = "findByPage" resultMap = "sysRoleMap">
+        select <include refid = "columns" />
         from sys_role
-        <include refid="findPageWhere"/>
+        <include refid = "findPageWhere"/>
         order by id desc
     </select>
 
     <!-- 查询所有的角色数据 -->
-    <select id="findAllRoles" resultMap="sysRoleMap">
+    <select id = "findAllRoles" resultMap = "sysRoleMap">
         select <include refid="columns" />
         from sys_role where is_deleted = 0
     </select>
@@ -35,15 +35,9 @@
     <!-- 新增角色 -->
     <insert id="saveSysRole">
         insert into sys_role (
-            id,
-            role_name,
-            role_code,
-            description
+            id, role_name, role_code, description
         ) values (
-                     #{id},
-                     #{roleName},
-                     #{roleCode},
-                     #{description}
+                     #{id}, #{roleName}, #{roleCode}, #{description}
                  )
     </insert>
 
@@ -65,8 +59,8 @@
     </update>
 
     <!-- 根据id删除角色数据 -->
-    <update id="deleteById">
-        update sys_role set is_deleted=1 where id=#{roleId}
+    <update id="deleteSysRole">
+        update sys_role set is_deleted = 1 where id = #{roleId}
     </update>
 
 </mapper>

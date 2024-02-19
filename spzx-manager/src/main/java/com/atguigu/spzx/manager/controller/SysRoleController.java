@@ -32,4 +32,26 @@ public class SysRoleController {
         PageInfo<SysRole> pageInfo = sysRoleService.findByPage(sysRoleDto, current, limit);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
+
+    @Operation(summary = "添加角色接口")
+    @PostMapping(value = "/saveSysRole")
+    public Result saveSysRole(@RequestBody SysRole sysRole) {
+        sysRoleService.saveSysRole(sysRole);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+
+    @Operation(summary = "修改角色接口")
+    @PutMapping(value = "/updateSysRole")
+    public Result updateSysRole(@RequestBody SysRole sysRole) {
+        sysRoleService.updateSysRole(sysRole);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "删除角色接口")
+    @DeleteMapping(value = "/deleteById/{roleId}")
+    public Result deleteSysRole(@PathVariable("roleId") Long roleId) {
+        sysRoleService.deleteSysRole(roleId);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
 }

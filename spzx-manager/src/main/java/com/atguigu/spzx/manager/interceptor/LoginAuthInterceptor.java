@@ -57,8 +57,12 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
         SysUser sysUser = JSON.parseObject(sysUserInfoJson, SysUser.class); // 将 JSON 格式的用户系统转化为对应的实体类
         AuthContextUtil.set(sysUser);   //将用户数据存储到 ThreadLocal 中
 
-        //重置Redis中的用户数据的有效时间
-        redisTemplate.expire(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token , 30 , TimeUnit.MINUTES) ;
+        Long oldExpire = redisTemplate.getExpire(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);
+        if(oldExpire <= 1800) {
+            oldExpire += 1800;
+        }
+        //重置 Redis 中的 token 以及用户数据的有效时间
+        redisTemplate.expire(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token , oldExpire, TimeUnit.SECONDS);
 
         return true;   //放行
     }
