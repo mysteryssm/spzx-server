@@ -5,6 +5,7 @@ import com.atguigu.spzx.model.entity.system.SysRole;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @description: SysRoleMapper
@@ -15,6 +16,8 @@ import java.util.List;
 @Mapper
 public interface SysRoleMapper {
     List<SysRole> findByPage(SysRoleDto sysRoleDto);
+
+    List<SysRole> findAllRoles();
 
     void saveSysRole(SysRole sysRole);
 

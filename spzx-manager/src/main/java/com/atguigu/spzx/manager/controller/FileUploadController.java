@@ -23,7 +23,7 @@ public class FileUploadController {
     private FileUploadService fileUploadService;
 
     @PostMapping(value = "/fileUpload")
-    public Result<String> fileUpload(@RequestParam("file") MultipartFile file) {
+    public Result<String> fileUpload(@RequestParam(value = "file") MultipartFile file) {
         String fileUrl = fileUploadService.fileUpload(file);
         return Result.build(fileUrl, ResultCodeEnum.SUCCESS);
     }

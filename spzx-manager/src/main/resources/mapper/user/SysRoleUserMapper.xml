@@ -5,8 +5,7 @@
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
 <mapper namespace="com.atguigu.spzx.manager.mapper.SysRoleUserMapper">
 
-
-    <insert id="doAssign">
+    <insert id="assignRole">
         insert into sys_user_role(user_id , role_id , create_time , update_time , is_deleted)
         values ( #{userId} , #{roleId} , now() , now() , 0)
     </insert>
@@ -16,7 +15,7 @@
     </delete>
 
     <!-- 查询指定用户所对应的角色数据 -->
-    <select id="findSysUserRoleByUserId" resultType="long">
+    <select id="findAllRoles" resultType="long">
         select role_id from sys_user_role sur where sur.user_id = #{userId}
     </select>
 </mapper>

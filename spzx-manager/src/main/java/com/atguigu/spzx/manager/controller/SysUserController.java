@@ -1,6 +1,7 @@
 package com.atguigu.spzx.manager.controller;
 
 import com.atguigu.spzx.manager.service.SysUserService;
+import com.atguigu.spzx.model.dto.system.AssignRoleDto;
 import com.atguigu.spzx.model.dto.system.SysUserDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
@@ -27,8 +28,8 @@ public class SysUserController {
 
     @Operation(summary = "分页查询用户接口")
     @PostMapping(value = "/findByPage/{pageNum}/{pageSize}")
-    public Result<PageInfo<SysUser>> findByPage(@PathVariable("pageNum") Integer pageNum,
-                                                @PathVariable("pageSize") Integer pageSize,
+    public Result<PageInfo<SysUser>> findByPage(@PathVariable(value = "pageNum") Integer pageNum,
+                                                @PathVariable(value = "pageSize") Integer pageSize,
                                                 @RequestBody SysUserDto sysUserDto) {
         PageInfo<SysUser> pageInfo = sysUserService.findByPage(sysUserDto, pageNum, pageSize);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
@@ -50,9 +51,16 @@ public class SysUserController {
 
     @Operation(summary = "删除用户接口")
     @DeleteMapping(value = "/deleteById/{userId}")
-    public Result deleteById(@PathVariable("userId") Long userId) {
+    public Result deleteById(@PathVariable(value = "userId") Long userId) {
         sysUserService.deleteById(userId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
 
+    }
+
+    @Operation(summary = "用户角色分配接口")
+    @PostMapping(value = "/assignRole")
+    public Result assignRole(@RequestBody AssignRoleDto assignRoleDto) {
+        sysUserService.assignRole(assignRoleDto);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 }
