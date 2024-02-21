@@ -49,7 +49,7 @@
         id = #{id}
     </update>
 
-    <select id="selectAll" resultMap="sysMenuMap">
+    <select id="findAllNodes" resultMap="sysMenuMap">
         select <include refid="columns" />
         from sys_menu
         where
