@@ -14,12 +14,12 @@ import org.springframework.stereotype.Component;
  * @create: 2024-02-20
  */
 
-@Component
+//@Component
 public class MinioConfig {
-    @Autowired
+//    @Autowired
     private MinioProperties minioProperties;
 
-    @Bean
+//    @Bean
     public MinioClient minioClient() throws Exception {
         // 根据 MinioProperties 参数，创建 MinioClient 对象
         MinioClient minioClient = MinioClient.builder()

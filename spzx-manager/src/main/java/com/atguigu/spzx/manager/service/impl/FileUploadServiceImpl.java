@@ -2,6 +2,10 @@ package com.atguigu.spzx.manager.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.UUID;
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.model.PutObjectRequest;
+import com.aliyun.oss.model.PutObjectResult;
+import com.atguigu.spzx.manager.properties.ALiYunOSSProperties;
 import com.atguigu.spzx.manager.properties.MinioProperties;
 import com.atguigu.spzx.manager.service.FileUploadService;
 import io.minio.BucketExistsArgs;
@@ -12,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.ByteArrayInputStream;
 import java.util.Date;
 
 /**
@@ -23,11 +28,17 @@ import java.util.Date;
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
 
-    @Autowired
-    private MinioProperties minioProperties;
+//    @Autowired
+//    private MinioProperties minioProperties;
+//
+//    @Autowired
+//    private MinioClient minioClient;
 
     @Autowired
-    private MinioClient minioClient;
+    private ALiYunOSSProperties aLiYunOSSProperties;
+
+    @Autowired
+    private OSS ossClient;
 
     @Override
     public String fileUpload(MultipartFile multipartFile) {
@@ -39,15 +50,21 @@ public class FileUploadServiceImpl implements FileUploadService {
             String fileName = dateDir + "/" + uuid + multipartFile.getOriginalFilename();
 
             // 生成放入对象参数
-            PutObjectArgs putObjectArgs = PutObjectArgs.builder()
-                    .bucket(minioProperties.getBucketName())
-                    .stream(multipartFile.getInputStream(), multipartFile.getSize(), -1)
-                    .object(fileName)
-                    .build();
+//            PutObjectArgs putObjectArgs = PutObjectArgs.builder()
+//                    .bucket(minioProperties.getBucketName())
+//                    .stream(multipartFile.getInputStream(), multipartFile.getSize(), -1)
+//                    .object(fileName)
+//                    .build();
+//            minioClient.putObject(putObjectArgs);   //根据 putObjectArgs 将文件放入
 
-            minioClient.putObject(putObjectArgs);   //根据 putObjectArgs 将文件放入
+            // 创建PutObjectRequest对象
+            PutObjectRequest putObjectRequest = new PutObjectRequest(aLiYunOSSProperties.getBucketName(),
+                    fileName,
+                    multipartFile.getInputStream());
 
-            return minioProperties.getEndpointUrl() + "/" + minioProperties.getBucketName() + "/" + fileName;   //返回文件路径
+            PutObjectResult result = ossClient.putObject(putObjectRequest); // 上传文件
+
+            return aLiYunOSSProperties.getEndpoint() + "/" + aLiYunOSSProperties.getBucketName() + "/" + fileName;   //返回文件路径
 
         } catch (Exception e) {
             throw new RuntimeException(e);

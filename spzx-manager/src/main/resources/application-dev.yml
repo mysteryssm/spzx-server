@@ -38,3 +38,8 @@ spzx:
     accessKey: yogi
     secreKey: 1448381936yckYCK
     bucketName: spzx-bucket
+  alioss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    bucketName: spzx-bucket-yck
+    accessKeyID: LTAI5tBsrrPtTfr6E8SkTqf2
+    accessKey: uJnWqv6G6Bj2svCPRU78rekDYCiCCJ
