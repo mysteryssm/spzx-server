@@ -2,7 +2,9 @@ package com.atguigu.spzx.manager.service.impl;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.UUID;
+import com.aliyun.oss.HttpMethod;
 import com.aliyun.oss.OSS;
+import com.aliyun.oss.model.GeneratePresignedUrlRequest;
 import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import com.atguigu.spzx.manager.properties.ALiYunOSSProperties;
@@ -64,7 +66,7 @@ public class FileUploadServiceImpl implements FileUploadService {
 
             PutObjectResult result = ossClient.putObject(putObjectRequest); // 上传文件
 
-            return aLiYunOSSProperties.getEndpoint() + "/" + aLiYunOSSProperties.getBucketName() + "/" + fileName;   //返回文件路径
+            return "http://" + aLiYunOSSProperties.getBucketName() + "." + aLiYunOSSProperties.getEndpoint() + "/"+ fileName;
 
         } catch (Exception e) {
             throw new RuntimeException(e);
