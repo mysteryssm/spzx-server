@@ -10,6 +10,9 @@ import java.util.List;
 @Data
 public class SysMenu extends BaseEntity {
 
+	@Schema(description = "节点id")
+	private Long id;
+
 	@Schema(description = "父节点id")
 	private Long parentId;
 

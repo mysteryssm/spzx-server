@@ -13,9 +13,9 @@ spring:
   # Redis的相关配置
   data:
     redis:
-      host: localhost
+      host: 121.41.52.4
       port: 6379
-#      password: 1448381936yckYCK
+      password: 1448381936yckYCK
 
 # mybatis的配置
 mybatis:

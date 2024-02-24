@@ -1,6 +1,8 @@
 package com.atguigu.spzx.utils;
 
 import com.atguigu.spzx.model.entity.system.SysMenu;
+import com.atguigu.spzx.model.vo.system.SysMenuVo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,4 +44,23 @@ public class MenuUtils {
         }
         return sysMenu;
     }
+
+    public static List<SysMenuVo> menuList2MenuVoList(List<SysMenu> list) {
+        List<SysMenuVo> menuVolist = new ArrayList<>();
+        for(SysMenu sysMenu : list) {
+            menuVolist.add(sysMenu2sysMenuVo(sysMenu));
+        }
+        return menuVolist;
+    }
+
+    public static SysMenuVo sysMenu2sysMenuVo(SysMenu sysMenu) {
+        SysMenuVo sysMenuVo = new SysMenuVo();
+        sysMenuVo.setTitle(sysMenu.getTitle());
+        sysMenuVo.setName(sysMenu.getComponent());
+        if(sysMenu.getChildren() != null || sysMenu.getChildren().size() != 0) {
+            sysMenuVo.setChildren(menuList2MenuVoList(sysMenu.getChildren()));
+        }
+        return sysMenuVo;
+    }
+
 }

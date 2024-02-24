@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 @Mapper
-public interface SysRoleUserMapper {
+public interface SysUserRoleMapper {
     List<Long> findAllRoles(Long userId);
 
     void assignRole(Long userId, Long roleId);

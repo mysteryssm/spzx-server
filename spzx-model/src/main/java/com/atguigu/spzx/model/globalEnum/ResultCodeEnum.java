@@ -13,7 +13,7 @@ public enum ResultCodeEnum {
     USER_NAME_IS_EXISTS(209, "用户名已经存在"),
     DATA_ERROR(210, "数据异常"),
     ACCOUNT_STOP( 216, "账号已停用"),
-    NODE_ERROR( 217, "该节点下有子节点，不可以删除"),
+    MENU_DELETE_ERROR( 217, "该菜单下有子菜单，不可以删除"),
     STOCK_LESS( 219, "库存不足"),
     NETWORK_ERROR(404, "您的网络有问题请稍后重试"),;
 

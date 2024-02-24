@@ -1,8 +1,10 @@
 package com.atguigu.spzx.manager.service.impl;
 
 import com.atguigu.spzx.manager.mapper.SysRoleMapper;
-import com.atguigu.spzx.manager.mapper.SysRoleUserMapper;
+import com.atguigu.spzx.manager.mapper.SysRoleMenuMapper;
+import com.atguigu.spzx.manager.mapper.SysUserRoleMapper;
 import com.atguigu.spzx.manager.service.SysRoleService;
+import com.atguigu.spzx.model.dto.system.AssignMenuDto;
 import com.atguigu.spzx.model.dto.system.SysRoleDto;
 import com.atguigu.spzx.model.entity.system.SysRole;
 import com.github.pagehelper.PageHelper;
@@ -27,20 +29,10 @@ public class SysRoleServiceImpl implements SysRoleService {
     private SysRoleMapper sysRoleMapper;
 
     @Autowired
-    private SysRoleUserMapper sysRoleUserMapper;
+    private SysUserRoleMapper sysUserRoleMapper;
 
-    @Override
-    public Map<String, Object> findAllRoles(Long userId) {
-        List<SysRole> allRoles = sysRoleMapper.findAllRoles();  // 返回所有的角色信息
-        List<Long> userAllRoles = sysRoleUserMapper.findAllRoles(userId);   //allRoles 已包含所有角色信息，此处仅传入 roleId
-
-        // 构建响应结果数据
-        Map<String , Object> resultMap = new HashMap<>() ;
-        resultMap.put("allRolesList" , allRoles) ;
-        resultMap.put("sysUserRoles", userAllRoles);
-
-        return resultMap;
-    }
+    @Autowired
+    private SysRoleMenuMapper sysRoleMenuMapper;
 
     @Override
     public PageInfo<SysRole> findByPage(SysRoleDto sysRoleDto, Integer current, Integer limit) {
@@ -48,6 +40,18 @@ public class SysRoleServiceImpl implements SysRoleService {
         List<SysRole> sysRoleList = sysRoleMapper.findByPage(sysRoleDto);
         PageInfo<SysRole> pageInfo = new PageInfo<>(sysRoleList);
         return pageInfo;
+    }
+
+    @Override
+    public Map<String, Object> findAllRoles(Long userId) {
+        Map<String , Object> resultMap = new HashMap<>();
+        List<SysRole> allRoles = sysRoleMapper.findAllRoles();  // 返回所有的角色信息
+        List<Long> userAllRoles = sysUserRoleMapper.findAllRoles(userId);   //allRoles 已包含所有角色信息，此处仅传入 roleId
+
+        resultMap.put("allRolesList" , allRoles);
+        resultMap.put("sysUserRoles", userAllRoles);
+
+        return resultMap;
     }
 
     @Override
@@ -63,5 +67,16 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public void deleteSysRole(Long roleId) {
         sysRoleMapper.deleteSysRole(roleId);
+    }
+
+    @Override
+    public void assignMenu(AssignMenuDto assignMenuDto) {
+        sysRoleMenuMapper.deleteMenuByRoleId(assignMenuDto.getRoleId());    // 删除该角色所对应的菜单数据
+
+        List<Map<String, Number>> list = assignMenuDto.getMenuIdList();// 获取新的角色数据
+
+        list.forEach(map -> {
+            sysRoleMenuMapper.assignMenu(assignMenuDto.getRoleId(), map);
+        });
     }
 }

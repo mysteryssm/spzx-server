@@ -1,5 +1,7 @@
 package com.atguigu.spzx.manager.controller;
 
+import com.atguigu.spzx.manager.service.SysMenuService;
+import com.atguigu.spzx.manager.service.SysRoleService;
 import com.atguigu.spzx.manager.service.SysUserService;
 import com.atguigu.spzx.manager.service.ValidateCodeService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
@@ -7,12 +9,16 @@ import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.LoginVo;
+import com.atguigu.spzx.model.vo.system.SysMenuVo;
 import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
 import com.atguigu.spzx.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author yck
@@ -28,13 +34,24 @@ public class IndexController {
     private SysUserService sysUserService;
 
     @Autowired
+    private SysMenuService sysMenuService;
+
+    @Autowired
     private ValidateCodeService validateCodeService;
 
     @Operation(summary = "验证码生成接口")
-    @GetMapping("/generateValidateCode")
+    @GetMapping("/getValidateCode")
     public Result<ValidateCodeVo> generateValidateCode() {
         ValidateCodeVo validateCodeVo = validateCodeService.generateValidateCode();
         return Result.build(validateCodeVo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "获取用户可用的菜单接口")
+    @GetMapping("/menus")
+    public Result<List<SysMenuVo>> findMenusByUserId(@RequestHeader(name = "token") String token) {
+        SysUser sysUser = sysUserService.getUserInfo(token);
+        List<SysMenuVo> list = sysMenuService.findMenusByUserId(sysUser.getId());
+        return Result.build(list, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "登录接口")

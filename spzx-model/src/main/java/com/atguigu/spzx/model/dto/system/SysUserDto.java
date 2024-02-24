@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 @Data
-@Schema(description = "请求参数实体类")
+@Schema(description = "系统用户请求参数实体类")
 public class SysUserDto {
 
     @Schema(description = "搜索关键字")

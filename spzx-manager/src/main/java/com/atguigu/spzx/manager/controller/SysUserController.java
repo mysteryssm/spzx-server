@@ -36,25 +36,24 @@ public class SysUserController {
     }
 
     @Operation(summary = "添加用户接口")
-    @PostMapping(value = "/saveSysUser")
-    public Result saveSysUser(@RequestBody SysUser sysUser) {
-        sysUserService.saveSysUser(sysUser);
+    @PostMapping(value = "/save")
+    public Result save(@RequestBody SysUser sysUser) {
+        sysUserService.save(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "修改用户接口")
-    @PutMapping(value = "/updateSysUser")
-    public Result updateSysUser(@RequestBody SysUser sysUser) {
-        sysUserService.updateSysUser(sysUser);
+    @PutMapping(value = "/update")
+    public Result update(@RequestBody SysUser sysUser) {
+        sysUserService.update(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "删除用户接口")
-    @DeleteMapping(value = "/deleteById/{userId}")
-    public Result deleteById(@PathVariable(value = "userId") Long userId) {
-        sysUserService.deleteById(userId);
+    @DeleteMapping(value = "/delete/{userId}")
+    public Result delete(@PathVariable(value = "userId") Long userId) {
+        sysUserService.delete(userId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
-
     }
 
     @Operation(summary = "用户角色分配接口")

@@ -1,5 +1,6 @@
 package com.atguigu.spzx.manager.service;
 
+import com.atguigu.spzx.model.dto.system.AssignMenuDto;
 import com.atguigu.spzx.model.dto.system.SysRoleDto;
 import com.atguigu.spzx.model.entity.system.SysRole;
 import com.github.pagehelper.PageInfo;
@@ -23,4 +24,6 @@ public interface SysRoleService {
     void updateSysRole(SysRole sysRole);
 
     void deleteSysRole(Long roleId);
+
+    void assignMenu(AssignMenuDto assignMenuDto);
 }

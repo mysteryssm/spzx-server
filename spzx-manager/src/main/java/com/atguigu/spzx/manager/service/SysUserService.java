@@ -43,19 +43,19 @@ public interface SysUserService {
      * @Description: 用户添加接口
      * @param sysUser
      */
-    void saveSysUser(SysUser sysUser);
+    void save(SysUser sysUser);
 
     /**
      * @Description: 用户修改接口
      * @param sysUser
      */
-    void updateSysUser(SysUser sysUser);
+    void update(SysUser sysUser);
 
     /**
      * @Description: 用户删除接口
      * @param userId
      */
-    void deleteById(Long userId);
+    void delete(Long userId);
 
     void assignRole(AssignRoleDto assignRoleDto);
 }

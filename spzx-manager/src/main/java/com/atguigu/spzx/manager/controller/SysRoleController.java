@@ -1,6 +1,7 @@
 package com.atguigu.spzx.manager.controller;
 
 import com.atguigu.spzx.manager.service.SysRoleService;
+import com.atguigu.spzx.model.dto.system.AssignMenuDto;
 import com.atguigu.spzx.model.dto.system.AssignRoleDto;
 import com.atguigu.spzx.model.dto.system.SysRoleDto;
 import com.atguigu.spzx.model.entity.system.SysRole;
@@ -28,10 +29,10 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
-    @Operation(summary = "查询指定用户的所有角色接口")
+    @Operation(summary = "查询指定用户的角色以及所有角色接口")
     @GetMapping(value = "/findAllRoles/{userId}")
     public Result<Map<String, Object>> findAllRoles(@PathVariable(value = "userId") Long userId) {
-        Map<String, Object> map = sysRoleService.findAllRoles(userId);
+        Map<String, Object> map = sysRoleService.findAllRoles(userId);  // 包含所有角色以及指定用户具有的角色
         return Result.build(map, ResultCodeEnum.SUCCESS);
     }
 
@@ -42,6 +43,13 @@ public class SysRoleController {
                                                 @RequestBody SysRoleDto sysRoleDto) {
         PageInfo<SysRole> pageInfo = sysRoleService.findByPage(sysRoleDto, current, limit);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "角色分配菜单接口")
+    @PostMapping(value = "/assignMenu")
+    public Result assignRole(@RequestBody AssignMenuDto assignMenuDto) {
+        sysRoleService.assignMenu(assignMenuDto);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "添加角色接口")
