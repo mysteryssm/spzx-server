@@ -1,6 +1,9 @@
 package com.atguigu.spzx.manager.mapper;
 
+import com.atguigu.spzx.model.entity.product.Category;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @description: CategoryMapper
@@ -11,4 +14,8 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface CategoryMapper {
 
+    List<Category> queryCategoryByParentId(Long parentId);
+
+
+    int countChildrenByParentId(Long parentId);
 }

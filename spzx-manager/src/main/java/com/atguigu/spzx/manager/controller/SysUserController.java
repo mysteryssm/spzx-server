@@ -26,7 +26,7 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-    @Operation(summary = "分页查询用户接口")
+    @Operation(summary = "分页查询用户")
     @PostMapping(value = "/findByPage/{pageNum}/{pageSize}")
     public Result<PageInfo<SysUser>> findByPage(@PathVariable(value = "pageNum") Integer pageNum,
                                                 @PathVariable(value = "pageSize") Integer pageSize,
@@ -35,28 +35,28 @@ public class SysUserController {
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "添加用户接口")
+    @Operation(summary = "添加用户")
     @PostMapping(value = "/save")
     public Result save(@RequestBody SysUser sysUser) {
         sysUserService.save(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "修改用户接口")
+    @Operation(summary = "修改用户")
     @PutMapping(value = "/update")
     public Result update(@RequestBody SysUser sysUser) {
         sysUserService.update(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "删除用户接口")
+    @Operation(summary = "删除用户")
     @DeleteMapping(value = "/delete/{userId}")
     public Result delete(@PathVariable(value = "userId") Long userId) {
         sysUserService.delete(userId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "用户角色分配接口")
+    @Operation(summary = "用户角色分配")
     @PostMapping(value = "/assignRole")
     public Result assignRole(@RequestBody AssignRoleDto assignRoleDto) {
         sysUserService.assignRole(assignRoleDto);

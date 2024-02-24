@@ -1,5 +1,9 @@
 package com.atguigu.spzx.manager.service;
 
+import com.atguigu.spzx.model.entity.product.Category;
+
+import java.util.List;
+
 /**
  * @description: CategoryService
  * @author: yck
@@ -7,4 +11,5 @@ package com.atguigu.spzx.manager.service;
  */
 
 public interface CategoryService {
+    List<Category> queryCategoryByParentId(Long parentId);
 }

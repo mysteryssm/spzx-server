@@ -39,14 +39,14 @@ public class IndexController {
     @Autowired
     private ValidateCodeService validateCodeService;
 
-    @Operation(summary = "验证码生成接口")
+    @Operation(summary = "验证码生成")
     @GetMapping("/getValidateCode")
     public Result<ValidateCodeVo> generateValidateCode() {
         ValidateCodeVo validateCodeVo = validateCodeService.generateValidateCode();
         return Result.build(validateCodeVo, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "获取用户可用的菜单接口")
+    @Operation(summary = "获取用户可用的菜单")
     @GetMapping("/menus")
     public Result<List<SysMenuVo>> findMenusByUserId(@RequestHeader(name = "token") String token) {
         SysUser sysUser = sysUserService.getUserInfo(token);
@@ -54,14 +54,14 @@ public class IndexController {
         return Result.build(list, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "登录接口")
+    @Operation(summary = "登录")
     @PostMapping(value = "/login")
     public Result<LoginVo> login(@RequestBody LoginDto loginDto) {
         LoginVo loginVo = sysUserService.login(loginDto);
         return Result.build(loginVo, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "获取用户信息接口")
+    @Operation(summary = "获取用户信息")
     @GetMapping(value = "/getUserInfo")
     public Result<SysUser> getUserInfo(@RequestHeader(name = "token") String token) {
         SysUser sysUser = sysUserService.getUserInfo(token);    // 利用token获取对应用户的用户信息
@@ -74,7 +74,7 @@ public class IndexController {
 //        return Result.build(AuthContextUtil.get(), ResultCodeEnum.SUCCESS) ;
 //    }
 
-    @Operation(summary = "用户退出登录接口")
+    @Operation(summary = "用户退出登录")
     @GetMapping(value = "/logout")
     public Result logout(@RequestHeader(name = "token") String token) {
         sysUserService.logout(token);    // 利用token获取对应用户的用户信息
