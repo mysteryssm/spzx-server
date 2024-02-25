@@ -28,7 +28,7 @@
         and is_deleted = 0
     </select>
 
-    <select id="selectAll" resultMap="categoryMap">
+    <select id="queryAllCategory" resultMap="categoryMap">
         select <include refid="columns" />
         from category
         where is_deleted = 0

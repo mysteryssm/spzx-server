@@ -6,6 +6,7 @@ import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.common.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,13 @@ public class CategoryController {
     public Result<List<Category>> queryCategoryByParentId(@PathVariable(value = "parentId") Long parentId) {
         List<Category> categoryList = categoryService.queryCategoryByParentId(parentId);
         return Result.build(categoryList, ResultCodeEnum.SUCCESS);
+    }
 
+    @Operation(summary = "导出商品分类")
+    @GetMapping(value = "/export")
+    public Result export(HttpServletResponse httpServletResponse) {
+        categoryService.export(httpServletResponse);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
 }

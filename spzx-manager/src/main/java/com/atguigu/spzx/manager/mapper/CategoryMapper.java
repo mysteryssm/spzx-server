@@ -18,4 +18,6 @@ public interface CategoryMapper {
 
 
     int countChildrenByParentId(Long parentId);
+
+    List<Category> queryAllCategory();
 }
