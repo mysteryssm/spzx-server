@@ -9,6 +9,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -35,9 +36,15 @@ public class CategoryController {
 
     @Operation(summary = "导出商品分类")
     @GetMapping(value = "/export")
-    public Result export(HttpServletResponse httpServletResponse) {
+    public Result exportCategory(HttpServletResponse httpServletResponse) {
         categoryService.export(httpServletResponse);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
+    @Operation(summary = "导入商品分类")
+    @PostMapping(value = "/import")
+    public Result importCategory(@RequestParam(value = "file") MultipartFile multipartFile) {
+        categoryService.importCategory(multipartFile);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
 }

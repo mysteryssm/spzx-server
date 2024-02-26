@@ -3,6 +3,7 @@ package com.atguigu.spzx.manager.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import com.alibaba.excel.EasyExcel;
 import com.atguigu.spzx.common.exception.GlobalException;
+import com.atguigu.spzx.manager.listener.ExcelListener;
 import com.atguigu.spzx.manager.mapper.CategoryMapper;
 import com.atguigu.spzx.manager.service.CategoryService;
 import com.atguigu.spzx.model.entity.product.Category;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -51,8 +53,7 @@ public class CategoryServiceImpl implements CategoryService {
             httpServletResponse.setContentType("application/vnd.ms-excel");
             httpServletResponse.setCharacterEncoding("utf-8");
             String fileName = URLEncoder.encode("分类数据", "UTF-8");   // 设置URLEncoder.encode防止中文乱码
-            //设置响应头信息，表示让文件以下载方式打开
-            httpServletResponse.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+            httpServletResponse.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");  //文件以下载方式打开
 
             List<Category> categoryList = categoryMapper.queryAllCategory();
             List<CategoryExcelVo> categoryExcelVoList = new ArrayList<>(categoryList.size());
@@ -70,6 +71,19 @@ public class CategoryServiceImpl implements CategoryService {
                     .doWrite(categoryExcelVoList);
         } catch (IOException e) {
             e.printStackTrace();
+            throw new GlobalException(ResultCodeEnum.DATA_ERROR);
+        }
+    }
+
+    @Override
+    public void importCategory(MultipartFile multipartFile) {
+        ExcelListener<CategoryExcelVo> excelListener = new ExcelListener<>(categoryMapper);
+        // 写出数据到浏览器端
+        try {
+            EasyExcel.read(multipartFile.getInputStream(), CategoryExcelVo.class, excelListener)
+                    .sheet()
+                    .doRead();
+        } catch (IOException e) {
             throw new GlobalException(ResultCodeEnum.DATA_ERROR);
         }
     }

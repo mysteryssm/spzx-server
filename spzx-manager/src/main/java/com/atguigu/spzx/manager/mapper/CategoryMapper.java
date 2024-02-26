@@ -1,6 +1,7 @@
 package com.atguigu.spzx.manager.mapper;
 
 import com.atguigu.spzx.model.entity.product.Category;
+import com.atguigu.spzx.model.vo.product.CategoryExcelVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -20,4 +21,6 @@ public interface CategoryMapper {
     int countChildrenByParentId(Long parentId);
 
     List<Category> queryAllCategory();
+
+    void batchInsert(List<CategoryExcelVo> cachedDataList);
 }
