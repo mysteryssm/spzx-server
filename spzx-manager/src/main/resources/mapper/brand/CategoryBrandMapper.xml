@@ -7,7 +7,7 @@
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
-        id,brand_id,category_id,create_time,update_time,is_deleted
+        id, brand_id, category_id, create_time, update_time, is_deleted
     </sql>
 
     <sql id="findPageWhere">
@@ -22,7 +22,7 @@
         </where>
     </sql>
 
-    <select id="findByPage" resultMap="categoryBrandMap">
+    <select id="query" resultMap="categoryBrandMap">
         select
         cb.id,cb.brand_id,cb.category_id,cb.create_time,cb.update_time,
         c.name as categoryName,
@@ -34,7 +34,7 @@
         order by cb.id desc
     </select>
 
-    <insert id="save">
+    <insert id="add">
         insert into category_brand (
             id,
             brand_id,
@@ -52,7 +52,7 @@
                  )
     </insert>
 
-    <update id="updateById" >
+    <update id="update" >
         update category_brand set
         <if test="brandId != null and brandId != ''">
             brand_id = #{brandId},
@@ -76,7 +76,7 @@
         order by cb.id desc
     </select>
 
-    <update id="deleteById">
+    <update id="delete">
         update category_brand set
                                   update_time = now() ,
                                   is_deleted = 1

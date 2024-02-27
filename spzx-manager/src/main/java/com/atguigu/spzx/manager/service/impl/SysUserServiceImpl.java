@@ -103,8 +103,8 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public PageInfo<SysUser> findByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<SysUser> sysUserList = sysUserMapper.findByPage(sysUserDto) ;
-        PageInfo pageInfo = new PageInfo(sysUserList) ;
+        List<SysUser> sysUserList = sysUserMapper.findByPage(sysUserDto);
+        PageInfo pageInfo = new PageInfo(sysUserList);
         return pageInfo;
     }
 

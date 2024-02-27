@@ -7,9 +7,10 @@
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
-        id,name,logo,create_time,update_time,is_deleted
+        id, name, logo, create_time, update_time, is_deleted
     </sql>
-    <insert id="save">
+
+    <insert id="add">
         insert into brand (
             id,
             name,
@@ -26,7 +27,8 @@
                      0
                  )
     </insert>
-    <update id="updateById" >
+
+    <update id="update" >
         update brand set
         <if test="name != null and name != ''">
             name = #{name},
@@ -39,20 +41,23 @@
         id = #{id}
     </update>
 
-    <select id="findByPage" resultMap="brandMap">
+    <select id="query" resultMap="brandMap">
         select <include refid="columns" />
         from brand
         where is_deleted = 0
         order by id desc
     </select>
 
-
-    <update id="deleteById">
+    <update id="delete">
         update brand set update_time = now() ,
         is_deleted = 1
-        where id = #{id}
+        where id = #{brandId}
     </update>
 
-
+    <select id="queryAll" resultMap="brandMap">
+        select <include refid = "columns" />
+        from brand
+        where is_deleted = 0
+    </select>
 
 </mapper>

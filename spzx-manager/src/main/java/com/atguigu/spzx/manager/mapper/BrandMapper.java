@@ -1,6 +1,9 @@
 package com.atguigu.spzx.manager.mapper;
 
+import com.atguigu.spzx.model.entity.product.Brand;
 import org.apache.ibatis.annotations.Mapper;
+
+import java.util.List;
 
 /**
  * @description: BrandMapper
@@ -10,4 +13,14 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface BrandMapper {
+
+    void add(Brand brand);
+
+    void update(Brand brand);
+
+    void delete(Long brandId);
+
+    List<Brand> query();
+
+    List<Brand> queryAll();
 }
