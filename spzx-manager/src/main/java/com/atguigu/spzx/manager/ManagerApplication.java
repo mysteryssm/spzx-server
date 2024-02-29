@@ -1,5 +1,6 @@
 package com.atguigu.spzx.manager;
 
+import com.atguigu.spzx.common.log.annotation.EnableLogAspect;
 import com.atguigu.spzx.manager.properties.ALiYunOSSProperties;
 import com.atguigu.spzx.manager.properties.MinioProperties;
 import com.atguigu.spzx.manager.properties.UserAuthProperties;
@@ -16,8 +17,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 
 @SpringBootApplication
-@EnableScheduling
-//@EnableLogAspect
+@EnableScheduling // 开启定时任务
+@EnableLogAspect
 @ComponentScan(basePackages = {"com.atguigu.spzx"})
 @EnableConfigurationProperties(value = {UserAuthProperties.class, ALiYunOSSProperties.class})
 public class ManagerApplication {

@@ -39,7 +39,7 @@ public class LoginAuthInterceptor implements HandlerInterceptor {
             return true;
         }
 
-        String token = request.getHeader("token");  //从请求中获取token
+        String token = request.getHeader("token");  //从请求头中获取token
 
         //若 token 为空，则返回用户未登录状态码给前端并拦截请求
         if(StrUtil.isEmpty(token)) {

@@ -25,8 +25,7 @@ public class OrderInfoController {
 
     @GetMapping("/getOrderStatisticsData")
     public Result<OrderStatisticsVo> getOrderStatisticsData(OrderStatisticsDto orderStatisticsDto) {
-        OrderStatisticsVo orderStatisticsVo = orderInfoService.getOrderStatisticsData(orderStatisticsDto) ;
-        return Result.build(orderStatisticsVo , ResultCodeEnum.SUCCESS) ;
+        OrderStatisticsVo orderStatisticsVo = orderInfoService.getOrderStatisticsData(orderStatisticsDto);
+        return Result.build(orderStatisticsVo , ResultCodeEnum.SUCCESS);
     }
-
 }

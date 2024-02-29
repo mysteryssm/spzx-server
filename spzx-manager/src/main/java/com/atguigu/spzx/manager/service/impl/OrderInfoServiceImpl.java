@@ -23,20 +23,20 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public OrderStatisticsVo getOrderStatisticsData(OrderStatisticsDto orderStatisticsDto) {
 
-        // 查询统计结果数据
-        List<OrderStatistics> orderStatisticsList = orderStatisticsMapper.selectList(orderStatisticsDto) ;
+        List<OrderStatistics> orderStatisticsList = orderStatisticsMapper.selectList(orderStatisticsDto);    //查询统计结果数据
 
-        //日期列表
-        List<String> dateList = orderStatisticsList.stream().map
-                (orderStatistics -> DateUtil.format(orderStatistics.getOrderDate(),
-                        "yyyy-MM-dd")).collect(Collectors.toList());
+        //统计日期列表
+        List<String> dateList = orderStatisticsList.stream()    // 使用 stream() 将 list 转化为 stream
+                .map(orderStatistics -> DateUtil.format(orderStatistics.getOrderDate(), "yyyy-MM-dd"))  //使用 map() 进行元素映射
+                .collect(Collectors.toList()); // 使用 collect() 进行归约操作，将 stream 转化为 list
 
         //统计金额列表
         List<BigDecimal> amountList = orderStatisticsList.stream()
-                .map(OrderStatistics::getTotalAmount).collect(Collectors.toList());
+                .map(OrderStatistics::getTotalAmount)
+                .collect(Collectors.toList());
 
         // 创建OrderStatisticsVo对象封装响应结果数据
-        OrderStatisticsVo orderStatisticsVo = new OrderStatisticsVo() ;
+        OrderStatisticsVo orderStatisticsVo = new OrderStatisticsVo();
         orderStatisticsVo.setDateList(dateList);
         orderStatisticsVo.setAmountList(amountList);
 
