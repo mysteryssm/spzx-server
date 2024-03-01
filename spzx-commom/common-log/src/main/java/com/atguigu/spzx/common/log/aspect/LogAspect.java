@@ -19,29 +19,24 @@ public class LogAspect {            // 环绕通知切面类定义
     @Autowired
     private AsyncOperLogService asyncOperLogService;
 
-    @Around(value = "@annotation(sysLog)")
-    public Object doAroundAdvice(ProceedingJoinPoint joinPoint, Log sysLog) {
+    @Around(value = "@annotation(log)")
+    public Object doAroundAdvice(ProceedingJoinPoint joinPoint, Log log) {
 
-        // 构建前置参数
-        SysOperLog sysOperLog = new SysOperLog();
-
-        LogUtil.beforeHandleLog(sysLog, joinPoint, sysOperLog);
-
+        SysOperLog sysOperLog = new SysOperLog();   // 构建前置参数
+        LogUtil.beforeHandleLog(log, joinPoint, sysOperLog);
         Object proceed = null;
+
         try {
-            proceed = joinPoint.proceed();
-            // 执行业务方法
-            LogUtil.afterHandlLog(sysLog , proceed , sysOperLog , 0 , null);
-            // 构建响应结果参数
+            proceed = joinPoint.proceed();  // 执行业务方法
+            LogUtil.afterHandlLog(log , proceed , sysOperLog , 0 , null);    // 构建响应结果参数
         } catch (Throwable e) {                                 // 代码执行进入到catch中，
             // 业务方法执行产生异常
             e.printStackTrace();                                // 打印异常信息
-            LogUtil.afterHandlLog(sysLog , proceed , sysOperLog , 1 , e.getMessage());
+            LogUtil.afterHandlLog(log , proceed , sysOperLog , 1 , e.getMessage());
             throw new RuntimeException();
         }
 
         asyncOperLogService.saveSysOperLog(sysOperLog); // 保存日志数据
-
 
         return proceed;    // 返回执行结果
     }

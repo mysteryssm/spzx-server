@@ -1,5 +1,6 @@
 package com.atguigu.spzx.manager.controller;
 
+import com.atguigu.spzx.common.log.annotation.Log;
 import com.atguigu.spzx.manager.service.CategoryBrandService;
 import com.atguigu.spzx.model.dto.product.CategoryBrandDto;
 import com.atguigu.spzx.model.entity.product.CategoryBrand;
@@ -25,6 +26,7 @@ public class CategoryBrandController {
     @Autowired
     private CategoryBrandService categoryBrandService;
 
+    @Log(title = "", businessType = 0)
     @Operation(summary = "添加分类品牌")
     @PostMapping(value = "/add")
     public Result<PageInfo<CategoryBrand>> add(@RequestBody CategoryBrand categoryBrand) {
