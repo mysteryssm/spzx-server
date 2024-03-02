@@ -28,11 +28,11 @@ public class LogAspect {            // 环绕通知切面类定义
 
         try {
             proceed = joinPoint.proceed();  // 执行业务方法
-            LogUtil.afterHandlLog(log , proceed , sysOperLog , 0 , null);    // 构建响应结果参数
+            LogUtil.afterHandlLog(log, proceed, sysOperLog, 0, null);    // 构建响应结果参数
         } catch (Throwable e) {                                 // 代码执行进入到catch中，
             // 业务方法执行产生异常
             e.printStackTrace();                                // 打印异常信息
-            LogUtil.afterHandlLog(log , proceed , sysOperLog , 1 , e.getMessage());
+            LogUtil.afterHandlLog(log, proceed, sysOperLog, 1, e.getMessage());
             throw new RuntimeException();
         }
 
