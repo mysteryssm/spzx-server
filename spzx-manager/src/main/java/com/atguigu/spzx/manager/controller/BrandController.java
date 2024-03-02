@@ -1,5 +1,6 @@
 package com.atguigu.spzx.manager.controller;
 
+import com.atguigu.spzx.common.log.annotation.Log;
 import com.atguigu.spzx.manager.service.BrandService;
 import com.atguigu.spzx.model.entity.product.Brand;
 import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
@@ -26,6 +27,7 @@ public class BrandController {
     @Autowired
     private BrandService brandService;
 
+    @Log(title = "添加品牌", businessType = 1)
     @Operation(summary = "添加品牌")
     @PostMapping(value = "/add")
     public Result add(@RequestBody Brand brand) {
@@ -33,6 +35,7 @@ public class BrandController {
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
+    @Log(title = "删除品牌", businessType = 2)
     @Operation(summary = "删除品牌")
     @DeleteMapping(value = "/delete/{brandId}")
     public Result delete(@PathVariable(value = "brandId") Long brandId) {
@@ -40,6 +43,7 @@ public class BrandController {
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
+    @Log(title = "修改品牌", businessType = 3)
     @Operation(summary = "修改品牌")
     @PutMapping(value = "/update")
     public Result update(@RequestBody Brand brand) {

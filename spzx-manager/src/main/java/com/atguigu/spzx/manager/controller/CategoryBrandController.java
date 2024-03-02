@@ -26,7 +26,7 @@ public class CategoryBrandController {
     @Autowired
     private CategoryBrandService categoryBrandService;
 
-    @Log(title = "", businessType = 0)
+//    @Log(title = "添加分类", businessType = 1)
     @Operation(summary = "添加分类品牌")
     @PostMapping(value = "/add")
     public Result<PageInfo<CategoryBrand>> add(@RequestBody CategoryBrand categoryBrand) {

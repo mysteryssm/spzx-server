@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @create 2023-10-26-14:54
  */
 @Data
-@ConfigurationProperties(prefix = "spzx.minio") //读取节点
+//@ConfigurationProperties(prefix = "spzx.minio") //读取节点
 public class MinioProperties {
 
     private String bucketName;

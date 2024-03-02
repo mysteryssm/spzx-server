@@ -1,12 +1,12 @@
-package com.atguigu.spzx.model.entity.system;
+package com.atguigu.spzx.model.entity.log;
 
 import com.atguigu.spzx.model.entity.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 @Data
-@Schema(description = "SysOperLog")
-public class SysOperLog extends BaseEntity {
+@Schema(description = "操作日志实体类")
+public class LogEntity extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
 

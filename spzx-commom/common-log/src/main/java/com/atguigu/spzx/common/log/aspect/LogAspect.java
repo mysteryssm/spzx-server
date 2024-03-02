@@ -1,9 +1,8 @@
 package com.atguigu.spzx.common.log.aspect;
 
-import com.atguigu.spzx.common.log.annotation.Log;
-import com.atguigu.spzx.common.log.service.AsyncOperLogService;
+import com.atguigu.spzx.common.log.service.LogService;
 import com.atguigu.spzx.common.log.util.LogUtil;
-import com.atguigu.spzx.model.entity.system.SysOperLog;
+import com.atguigu.spzx.model.entity.log.LogEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,33 +10,36 @@ import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+/**
+ * 声明切面类，自定义通知
+ */
+
 @Aspect //定义切面类
 @Component
 @Slf4j
-public class LogAspect {            // 环绕通知切面类定义
+public class LogAspect {
 
     @Autowired
-    private AsyncOperLogService asyncOperLogService;
+    private LogService logService;
 
+    // 定义环绕通知，ProceedingJoinPoint 包含代理类和被代理类的信息
     @Around(value = "@annotation(log)")
-    public Object doAroundAdvice(ProceedingJoinPoint joinPoint, Log log) {
+    public Object doAroundAdvice(ProceedingJoinPoint joinPoint, com.atguigu.spzx.common.log.annotation.Log log) {
 
-        SysOperLog sysOperLog = new SysOperLog();   // 构建前置参数
-        LogUtil.beforeHandleLog(log, joinPoint, sysOperLog);
-        Object proceed = null;
+        LogEntity logEntity = new LogEntity();   //
+        LogUtil.beforeHandleLog(log, joinPoint, logEntity);
+        Object proceed = null;  // 储存业务方法的执行结果
 
         try {
             proceed = joinPoint.proceed();  // 执行业务方法
-            LogUtil.afterHandlLog(log, proceed, sysOperLog, 0, null);    // 构建响应结果参数
-        } catch (Throwable e) {                                 // 代码执行进入到catch中，
-            // 业务方法执行产生异常
-            e.printStackTrace();                                // 打印异常信息
-            LogUtil.afterHandlLog(log, proceed, sysOperLog, 1, e.getMessage());
-            throw new RuntimeException();
+            LogUtil.afterHandleLog(log, proceed, logEntity, 0, null);    // 构建响应结果参数
+        } catch (Throwable e) {
+            e.printStackTrace();
+            LogUtil.afterHandleLog(log, proceed, logEntity, 1, e.getMessage());
+            throw new RuntimeException();   // 此处需要抛出异常，避免事务失效问题
         }
 
-        asyncOperLogService.saveSysOperLog(sysOperLog); // 保存日志数据
-
+        logService.saveLog(logEntity); // 不论操作失败或成功都需要保存日志数据
         return proceed;    // 返回执行结果
     }
 }

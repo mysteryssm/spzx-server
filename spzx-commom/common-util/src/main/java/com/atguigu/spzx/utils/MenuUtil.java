@@ -11,7 +11,7 @@ import java.util.List;
  * @create 2023-10-26-20:10
  */
 
-public class MenuUtils {
+public class MenuUtil {
 
     /**
      * 使用递归方法建菜单
