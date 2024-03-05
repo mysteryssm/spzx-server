@@ -3,6 +3,7 @@ package com.atguigu.spzx.manager.controller;
 import com.atguigu.spzx.common.log.annotation.Log;
 import com.atguigu.spzx.manager.service.CategoryBrandService;
 import com.atguigu.spzx.model.dto.product.CategoryBrandDto;
+import com.atguigu.spzx.model.entity.product.Brand;
 import com.atguigu.spzx.model.entity.product.CategoryBrand;
 import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.common.Result;
@@ -11,6 +12,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @description: CategoryBrandController
@@ -28,7 +31,7 @@ public class CategoryBrandController {
 
 //    @Log(title = "添加分类", businessType = 1)
     @Operation(summary = "添加分类品牌")
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/save")
     public Result<PageInfo<CategoryBrand>> add(@RequestBody CategoryBrand categoryBrand) {
         PageInfo<CategoryBrand> pageInfo = categoryBrandService.add(categoryBrand);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
@@ -49,11 +52,18 @@ public class CategoryBrandController {
     }
 
     @Operation(summary = "分页查询分类品牌")
-    @GetMapping(value = "/query/{page}/{limit}")
+    @GetMapping(value = "/{page}/{limit}")
     public Result<PageInfo<CategoryBrand>> query(@PathVariable(value = "page") Integer page,
                                                  @PathVariable(value = "limit") Integer limit,
                                                  CategoryBrandDto categoryBrandDto) {
         PageInfo<CategoryBrand> pageInfo = categoryBrandService.query(page, limit, categoryBrandDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
+
+    //根据分类id查询对应品牌数据
+//    @GetMapping("/findBrandByCategoryId/{categoryId}")
+//    public Result findBrandByCategoryId(@PathVariable Long categoryId) {
+//        List<Brand> list = categoryBrandService.findBrandByCategoryId(categoryId);
+//        return Result.build(list,ResultCodeEnum.SUCCESS);
+//    }
 }

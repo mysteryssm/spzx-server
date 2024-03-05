@@ -29,8 +29,29 @@ public class SysMenuController {
     @Autowired
     private SysMenuService sysMenuService;
 
+    @Operation(summary = "添加菜单")
+    @PostMapping(value = "/save")
+    public Result save(@RequestBody SysMenuDto sysMenuDto) {
+        sysMenuService.save(sysMenuDto);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "删除菜单")
+    @DeleteMapping(value = "/removeById/{id}")
+    public Result delete(@PathVariable("id") Long id) {
+        sysMenuService.delete(id);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "修改菜单")
+    @PutMapping(value = "/update")
+    public Result update(@RequestBody SysMenuDto sysMenuDto) {
+        sysMenuService.update(sysMenuDto);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
     @Operation(summary = "查询所有菜单")
-    @GetMapping(value = "/findAllNodes")
+    @GetMapping(value = "/findNodes")
     public Result<List<SysMenu>> findAllNodes() {
         List<SysMenu> sysMenuList = sysMenuService.findAllNodes();
         return Result.build(sysMenuList, ResultCodeEnum.SUCCESS);
@@ -41,27 +62,6 @@ public class SysMenuController {
     public Result<Map<String, Object>> findAllNodes(@PathVariable("roleId") Long roleId) {
         Map<String, Object> map = sysMenuService.findAllNodes(roleId);
         return Result.build(map, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary = "添加菜单")
-    @PostMapping(value = "/save")
-    public Result save(@RequestBody SysMenuDto sysMenuDto) {
-        sysMenuService.save(sysMenuDto);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary = "修改菜单")
-    @PutMapping(value = "update")
-    public Result update(@RequestBody SysMenuDto sysMenuDto) {
-        sysMenuService.update(sysMenuDto);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary = "删除菜单")
-    @DeleteMapping(value = "delete/{id}")
-    public Result delete(@PathVariable("id") Long id) {
-        sysMenuService.delete(id);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
 }

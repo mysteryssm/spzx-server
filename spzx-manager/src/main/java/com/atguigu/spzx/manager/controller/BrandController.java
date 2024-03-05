@@ -29,7 +29,7 @@ public class BrandController {
 
     @Log(title = "添加品牌", businessType = 1)
     @Operation(summary = "添加品牌")
-    @PostMapping(value = "/add")
+    @PostMapping(value = "/save")
     public Result add(@RequestBody Brand brand) {
         brandService.add(brand);
         return Result.build(null, ResultCodeEnum.SUCCESS);
@@ -52,14 +52,14 @@ public class BrandController {
     }
 
     @Operation(summary = "分页查询所有品牌")
-    @GetMapping(value = "/query/{page}/{limit}")
+    @GetMapping(value = "/{page}/{limit}")
     public Result<PageInfo<Brand>> query(@PathVariable(value = "page") Integer page, @PathVariable(value = "limit") Integer limit) {
         PageInfo<Brand> pageInfo = brandService.query(page, limit);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "查询所有品牌")
-    @GetMapping(value = "/queryAll")
+    @GetMapping(value = "/findAll")
     public Result<List<Brand>> queryAll() {
         List<Brand> list = brandService.queryAll();
         return Result.build(list, ResultCodeEnum.SUCCESS);

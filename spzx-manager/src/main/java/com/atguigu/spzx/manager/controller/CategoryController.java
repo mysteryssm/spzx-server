@@ -28,21 +28,21 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @Operation(summary = "获取商品分类")
-    @GetMapping(value = "/queryCategory/{parentId}")
-    public Result<List<Category>> queryCategoryByParentId(@PathVariable(value = "parentId") Long parentId) {
-        List<Category> categoryList = categoryService.queryCategoryByParentId(parentId);
+    @GetMapping(value = "/findCategoryList/{id}")
+    public Result<List<Category>> queryCategoryByParentId(@PathVariable(value = "id") Long id) {
+        List<Category> categoryList = categoryService.queryCategoryByParentId(id);
         return Result.build(categoryList, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "导出商品分类")
-    @GetMapping(value = "/export")
+    @GetMapping(value = "/exportData")
     public Result exportCategory(HttpServletResponse httpServletResponse) {
         categoryService.export(httpServletResponse);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "导入商品分类")
-    @PostMapping(value = "/import")
+    @PostMapping(value = "/importData")
     public Result importCategory(@RequestParam(value = "file") MultipartFile multipartFile) {
         categoryService.importCategory(multipartFile);
         return Result.build(null, ResultCodeEnum.SUCCESS);

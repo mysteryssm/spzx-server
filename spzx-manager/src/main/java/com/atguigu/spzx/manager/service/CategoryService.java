@@ -13,7 +13,7 @@ import java.util.List;
  */
 
 public interface CategoryService {
-    List<Category> queryCategoryByParentId(Long parentId);
+    List<Category> queryCategoryByParentId(Long id);
 
     void export(HttpServletResponse httpServletResponse);
 

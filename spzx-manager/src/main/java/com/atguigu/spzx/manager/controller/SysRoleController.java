@@ -29,6 +29,27 @@ public class SysRoleController {
     @Autowired
     private SysRoleService sysRoleService;
 
+    @Operation(summary = "添加角色")
+    @PostMapping(value = "/saveSysRole")
+    public Result saveSysRole(@RequestBody SysRole sysRole) {
+        sysRoleService.saveSysRole(sysRole);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "删除角色接口")
+    @DeleteMapping(value = "/deleteById/{roleId}")
+    public Result deleteSysRole(@PathVariable(value = "roleId") Long roleId) {
+        sysRoleService.deleteSysRole(roleId);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "修改角色接口")
+    @PutMapping(value = "/updateSysRole")
+    public Result updateSysRole(@RequestBody SysRole sysRole) {
+        sysRoleService.updateSysRole(sysRole);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
     @Operation(summary = "查询指定用户的角色以及所有角色")
     @GetMapping(value = "/findAllRoles/{userId}")
     public Result<Map<String, Object>> findAllRoles(@PathVariable(value = "userId") Long userId) {
@@ -49,27 +70,6 @@ public class SysRoleController {
     @PostMapping(value = "/assignMenu")
     public Result assignRole(@RequestBody AssignMenuDto assignMenuDto) {
         sysRoleService.assignMenu(assignMenuDto);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary = "添加角色")
-    @PostMapping(value = "/saveSysRole")
-    public Result saveSysRole(@RequestBody SysRole sysRole) {
-        sysRoleService.saveSysRole(sysRole);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary = "修改角色接口")
-    @PutMapping(value = "/updateSysRole")
-    public Result updateSysRole(@RequestBody SysRole sysRole) {
-        sysRoleService.updateSysRole(sysRole);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary = "删除角色接口")
-    @DeleteMapping(value = "/deleteById/{roleId}")
-    public Result deleteSysRole(@PathVariable(value = "roleId") Long roleId) {
-        sysRoleService.deleteSysRole(roleId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 }

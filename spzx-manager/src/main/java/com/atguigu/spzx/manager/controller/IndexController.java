@@ -40,7 +40,7 @@ public class IndexController {
     private ValidateCodeService validateCodeService;
 
     @Operation(summary = "验证码生成")
-    @GetMapping("/getValidateCode")
+    @GetMapping("/generateValidateCode")
     public Result<ValidateCodeVo> generateValidateCode() {
         ValidateCodeVo validateCodeVo = validateCodeService.generateValidateCode();
         return Result.build(validateCodeVo, ResultCodeEnum.SUCCESS);
