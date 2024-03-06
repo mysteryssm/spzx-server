@@ -21,11 +21,9 @@ import java.util.List;
  * @create 2023-11-01-20:51
  */
 
-@Tag(name = "首页接口管理")
+@Tag(name = "首页接口")
 @RestController
 @RequestMapping(value="/api/product/index")
-//@SuppressWarnings({"unchecked", "rawtypes"})
-//@CrossOrigin//解决跨域
 public class IndexController {
 
 
@@ -38,15 +36,15 @@ public class IndexController {
     @Operation(summary = "获取首页数据")
     @GetMapping
     public Result<IndexVo> findData(){
-        //所有的一级分类
-        List<Category> categoryList = categoryService.findOneCategory();
-        //根据销量排序，获取前20条记录
-        List<ProductSku> productSkuList = productService.findProductSkuBySale();
-        //封装数据
-        IndexVo indexVo = new IndexVo() ;
+
+        List<Category> categoryList = categoryService.findFirstCategory();    //获取一级分类
+
+        List<ProductSku> productSkuList = productService.findProductSkuBySale();    //根据销量排序，获取前20条记录
+
+        IndexVo indexVo = new IndexVo();
         indexVo.setCategoryList(categoryList);
         indexVo.setProductSkuList(productSkuList);
-        return Result.build(indexVo , ResultCodeEnum.SUCCESS);
+        return Result.build(indexVo, ResultCodeEnum.SUCCESS);
     }
 
 }

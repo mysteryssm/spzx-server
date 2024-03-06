@@ -8,7 +8,7 @@ import java.util.List;
 @Mapper
 public interface CategoryMapper {
 
-    List<Category> findOneCategory();
+    List<Category> findFirstCategory();
 
     List<Category> findAll();
 }

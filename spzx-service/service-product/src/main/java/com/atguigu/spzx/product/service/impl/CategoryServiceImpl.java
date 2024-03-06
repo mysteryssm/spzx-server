@@ -2,6 +2,7 @@ package com.atguigu.spzx.product.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.atguigu.spzx.model.entity.product.Category;
+import com.atguigu.spzx.model.globalEnum.RedisKeyEnum;
 import com.atguigu.spzx.product.mapper.CategoryMapper;
 import com.atguigu.spzx.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +17,6 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
-// 接口实现类
 @Slf4j
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -27,27 +27,24 @@ public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private RedisTemplate<String , String> redisTemplate ;
 
-    //查询所有的一级分类数据
     @Override
-    public List<Category> findOneCategory() {
+    public List<Category> findFirstCategory() {
 
-        // 从Redis缓存中查询所有的一级分类数据
-        String categoryListJSON = redisTemplate.opsForValue().get("category:one");
+        // 首先尝试从 Redis 中查询一级分类
+        String categoryListJSON = redisTemplate.opsForValue().get(RedisKeyEnum.CATEGORY_FIRST.getKeyPrefix());
         if(!StringUtils.isEmpty(categoryListJSON)) {
             List<Category> categoryList = JSON.parseArray(categoryListJSON, Category.class);
-            log.info("从Redis缓存中查询到了所有的一级分类数据");
-            return categoryList ;
+            log.info("从 Redis 中查询到一级分类");
+            return categoryList;
         }
 
-        List<Category> categoryList = categoryMapper.findOneCategory();
-        System.out.println(categoryList);
-        log.info("从数据库中查询到了所有的一级分类数据");
-        redisTemplate.opsForValue().set("category:one" ,
+        List<Category> categoryList = categoryMapper.findFirstCategory();
+        log.info("从MySQL中查询到一级分类");
+        redisTemplate.opsForValue().set(RedisKeyEnum.CATEGORY_FIRST.getKeyPrefix(),
                 JSON.toJSONString(categoryList) , 7 , TimeUnit.DAYS);
-        return categoryList ;
+        return categoryList;
     }
 
-    // 查询所有分类，树型
     @Cacheable(value = "category" , key = "'all'")
     @Override
     public List<Category> findCategoryTree() {
