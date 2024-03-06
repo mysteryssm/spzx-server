@@ -27,28 +27,28 @@ public class SysUserController {
     private SysUserService sysUserService;
 
     @Operation(summary = "添加用户")
-    @PostMapping(value = "/save")
+    @PostMapping(value = "/saveSysUser")
     public Result save(@RequestBody SysUser sysUser) {
         sysUserService.save(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "修改用户")
-    @PutMapping(value = "/update")
+    @PutMapping(value = "/updateSysUser")
     public Result update(@RequestBody SysUser sysUser) {
         sysUserService.update(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "删除用户")
-    @DeleteMapping(value = "/delete/{userId}")
+    @DeleteMapping(value = "/deleteById/{userId}")
     public Result delete(@PathVariable(value = "userId") Long userId) {
         sysUserService.delete(userId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "用户角色分配")
-    @PostMapping(value = "/assignRole")
+    @PostMapping(value = "/doAssign")
     public Result assignRole(@RequestBody AssignRoleDto assignRoleDto) {
         sysUserService.assignRole(assignRoleDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
