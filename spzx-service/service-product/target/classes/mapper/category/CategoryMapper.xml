@@ -12,7 +12,7 @@
 		id,name,image_url,parent_id,status,order_num,create_time,update_time,is_deleted
 	</sql>
 
-	<select id="findOneCategory" resultMap="categoryMap">
+	<select id="findFirstCategory" resultMap="categoryMap">
 		select <include refid="columns" />
 		from category
 		where
