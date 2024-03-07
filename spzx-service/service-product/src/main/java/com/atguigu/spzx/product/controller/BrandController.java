@@ -23,7 +23,7 @@ public class BrandController {
    private BrandService brandService;
    
    @Operation(summary = "获取全部品牌")
-   @GetMapping("findAll")
+   @GetMapping("/findAll")
    public Result<List<Brand>> findAll() {
       List<Brand> list = brandService.findAll();
       return Result.build(list, ResultCodeEnum.SUCCESS);

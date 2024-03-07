@@ -7,9 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableCaching
-@EnableFeignClients(basePackages = {
-        "com.atguigu.spzx"
-})
+@EnableFeignClients(basePackages = {"com.atguigu.spzx"})
 public class ProductApplication {
 
     public static void main(String[] args) {

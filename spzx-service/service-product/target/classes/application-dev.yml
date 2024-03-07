@@ -7,7 +7,7 @@ spring:
   cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: 121.41.52.4:8848
   # 配置数据库连接信息
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
