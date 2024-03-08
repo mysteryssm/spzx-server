@@ -48,12 +48,13 @@ public class CategoryServiceImpl implements CategoryService {
     @Cacheable(value = "category" , key = "'all'")
     @Override
     public List<Category> findCategoryTree() {
-        List<Category> categoryList = categoryMapper.findAll();
-        //查询所有分类，返回list集合
-        List<Category> oneCategoryList = categoryList.stream().
-                filter(item -> item.getParentId().longValue() == 0)
-                .collect(Collectors.toList());
+        List<Category> categoryList = categoryMapper.findAll(); //查询所有分类，返回list集合
+
         //通过条件parentid=0得到所有的一级分类
+        List<Category> oneCategoryList = categoryList.stream()
+                .filter(item -> item.getParentId().longValue() == 0)
+                .collect(Collectors.toList());
+
         //遍历一级分类的集合，通过id=parentid ，得到下面的二级分类
         //遍历二级分类的集合，通过id=parentid ，得到下面的三级分类
         if(!CollectionUtils.isEmpty(oneCategoryList)) {

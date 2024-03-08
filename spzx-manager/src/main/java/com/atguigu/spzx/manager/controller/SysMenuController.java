@@ -23,42 +23,42 @@ import java.util.Map;
 
 @Tag(name = "菜单管理接口")
 @RestController
-@RequestMapping(value = "/admin/system/sysMenu")
+@RequestMapping(value = "/admin/menu")
 public class SysMenuController {
 
     @Autowired
     private SysMenuService sysMenuService;
 
-    @Operation(summary = "添加菜单")
-    @PostMapping(value = "/save")
+    @Operation(summary = "菜单添加")
+    @PostMapping(value = "/insert")
     public Result save(@RequestBody SysMenuDto sysMenuDto) {
         sysMenuService.save(sysMenuDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "删除菜单")
-    @DeleteMapping(value = "/removeById/{id}")
-    public Result delete(@PathVariable("id") Long id) {
-        sysMenuService.delete(id);
+    @Operation(summary = "菜单删除")
+    @DeleteMapping(value = "/delete/{menuId}")
+    public Result delete(@PathVariable("menuId") Long menuId) {
+        sysMenuService.delete(menuId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "修改菜单")
+    @Operation(summary = "菜单修改")
     @PutMapping(value = "/update")
     public Result update(@RequestBody SysMenuDto sysMenuDto) {
         sysMenuService.update(sysMenuDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "查询所有菜单")
-    @GetMapping(value = "/findNodes")
-    public Result<List<SysMenu>> findAllNodes() {
+    @Operation(summary = "菜单查询")
+    @GetMapping(value = "/select")
+    public Result<List<SysMenu>> select() {
         List<SysMenu> sysMenuList = sysMenuService.findAllNodes();
         return Result.build(sysMenuList, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "查询指定角色的所有菜单以及所有菜单")
-    @GetMapping(value = "/findAllNodes/{roleId}")
+    @Operation(summary = "指定角色菜单查询")
+    @GetMapping(value = "/select/{roleId}")
     public Result<Map<String, Object>> findAllNodes(@PathVariable("roleId") Long roleId) {
         Map<String, Object> map = sysMenuService.findAllNodes(roleId);
         return Result.build(map, ResultCodeEnum.SUCCESS);

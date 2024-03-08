@@ -23,7 +23,7 @@ import java.util.List;
 
 @Tag(name = "首页接口")
 @RestController
-@RequestMapping(value="/api/product/index")
+@RequestMapping(value="/api/index")
 public class IndexController {
 
 
@@ -34,7 +34,7 @@ public class IndexController {
     private ProductService productService;
 
     @Operation(summary = "获取首页数据")
-    @GetMapping
+    @GetMapping("/data")
     public Result<IndexVo> findData(){
 
         List<Category> categoryList = categoryService.findFirstCategory();    //获取一级分类

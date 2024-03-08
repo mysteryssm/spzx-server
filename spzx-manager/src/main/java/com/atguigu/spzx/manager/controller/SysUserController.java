@@ -18,43 +18,43 @@ import org.springframework.web.bind.annotation.*;
  * @create: 2024-02-19
  */
 
-@Tag(name = "用户管理接口")
+@Tag(name = "管理员管理接口")
 @RestController
-@RequestMapping(value = "/admin/system/sysUser")
+@RequestMapping(value = "/admin/system/user")
 public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
-    @Operation(summary = "添加用户")
-    @PostMapping(value = "/saveSysUser")
+    @Operation(summary = "管理员添加")
+    @PostMapping(value = "/insert")
     public Result save(@RequestBody SysUser sysUser) {
         sysUserService.save(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "修改用户")
-    @PutMapping(value = "/updateSysUser")
+    @Operation(summary = "管理员修改")
+    @PutMapping(value = "/update")
     public Result update(@RequestBody SysUser sysUser) {
         sysUserService.update(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "删除用户")
-    @DeleteMapping(value = "/deleteById/{userId}")
+    @Operation(summary = "管理员删除")
+    @DeleteMapping(value = "/delete/{sysUserId}")
     public Result delete(@PathVariable(value = "userId") Long userId) {
         sysUserService.delete(userId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "用户角色分配")
-    @PostMapping(value = "/doAssign")
+    @Operation(summary = "管理员角色分配")
+    @PostMapping(value = "/role/assign")
     public Result assignRole(@RequestBody AssignRoleDto assignRoleDto) {
         sysUserService.assignRole(assignRoleDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "分页查询用户")
-    @PostMapping(value = "/findByPage/{pageNum}/{pageSize}")
+    @Operation(summary = "管理员分页查询")
+    @PostMapping(value = "/select/{page}/{size}")
     public Result<PageInfo<SysUser>> findByPage(@PathVariable(value = "pageNum") Integer pageNum,
                                                 @PathVariable(value = "pageSize") Integer pageSize,
                                                 @RequestBody SysUserDto sysUserDto) {

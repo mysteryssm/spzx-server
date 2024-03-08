@@ -18,42 +18,43 @@ import java.util.List;
  */
 @Tag(name = "商品规格管理")
 @RestController
-@RequestMapping(value="/admin/product/productSpec")
+@RequestMapping(value="/admin/product/specification")
 public class ProductSpecController {
 
     @Autowired
     private ProductSpecService productSpecService ;
 
-    @GetMapping("/{page}/{limit}")
-    public Result<PageInfo<ProductSpec>> findByPage(@PathVariable Integer page, @PathVariable Integer limit) {
-        PageInfo<ProductSpec> pageInfo = productSpecService.findByPage(page, limit);
+    @Operation(summary = "商品规格分页查询")
+    @GetMapping("/select{page}/{size}")
+    public Result<PageInfo<ProductSpec>> findByPage(@PathVariable Integer page, @PathVariable Integer size) {
+        PageInfo<ProductSpec> pageInfo = productSpecService.findByPage(page, size);
         return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
     }
 
-    @Operation(summary = "规格添加接口")
-    @PostMapping("save")
+    @Operation(summary = "商品规格添加")
+    @PostMapping("/insert")
     public Result save(@RequestBody ProductSpec productSpec) {
         productSpecService.save(productSpec);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "规格修改接口")
-    @PutMapping("updateById")
+    @PutMapping("/update")
     public Result updateById(@RequestBody ProductSpec productSpec) {
         productSpecService.updateById(productSpec);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 
-    @Operation(summary = "商品规格删除接口")
-    @DeleteMapping("/deleteById/{id}")
+    @Operation(summary = "商品规格删除")
+    @DeleteMapping("/delete/{id}")
     public Result removeById(@PathVariable Long id) {
         productSpecService.deleteById(id);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "商品规格查询")
-    @GetMapping("findAll")
-    public Result findAll() {
+    @GetMapping("/select/all")
+    public Result selectAll() {
         List<ProductSpec> list = productSpecService.findAll();
         return Result.build(list , ResultCodeEnum.SUCCESS) ;
     }

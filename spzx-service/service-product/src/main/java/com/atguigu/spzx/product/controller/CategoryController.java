@@ -24,7 +24,7 @@ public class CategoryController {
    private CategoryService categoryService;
 
    @Operation(summary = "获取分类树形数据")
-   @GetMapping("findCategoryTree")
+   @GetMapping("/findCategoryTree")
    public Result<List<Category>> findCategoryTree(){
       List<Category> list = categoryService.findCategoryTree();
       return Result.build(list,  ResultCodeEnum.SUCCESS);
