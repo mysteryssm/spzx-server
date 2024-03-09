@@ -4,14 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.spzx</groupId>
-    <artifactId>spzx-server</artifactId>
+    <groupId>com.atljl</groupId>
+    <artifactId>spzx-parent</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>spzx-common</module>
+        <module>spzx-commom</module>
         <module>spzx-model</module>
-        <module>spzx-admin</module>
+        <module>spzx-manager</module>
+        <module>spzx-commom/common-log</module>
         <module>spzx-server-gateway</module>
         <module>spzx-service</module>
         <module>spzx-service-client</module>
@@ -27,7 +28,7 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <mysql.version>8.0.30</mysql.version>
+        <mysql.version>8.0.32</mysql.version>
         <fastjson.version>2.0.21</fastjson.version>
         <lombok.version>1.18.20</lombok.version>
         <mybatis.version>3.0.1</mybatis.version>
