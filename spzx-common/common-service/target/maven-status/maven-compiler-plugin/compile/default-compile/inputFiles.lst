@@ -1,8 +1,8 @@
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-commom\common-service\src\main\java\com\atguigu\spzx\common\interceptor\UserLoginAuthInterceptor.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-commom\common-service\src\main\java\com\atguigu\spzx\common\anno\EnableUserLoginAuthInterceptor.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-commom\common-service\src\main\java\com\atguigu\spzx\common\config\Knife4jConfig.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-commom\common-service\src\main\java\com\atguigu\spzx\common\exception\GlobalExceptionHandler.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-commom\common-service\src\main\java\com\atguigu\spzx\common\config\UserWebMvcConfiguration.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-commom\common-service\src\main\java\com\atguigu\spzx\common\feign\UserTokenFeignInterceptor.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-commom\common-service\src\main\java\com\atguigu\spzx\common\anno\EnableUserTokenFeignInterceptor.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-commom\common-service\src\main\java\com\atguigu\spzx\common\exception\GlobalException.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\exception\GlobalExceptionHandler.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\anno\EnableUserLoginAuthInterceptor.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\config\Knife4jConfig.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\feign\UserTokenFeignInterceptor.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\interceptor\UserLoginAuthInterceptor.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\config\UserWebMvcConfiguration.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\exception\GlobalException.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\anno\EnableUserTokenFeignInterceptor.java

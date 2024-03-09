@@ -31,11 +31,11 @@ D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\product\CategoryBrandDto.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\base\BaseEntity.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\product\Brand.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\system\CaptchaVo.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\base\ProductUnit.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\common\Result.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\user\UserBrowseHistory.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\order\OrderInfo.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\system\ValidateCodeVo.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\h5\OrderInfoDto.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\order\OrderLog.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\product\ProductSpec.java

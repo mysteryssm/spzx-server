@@ -4,15 +4,15 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.atljl</groupId>
-    <artifactId>spzx-parent</artifactId>
+    <groupId>com.spzx</groupId>
+    <artifactId>spzx-server</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
-        <module>spzx-commom</module>
+        <module>spzx-common</module>
         <module>spzx-model</module>
-        <module>spzx-manager</module>
-        <module>spzx-commom/common-log</module>
+        <module>spzx-admin</module>
+        <module>spzx-common/common-log</module>
         <module>spzx-server-gateway</module>
         <module>spzx-service</module>
         <module>spzx-service-client</module>

@@ -46,7 +46,7 @@
 
 ### Minio图片存储
 
-1）在spzx-manager中的 `application-dev.yml` 中修改如下配置为你自己的，注意账号密码以及ip，我用的是本地的ip：
+1）在spzx-admin中的 `application-dev.yml` 中修改如下配置为你自己的，注意账号密码以及ip，我用的是本地的ip：
 
 ```
 minio:
@@ -64,7 +64,7 @@ minio:
 
 ### MySQL 数据库
 
-1）在spzx-manager中的 `application-dev.yml` 中修改如下配置为你自己的，注意账号密码以及ip：
+1）在spzx-admin中的 `application-dev.yml` 中修改如下配置为你自己的，注意账号密码以及ip：
 
 ```yml
 spring:
@@ -80,7 +80,7 @@ spring:
 
 ### Redis
 
-1）在spzx-manager中的 `application-dev.yml` 中修改如下 Redis 配置为你自己的：
+1）在spzx-admin中的 `application-dev.yml` 中修改如下 Redis 配置为你自己的：
 
 ```yml
 # Redis的相关配置
