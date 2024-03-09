@@ -23,44 +23,43 @@ import java.util.List;
 
 @Tag(name = "分类品牌管理接口")
 @RestController
-@RequestMapping(value = "/admin/product/categoryBrand")
+@RequestMapping(value = "/admin/category/brand")
 public class CategoryBrandController {
 
     @Autowired
     private CategoryBrandService categoryBrandService;
 
-//    @Log(title = "添加分类", businessType = 1)
-    @Operation(summary = "添加分类品牌")
-    @PostMapping(value = "/save")
-    public Result<PageInfo<CategoryBrand>> add(@RequestBody CategoryBrand categoryBrand) {
+    @Log(title = "分类添加", businessType = 1)
+    @Operation(summary = "分类品牌添加")
+    @PostMapping(value = "/insert")
+    public Result<PageInfo<CategoryBrand>> insert(@RequestBody CategoryBrand categoryBrand) {
         PageInfo<CategoryBrand> pageInfo = categoryBrandService.add(categoryBrand);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "删除指定分类下的所有品牌")
+    @Operation(summary = "指定分类下的所有品牌删除")
     @DeleteMapping(value = "/delete")
     public Result delete(CategoryBrandDto categoryBrandDto) {
         categoryBrandService.delete(categoryBrandDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "修改分类品牌")
+    @Operation(summary = "分类品牌修改")
     @PutMapping(value = "/update")
     public Result update(CategoryBrand categoryBrand) {
         categoryBrandService.update(categoryBrand);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "分页查询分类品牌")
-    @GetMapping(value = "/{page}/{limit}")
+    @Operation(summary = "分类品牌分页查询")
+    @GetMapping(value = "/select/{page}/{size}")
     public Result<PageInfo<CategoryBrand>> query(@PathVariable(value = "page") Integer page,
-                                                 @PathVariable(value = "limit") Integer limit,
+                                                 @PathVariable(value = "size") Integer size,
                                                  CategoryBrandDto categoryBrandDto) {
-        PageInfo<CategoryBrand> pageInfo = categoryBrandService.query(page, limit, categoryBrandDto);
+        PageInfo<CategoryBrand> pageInfo = categoryBrandService.query(page, size, categoryBrandDto);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
 
-    //根据分类id查询对应品牌数据
 //    @GetMapping("/findBrandByCategoryId/{categoryId}")
 //    public Result findBrandByCategoryId(@PathVariable Long categoryId) {
 //        List<Brand> list = categoryBrandService.findBrandByCategoryId(categoryId);

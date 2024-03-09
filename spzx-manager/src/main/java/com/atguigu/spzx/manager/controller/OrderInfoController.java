@@ -17,13 +17,13 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @Tag(name = "统计查询接口")
 @RestController
-@RequestMapping(value="/admin/order/orderInfo")
+@RequestMapping(value="/admin/order")
 public class OrderInfoController {
 
     @Autowired
     private OrderInfoService orderInfoService ;
 
-    @GetMapping("/getOrderStatisticsData")
+    @GetMapping("/select/all")
     public Result<OrderStatisticsVo> getOrderStatisticsData(OrderStatisticsDto orderStatisticsDto) {
         OrderStatisticsVo orderStatisticsVo = orderInfoService.getOrderStatisticsData(orderStatisticsDto);
         return Result.build(orderStatisticsVo , ResultCodeEnum.SUCCESS);

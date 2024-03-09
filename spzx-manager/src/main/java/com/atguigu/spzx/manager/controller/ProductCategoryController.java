@@ -19,30 +19,30 @@ import java.util.List;
  * @create: 2024-02-24
  */
 
-@Tag(name = "商品分类管理接口")
+@Tag(name = "分类管理接口")
 @RestController
-@RequestMapping(value = "/admin/product/category")
-public class CategoryController {
+@RequestMapping(value = "/admin/category")
+public class ProductCategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
-    @Operation(summary = "获取商品分类")
-    @GetMapping(value = "/findCategoryList/{id}")
-    public Result<List<Category>> queryCategoryByParentId(@PathVariable(value = "id") Long id) {
-        List<Category> categoryList = categoryService.queryCategoryByParentId(id);
+    @Operation(summary = "父类的子分类查询")
+    @GetMapping(value = "/select/{parentId}")
+    public Result<List<Category>> queryCategoryByParentId(@PathVariable(value = "parentId") Long parentId) {
+        List<Category> categoryList = categoryService.queryCategoryByParentId(parentId);
         return Result.build(categoryList, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "导出商品分类")
-    @GetMapping(value = "/exportData")
+    @Operation(summary = "分类导出")
+    @GetMapping(value = "/export")
     public Result exportCategory(HttpServletResponse httpServletResponse) {
         categoryService.export(httpServletResponse);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "导入商品分类")
-    @PostMapping(value = "/importData")
+    @Operation(summary = "分类导入")
+    @PostMapping(value = "/import")
     public Result importCategory(@RequestParam(value = "file") MultipartFile multipartFile) {
         categoryService.importCategory(multipartFile);
         return Result.build(null, ResultCodeEnum.SUCCESS);

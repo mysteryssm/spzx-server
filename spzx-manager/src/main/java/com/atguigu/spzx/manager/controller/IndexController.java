@@ -1,24 +1,21 @@
 package com.atguigu.spzx.manager.controller;
 
 import com.atguigu.spzx.manager.service.SysMenuService;
-import com.atguigu.spzx.manager.service.SysRoleService;
 import com.atguigu.spzx.manager.service.SysUserService;
-import com.atguigu.spzx.manager.service.ValidateCodeService;
+import com.atguigu.spzx.manager.service.CaptchaService;
 import com.atguigu.spzx.model.dto.system.LoginDto;
 import com.atguigu.spzx.model.entity.system.SysUser;
 import com.atguigu.spzx.model.vo.common.Result;
 import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
 import com.atguigu.spzx.model.vo.system.LoginVo;
 import com.atguigu.spzx.model.vo.system.SysMenuVo;
-import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
-import com.atguigu.spzx.utils.AuthContextUtil;
+import com.atguigu.spzx.model.vo.system.CaptchaVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author yck
@@ -37,13 +34,13 @@ public class IndexController {
     private SysMenuService sysMenuService;
 
     @Autowired
-    private ValidateCodeService validateCodeService;
+    private CaptchaService captchaService;
 
     @Operation(summary = "验证码生成")
     @GetMapping("/captcha")
-    public Result<ValidateCodeVo> captcha() {
-        ValidateCodeVo validateCodeVo = validateCodeService.generateValidateCode();
-        return Result.build(validateCodeVo, ResultCodeEnum.SUCCESS);
+    public Result<CaptchaVo> getCaptcha() {
+        CaptchaVo captchaVo = captchaService.generateValidateCode();
+        return Result.build(captchaVo, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "管理员登录")
@@ -68,7 +65,7 @@ public class IndexController {
 
     @Operation(summary = "管理员菜单界面生成")
     @GetMapping("/menus")
-    public Result<List<SysMenuVo>> findMenusByUserId(@RequestHeader(name = "token") String token) {
+    public Result<List<SysMenuVo>> getMenus(@RequestHeader(name = "token") String token) {
         SysUser sysUser = sysUserService.getUserInfo(token);
         List<SysMenuVo> list = sysMenuService.findMenusByUserId(sysUser.getId());
         return Result.build(list, ResultCodeEnum.SUCCESS);

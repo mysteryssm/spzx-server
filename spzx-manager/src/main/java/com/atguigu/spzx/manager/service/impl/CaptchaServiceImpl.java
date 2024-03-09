@@ -2,10 +2,10 @@ package com.atguigu.spzx.manager.service.impl;
 
 import cn.hutool.captcha.CaptchaUtil;
 import cn.hutool.captcha.CircleCaptcha;
-import com.atguigu.spzx.manager.service.ValidateCodeService;
+import com.atguigu.spzx.manager.service.CaptchaService;
 import com.atguigu.spzx.model.globalEnum.RedisKeyEnum;
 import com.atguigu.spzx.model.globalEnum.RedisValueEnum;
-import com.atguigu.spzx.model.vo.system.ValidateCodeVo;
+import com.atguigu.spzx.model.vo.system.CaptchaVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -17,13 +17,13 @@ import java.util.concurrent.TimeUnit;
  * @create 2023-10-24-23:06
  */
 @Service
-public class ValidateCodeServiceImpl implements ValidateCodeService {
+public class CaptchaServiceImpl implements CaptchaService {
 
     @Autowired
     private RedisTemplate<String , String> redisTemplate ;
 
     @Override
-    public ValidateCodeVo generateValidateCode() {
+    public CaptchaVo generateValidateCode() {
 
         CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(150, 48, 4, 20);  // 生成图片验证码，参数：宽  高  验证码位数 干扰线数量
         String codeValue = circleCaptcha.getCode();     //  获取4位验证码值
@@ -33,11 +33,11 @@ public class ValidateCodeServiceImpl implements ValidateCodeService {
         redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + captchaKey, codeValue, 5 , TimeUnit.MINUTES);   // 将验证码存储到Redis中
 
         // 构建验证码响应结果数据
-        ValidateCodeVo validateCodeVo = new ValidateCodeVo() ;
-        validateCodeVo.setCodeKey(captchaKey);
-        validateCodeVo.setCodeValue(RedisValueEnum.USER_LOGIN_CAPTCHA.getValuePrefix() + imageBase64);
+        CaptchaVo captchaVo = new CaptchaVo() ;
+        captchaVo.setCodeKey(captchaKey);
+        captchaVo.setCodeValue(RedisValueEnum.USER_LOGIN_CAPTCHA.getValuePrefix() + imageBase64);
 
-        return validateCodeVo;   // 返回数据
+        return captchaVo;   // 返回数据
     }
 
 }

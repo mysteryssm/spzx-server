@@ -2,7 +2,6 @@ package com.atguigu.spzx.manager.controller;
 
 import com.atguigu.spzx.manager.service.SysRoleService;
 import com.atguigu.spzx.model.dto.system.AssignMenuDto;
-import com.atguigu.spzx.model.dto.system.AssignRoleDto;
 import com.atguigu.spzx.model.dto.system.SysRoleDto;
 import com.atguigu.spzx.model.entity.system.SysRole;
 import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
@@ -24,36 +23,36 @@ import java.util.Map;
 @Tag(name = "管理员角色管理接口")
 @RestController
 @RequestMapping(value = "admin/role")
-public class SysRoleController {
+public class RoleController {
 
     @Autowired
     private SysRoleService sysRoleService;
 
     @Operation(summary = "角色添加")
     @PostMapping(value = "/insert")
-    public Result saveSysRole(@RequestBody SysRole sysRole) {
+    public Result insert(@RequestBody SysRole sysRole) {
         sysRoleService.saveSysRole(sysRole);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "角色删除")
     @DeleteMapping(value = "/delete/{roleId}")
-    public Result deleteSysRole(@PathVariable(value = "roleId") Long roleId) {
+    public Result delete(@PathVariable(value = "roleId") Long roleId) {
         sysRoleService.deleteSysRole(roleId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "角色修改")
     @PutMapping(value = "/update")
-    public Result updateSysRole(@RequestBody SysRole sysRole) {
+    public Result update(@RequestBody SysRole sysRole) {
         sysRoleService.updateSysRole(sysRole);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "指定管理员角色查询")
-    @GetMapping(value = "/select/{sysUserId}")
-    public Result<Map<String, Object>> findAllRoles(@PathVariable(value = "userId") Long userId) {
-        Map<String, Object> map = sysRoleService.findAllRoles(userId);  // 包含所有角色以及指定用户具有的角色
+    @GetMapping(value = "/select/{administratorId}")
+    public Result<Map<String, Object>> findAllRoles(@PathVariable(value = "administratorId") Long administratorId) {
+        Map<String, Object> map = sysRoleService.findAllRoles(administratorId);  // 包含所有角色以及指定用户具有的角色
         return Result.build(map, ResultCodeEnum.SUCCESS);
     }
 

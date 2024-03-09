@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "管理员管理接口")
 @RestController
-@RequestMapping(value = "/admin/system/user")
-public class SysUserController {
+@RequestMapping(value = "/admin/administrator")
+public class AdministratorController {
     @Autowired
     private SysUserService sysUserService;
 
     @Operation(summary = "管理员添加")
     @PostMapping(value = "/insert")
-    public Result save(@RequestBody SysUser sysUser) {
+    public Result insert(@RequestBody SysUser sysUser) {
         sysUserService.save(sysUser);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
@@ -40,9 +40,9 @@ public class SysUserController {
     }
 
     @Operation(summary = "管理员删除")
-    @DeleteMapping(value = "/delete/{sysUserId}")
-    public Result delete(@PathVariable(value = "userId") Long userId) {
-        sysUserService.delete(userId);
+    @DeleteMapping(value = "/delete/{administratorId}")
+    public Result delete(@PathVariable(value = "administratorId") Long administratorId) {
+        sysUserService.delete(administratorId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 

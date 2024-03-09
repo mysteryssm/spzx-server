@@ -17,7 +17,7 @@ import java.util.List;
  * @create 2023-10-29-17:07
  */
 
-@Tag(name = "商品计量单位数据")
+@Tag(name = "商品计量单位数据管理接口")
 @RestController
 @RequestMapping("/admin/product/productUnit")
 public class ProductUnitController {
@@ -25,8 +25,8 @@ public class ProductUnitController {
     @Autowired
     private ProductUnitService productUnitService;
 
-    @GetMapping("findAll")
-    public Result<List<ProductUnit>> findAll() {
+    @GetMapping("/select")
+    public Result<List<ProductUnit>> select() {
         List<ProductUnit> productUnitList = productUnitService.findAll();
         return Result.build(productUnitList , ResultCodeEnum.SUCCESS) ;
     }

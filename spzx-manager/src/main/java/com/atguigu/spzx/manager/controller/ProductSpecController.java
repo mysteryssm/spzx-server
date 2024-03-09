@@ -33,22 +33,22 @@ public class ProductSpecController {
 
     @Operation(summary = "商品规格添加")
     @PostMapping("/insert")
-    public Result save(@RequestBody ProductSpec productSpec) {
+    public Result insert(@RequestBody ProductSpec productSpec) {
         productSpecService.save(productSpec);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "规格修改接口")
     @PutMapping("/update")
-    public Result updateById(@RequestBody ProductSpec productSpec) {
+    public Result update(@RequestBody ProductSpec productSpec) {
         productSpecService.updateById(productSpec);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "商品规格删除")
-    @DeleteMapping("/delete/{id}")
-    public Result removeById(@PathVariable Long id) {
-        productSpecService.deleteById(id);
+    @DeleteMapping("/delete/{productSpecificationId}")
+    public Result delete(@PathVariable Long productSpecificationId) {
+        productSpecService.deleteById(productSpecificationId);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 

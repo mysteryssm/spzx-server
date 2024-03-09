@@ -1,8 +1,6 @@
 package com.atguigu.spzx.manager.controller;
 
 import com.atguigu.spzx.manager.service.SysMenuService;
-import com.atguigu.spzx.model.dto.system.AssignMenuDto;
-import com.atguigu.spzx.model.dto.system.AssignRoleDto;
 import com.atguigu.spzx.model.dto.system.SysMenuDto;
 import com.atguigu.spzx.model.entity.system.SysMenu;
 import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
@@ -24,14 +22,14 @@ import java.util.Map;
 @Tag(name = "菜单管理接口")
 @RestController
 @RequestMapping(value = "/admin/menu")
-public class SysMenuController {
+public class MenuController {
 
     @Autowired
     private SysMenuService sysMenuService;
 
     @Operation(summary = "菜单添加")
     @PostMapping(value = "/insert")
-    public Result save(@RequestBody SysMenuDto sysMenuDto) {
+    public Result insert(@RequestBody SysMenuDto sysMenuDto) {
         sysMenuService.save(sysMenuDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
@@ -51,8 +49,8 @@ public class SysMenuController {
     }
 
     @Operation(summary = "菜单查询")
-    @GetMapping(value = "/select")
-    public Result<List<SysMenu>> select() {
+    @GetMapping(value = "/select/all")
+    public Result<List<SysMenu>> selectAll() {
         List<SysMenu> sysMenuList = sysMenuService.findAllNodes();
         return Result.build(sysMenuList, ResultCodeEnum.SUCCESS);
     }
