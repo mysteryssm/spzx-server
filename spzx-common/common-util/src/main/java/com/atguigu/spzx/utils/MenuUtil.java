@@ -1,6 +1,6 @@
 package com.atguigu.spzx.utils;
 
-import com.atguigu.spzx.model.entity.system.SysMenu;
+import com.atguigu.spzx.model.entity.admin.SysMenu;
 import com.atguigu.spzx.model.vo.system.SysMenuVo;
 
 import java.util.ArrayList;

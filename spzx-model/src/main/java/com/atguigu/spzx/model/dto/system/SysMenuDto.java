@@ -1,10 +1,7 @@
 package com.atguigu.spzx.model.dto.system;
 
-import com.atguigu.spzx.model.entity.system.SysMenu;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
-
-import java.util.List;
 
 /**
  * @description: SysMenuDto

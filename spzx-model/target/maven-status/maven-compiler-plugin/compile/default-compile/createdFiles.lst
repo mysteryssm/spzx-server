@@ -8,6 +8,7 @@ com\atguigu\spzx\model\vo\h5\TradeVo.class
 com\atguigu\spzx\model\entity\user\UserInfo.class
 com\atguigu\spzx\model\entity\base\Region.class
 com\atguigu\spzx\model\dto\h5\UserLoginDto.class
+com\atguigu\spzx\model\entity\admin\SysRoleUser.class
 com\atguigu\spzx\model\entity\product\ProductSpec.class
 com\atguigu\spzx\model\dto\system\SysMenuDto.class
 com\atguigu\spzx\model\dto\system\AssignRoleDto.class
@@ -18,7 +19,6 @@ com\atguigu\spzx\model\globalEnum\RedisKeyEnum.class
 com\atguigu\spzx\model\entity\product\Brand.class
 com\atguigu\spzx\model\dto\product\CategoryBrandDto.class
 com\atguigu\spzx\model\entity\product\ProductDetails.class
-com\atguigu\spzx\model\entity\system\SysMenu.class
 com\atguigu\spzx\model\globalEnum\ResultCodeEnum.class
 com\atguigu\spzx\model\entity\pay\PaymentInfo.class
 com\atguigu\spzx\model\dto\system\LoginDto.class
@@ -27,7 +27,7 @@ com\atguigu\spzx\model\entity\product\CategoryBrand.class
 com\atguigu\spzx\model\entity\h5\CartInfo.class
 com\atguigu\spzx\model\entity\product\ProductSku.class
 com\atguigu\spzx\model\entity\base\BaseEntity.class
-com\atguigu\spzx\model\entity\system\SysRoleUser.class
+com\atguigu\spzx\model\entity\admin\SysMenu.class
 com\atguigu\spzx\model\dto\system\AssignMenuDto.class
 com\atguigu\spzx\model\dto\system\SysRoleDto.class
 com\atguigu\spzx\model\dto\system\SysUserDto.class
@@ -43,14 +43,14 @@ com\atguigu\spzx\model\vo\h5\UserInfoVo.class
 com\atguigu\spzx\model\entity\product\Category.class
 com\atguigu\spzx\model\vo\h5\IndexVo.class
 com\atguigu\spzx\model\entity\log\LogEntity.class
-com\atguigu\spzx\model\entity\system\SysUser.class
 com\atguigu\spzx\model\entity\user\UserBrowseHistory.class
+com\atguigu\spzx\model\entity\admin\SysRole.class
 com\atguigu\spzx\model\globalEnum\OperatorTypeEnum.class
 com\atguigu\spzx\model\globalEnum\RequestMethod.class
 com\atguigu\spzx\model\entity\product\Product.class
 com\atguigu\spzx\model\dto\system\SysOperLogDto.class
 com\atguigu\spzx\model\entity\order\OrderItem.class
 com\atguigu\spzx\model\vo\h5\ProductItemVo.class
-com\atguigu\spzx\model\entity\system\SysRole.class
 com\atguigu\spzx\model\vo\product\ProductSkuVO.class
+com\atguigu\spzx\model\entity\admin\Administrator.class
 com\atguigu\spzx\model\vo\system\CaptchaVo.class

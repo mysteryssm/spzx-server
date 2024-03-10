@@ -1,18 +1,17 @@
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\system\SysMenuVo.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\system\SysOperLogDto.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\system\SysRoleUser.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\system\SysRoleDto.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\system\SysMenuDto.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\system\SysRole.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\order\OrderItem.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\h5\IndexVo.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\admin\Administrator.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\user\UserAddress.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\admin\SysRoleUser.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\product\SkuSaleDto.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\globalEnum\RequestMethod.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\h5\ProductItemVo.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\h5\CartInfo.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\pay\PaymentInfo.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\system\SysUser.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\globalEnum\OperatorTypeEnum.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\order\OrderStatisticsDto.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\globalEnum\RedisValueEnum.java
@@ -36,6 +35,7 @@ D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\common\Result.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\user\UserBrowseHistory.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\order\OrderInfo.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\admin\SysMenu.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\h5\OrderInfoDto.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\order\OrderLog.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\product\ProductSpec.java
@@ -43,6 +43,7 @@ D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\product\CategoryExcelVo.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\product\ProductDto.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\system\LoginVo.java
+D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\admin\SysRole.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\product\CategoryBrand.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\product\ProductSkuVO.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\h5\UserLoginDto.java
@@ -53,4 +54,3 @@ D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\dto\h5\ProductSkuDto.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\vo\order\OrderStatisticsVo.java
 D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\product\Category.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-model\src\main\java\com\atguigu\spzx\model\entity\system\SysMenu.java

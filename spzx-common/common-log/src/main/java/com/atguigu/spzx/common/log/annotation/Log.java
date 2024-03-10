@@ -17,7 +17,7 @@ public @interface Log {
 
     String title(); // 模块名称
     OperatorTypeEnum operatorType() default OperatorTypeEnum.MANAGE;	// 操作人类别，默认为管理员
-    int businessType(); // 业务类型（0 其它 1 新增 2 删除 3 修改）
+    int businessType(); // 业务类型（-1 登出 0 登录 1 新增 2 删除 3 修改）
     boolean isSaveRequestData() default true;   //是否保存请求的参数
     boolean isSaveResponseData() default true;  //是否保存响应的参数
 }

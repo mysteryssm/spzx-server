@@ -1,0 +1,61 @@
+package com.spzx.admin.service;
+
+import com.atguigu.spzx.model.dto.system.AssignRoleDto;
+import com.atguigu.spzx.model.dto.system.LoginDto;
+import com.atguigu.spzx.model.dto.system.SysUserDto;
+import com.atguigu.spzx.model.entity.admin.Administrator;
+import com.atguigu.spzx.model.vo.system.LoginVo;
+import com.github.pagehelper.PageInfo;
+
+/**
+ * @author ljl
+ * @create 2023-10-22-16:36
+ */
+public interface AdministratorService {
+
+    /**
+     * 根据用户名查询用户数据
+     * @return
+     */
+    public abstract LoginVo login(LoginDto loginDto) ;
+
+    /**
+     * 根据token查询用户数据
+     * @return
+     */
+    Administrator getUserInfo(String token);
+
+    /**
+     * 退出功能
+     * @return
+     */
+    void logout(String token);
+
+    /**
+     * @Description: 用户条件分页查询接口
+     * @param sysUserDto
+     * @param pageNum
+     * @param pageSize
+     */
+    PageInfo<Administrator> selectByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize);
+
+    /**
+     * @Description: 用户添加接口
+     * @param administrator
+     */
+    void insert(Administrator administrator);
+
+    /**
+     * @Description: 用户修改接口
+     * @param administrator
+     */
+    void update(Administrator administrator);
+
+    /**
+     * @Description: 用户删除接口
+     * @param userId
+     */
+    void delete(Long userId);
+
+    void assignRole(AssignRoleDto assignRoleDto);
+}
