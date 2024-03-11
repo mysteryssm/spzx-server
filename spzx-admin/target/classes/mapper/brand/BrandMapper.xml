@@ -10,7 +10,7 @@
         id, name, logo, create_time, update_time, is_deleted
     </sql>
 
-    <insert id="add">
+    <insert id="insert">
         insert into brand (
             id,
             name,
@@ -41,20 +41,20 @@
         id = #{id}
     </update>
 
-    <select id="query" resultMap="brandMap">
-        select <include refid="columns" />
-        from brand
-        where is_deleted = 0
-        order by id desc
-    </select>
-
     <update id="delete">
         update brand set update_time = now() ,
         is_deleted = 1
         where id = #{brandId}
     </update>
 
-    <select id="queryAll" resultMap="brandMap">
+    <select id="select" resultMap="brandMap">
+        select <include refid="columns" />
+        from brand
+        where is_deleted = 0
+        order by id desc
+    </select>
+
+    <select id="selectAll" resultMap="brandMap">
         select <include refid = "columns" />
         from brand
         where is_deleted = 0

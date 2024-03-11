@@ -31,7 +31,7 @@ public class BrandController {
     @Operation(summary = "品牌添加")
     @PostMapping(value = "/insert")
     public Result insert(@RequestBody Brand brand) {
-        brandService.add(brand);
+        brandService.insert(brand);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 

@@ -25,7 +25,7 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
 
     @Override
     public PageInfo<CategoryBrand> insert(CategoryBrand categoryBrand) {
-        categoryBrandMapper.inset(categoryBrand);
+        categoryBrandMapper.insert(categoryBrand);
         return null;
     }
 

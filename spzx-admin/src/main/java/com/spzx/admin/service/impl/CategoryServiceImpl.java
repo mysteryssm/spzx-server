@@ -33,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryMapper categoryMapper;
 
     @Override
-    public List<Category> queryCategoryByParentId(Long parentId) {
+    public List<Category> selectCategoryByParentId(Long parentId) {
         List<Category> categoryList = categoryMapper.queryCategoryByParentId(parentId);
 
         // 遍历 categoryList，判断是否具有子节点

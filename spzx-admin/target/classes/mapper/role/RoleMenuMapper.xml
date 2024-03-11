@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atguigu.spzx.manager.mapper.SysRoleMenuMapper">
+<mapper namespace="com.spzx.admin.mapper.RoleMenuMapper">
 
     <!--查询角色分配过的菜单列表-->
     <select id="findAllNodes" resultType="long">

@@ -91,8 +91,8 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     public Administrator getUserInfo(String token) {
-        String sysUserInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);   // 通过 token 获取用户信息
-        return JSON.parseObject(sysUserInfoJson , Administrator.class) ; // 将 json 格式的用户信息转换为 SysUser 类
+        String AdministratorInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);   // 通过 token 获取用户信息
+        return JSON.parseObject(AdministratorInfoJson , Administrator.class) ; // 将 json 格式的用户信息转换为 SysUser 类
     }
 
     @Override
@@ -103,7 +103,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public PageInfo<Administrator> selectByPage(AdministratorDto administratorDto, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Administrator> administratorList = administratorMapper.findByPage(administratorDto);
+        List<Administrator> administratorList = administratorMapper.selectByPage(administratorDto);
         PageInfo pageInfo = new PageInfo(administratorList);
         return pageInfo;
     }
@@ -120,17 +120,17 @@ public class AdministratorServiceImpl implements AdministratorService {
         String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());    // 对用户密码进行 md5 加密
         administrator.setPassword(md5Password);
         administrator.setStatus(1);
-        administratorMapper.saveSysUser(administrator); // 将用户信息存入数据库
+        administratorMapper.insert(administrator); // 将用户信息存入数据库
     }
 
     @Override
     public void update(Administrator administrator) {
-        administratorMapper.updateSysUser(administrator);
+        administratorMapper.update(administrator);
     }
 
     @Override
     public void delete(Long userId) {
-        administratorMapper.deleteById(userId);
+        administratorMapper.delete(userId);
     }
 
     @Override

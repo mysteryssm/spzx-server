@@ -30,7 +30,7 @@ public class ProductCategoryController {
     @Operation(summary = "父类的子分类查询")
     @GetMapping(value = "/select/{parentId}")
     public Result<List<Category>> queryCategoryByParentId(@PathVariable(value = "parentId") Long parentId) {
-        List<Category> categoryList = categoryService.queryCategoryByParentId(parentId);
+        List<Category> categoryList = categoryService.selectCategoryByParentId(parentId);
         return Result.build(categoryList, ResultCodeEnum.SUCCESS);
     }
 

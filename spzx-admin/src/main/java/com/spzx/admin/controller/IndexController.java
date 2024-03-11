@@ -40,7 +40,7 @@ public class IndexController {
     @Operation(summary = "验证码生成")
     @GetMapping("/captcha")
     public Result<CaptchaVo> getCaptcha() {
-        CaptchaVo captchaVo = captchaService.generateValidateCode();
+        CaptchaVo captchaVo = captchaService.generateCaptcha();
         return Result.build(captchaVo, ResultCodeEnum.SUCCESS);
     }
 

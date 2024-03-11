@@ -48,13 +48,13 @@ public class AdminLoginAuthInterceptor implements HandlerInterceptor {
         }
 
         //若用户信息为空，则返回用户未登录状态码给前端并拦截请求
-        String sysUserInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);
-        if(StrUtil.isEmpty(sysUserInfoJson)) {
+        String AdministratorInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);
+        if(StrUtil.isEmpty(AdministratorInfoJson)) {
             responseNoLoginInfo(response);
             return false;
         }
 
-        Administrator administrator = JSON.parseObject(sysUserInfoJson, Administrator.class); // 将 JSON 格式的用户系统转化为对应的实体类
+        Administrator administrator = JSON.parseObject(AdministratorInfoJson, Administrator.class); // 将 JSON 格式的用户系统转化为对应的实体类
         AuthContextUtil.set(administrator);   //将用户数据存储到 ThreadLocal 中
 
         Long oldExpire = redisTemplate.getExpire(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);

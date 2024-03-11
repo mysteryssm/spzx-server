@@ -23,7 +23,7 @@ public class CaptchaServiceImpl implements CaptchaService {
     private RedisTemplate<String , String> redisTemplate ;
 
     @Override
-    public CaptchaVo generateValidateCode() {
+    public CaptchaVo generateCaptcha() {
 
         CircleCaptcha circleCaptcha = CaptchaUtil.createCircleCaptcha(150, 48, 4, 20);  // 生成图片验证码，参数：宽  高  验证码位数 干扰线数量
         String codeValue = circleCaptcha.getCode();     //  获取4位验证码值

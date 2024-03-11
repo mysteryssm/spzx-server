@@ -14,7 +14,7 @@
              )
     </insert>
 
-<!--    <select id="findUserBrowseHistoryPage" resultType="com.atguigu.spzx.model.entity.user.UserCollect">-->
+<!--    <select id="findUserBrowseHistoryPage" resultType="com.spzx.model.entity.user.UserCollect">-->
 <!--        select sku_id, MAX(id) as id, user_id, MAX(create_time) as create_time, MAX(update_time) as update_time, is_deleted-->
 <!--        from user_collect-->
 <!--        where is_deleted = 0 and user_id = #{id}-->

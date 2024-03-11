@@ -24,11 +24,11 @@ public interface AdministratorMapper {
      * @Description: 用户条件分页查询接口
      * @param administratorDto
      */
-    List<Administrator> findByPage(AdministratorDto administratorDto);
+    List<Administrator> selectByPage(AdministratorDto administratorDto);
 
-    void saveSysUser(Administrator administrator);
+    void insert(Administrator administrator);
 
-    void updateSysUser(Administrator administrator);
+    void update(Administrator administrator);
 
-    void deleteById(Long userId);
+    void delete(Long userId);
 }

@@ -23,7 +23,7 @@ public class BrandServiceImpl implements BrandService {
     private BrandMapper brandMapper;
 
     @Override
-    public void add(Brand brand) {
+    public void insert(Brand brand) {
         brandMapper.insert(brand);
     }
 

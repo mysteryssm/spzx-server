@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface BrandService {
 
-    void add(Brand brand);
+    void insert(Brand brand);
 
     void delete(Long brandId);
 

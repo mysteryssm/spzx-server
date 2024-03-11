@@ -16,7 +16,7 @@ import java.util.List;
 public interface CategoryBrandMapper {
     List<CategoryBrand> select(CategoryBrandDto categoryBrandDto);
 
-    void inset(CategoryBrand categoryBrand);
+    void insert(CategoryBrand categoryBrand);
 
     void update(CategoryBrand categoryBrand);
 

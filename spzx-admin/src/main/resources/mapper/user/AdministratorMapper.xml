@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
-<mapper namespace="com.spzx.admin.mapper.SysUserMapper">
+<mapper namespace="com.spzx.admin.mapper.AdministratorMapper">
 
 	<!-- 用于select查询公用抽取的列 -->
 	<sql id="columns">
@@ -31,14 +31,14 @@
 		</where>
 	</sql>
 
-	<select id="findByPage" resultType="com.spzx.model.entity.admin.Administrator" >
+	<select id="selectByPage" resultType="com.spzx.model.entity.admin.Administrator" >
 		select <include refid="columns" />
 		from sys_user
 		<include refid="findPageWhere"/>
 		order by id desc
 	</select>
 
-	<insert id="saveSysUser">
+	<insert id="insert">
 		insert into sys_user (
 			id,
 			username,
@@ -60,7 +60,7 @@
 				 )
 	</insert>
 
-	<update id="updateSysUser">
+	<update id="update">
 		update sys_user set
 		<if test="userName != null and userName != ''">
 			username = #{userName},
@@ -88,7 +88,7 @@
 		id = #{id}
 	</update>
 
-	<update id="deleteById">
+	<update id="delete">
 		update sys_user set update_time = now() , is_deleted = 1 where id = #{userId}
 	</update>
 </mapper>

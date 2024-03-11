@@ -9,6 +9,6 @@ import com.spzx.model.vo.system.CaptchaVo;
 public interface CaptchaService {
 
     // 获取验证码图片
-    public abstract CaptchaVo generateValidateCode();
+    public abstract CaptchaVo generateCaptcha();
 
 }
