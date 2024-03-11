@@ -19,10 +19,10 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableLogAspect
 @ComponentScan(basePackages = {"com.spzx"})
 @EnableConfigurationProperties(value = {UserAuthProperties.class, ALiYunOSSProperties.class})
-public class ManagerApplication {
+public class AdminApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ManagerApplication.class, args) ;
+        SpringApplication.run(AdminApplication.class, args) ;
     }
 
 }

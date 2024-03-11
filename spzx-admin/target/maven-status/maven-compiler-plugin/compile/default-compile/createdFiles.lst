@@ -55,8 +55,8 @@ com\spzx\admin\controller\AdministratorController.class
 com\spzx\admin\controller\RoleController.class
 com\spzx\admin\service\FileUploadService.class
 com\spzx\admin\controller\ProductSpecController.class
+com\spzx\admin\AdminApplication.class
 com\spzx\admin\mapper\ProductUnitMapper.class
 com\spzx\admin\service\OrderInfoService.class
-com\spzx\admin\ManagerApplication.class
 com\spzx\admin\controller\CategoryBrandController.class
 com\spzx\admin\service\impl\BrandServiceImpl.class

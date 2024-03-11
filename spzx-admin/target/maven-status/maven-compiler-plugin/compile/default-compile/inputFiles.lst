@@ -10,7 +10,6 @@ C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\co
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\mapper\RoleMapper.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\service\impl\AdministratorServiceImpl.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\service\impl\ProductServiceImpl.java
-C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\ManagerApplication.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\mapper\LogMapper.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\mapper\ProductDetailsMapper.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\controller\ProductSpecController.java
@@ -37,6 +36,7 @@ C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\co
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\service\CaptchaService.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\config\ALiYunOSSConfig.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\service\RoleService.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\AdminApplication.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\service\impl\RoleServiceImpl.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\mapper\AdministratorMapper.java
 C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-admin\src\main\java\com\spzx\admin\controller\FileUploadController.java
