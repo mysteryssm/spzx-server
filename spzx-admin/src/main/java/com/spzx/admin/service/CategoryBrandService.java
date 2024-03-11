@@ -1,7 +1,7 @@
 package com.spzx.admin.service;
 
-import com.atguigu.spzx.model.dto.product.CategoryBrandDto;
-import com.atguigu.spzx.model.entity.product.CategoryBrand;
+import com.spzx.model.dto.product.CategoryBrandDto;
+import com.spzx.model.entity.product.CategoryBrand;
 import com.github.pagehelper.PageInfo;
 
 /**

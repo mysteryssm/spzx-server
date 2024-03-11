@@ -21,7 +21,7 @@
                  )
     </insert>
 
-    <resultMap id="orderStatisticsMap" type="com.atguigu.spzx.model.entity.order.OrderStatistics" autoMapping="true"></resultMap>
+    <resultMap id="orderStatisticsMap" type="com.spzx.model.entity.order.OrderStatistics" autoMapping="true"></resultMap>
 
     <select id="selectList" resultMap="orderStatisticsMap">
         select <include refid="columns" />

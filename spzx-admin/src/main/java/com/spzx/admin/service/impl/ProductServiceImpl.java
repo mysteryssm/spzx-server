@@ -4,10 +4,10 @@ import com.spzx.admin.mapper.ProductDetailsMapper;
 import com.spzx.admin.mapper.ProductMapper;
 import com.spzx.admin.mapper.ProductSkuMapper;
 import com.spzx.admin.service.ProductService;
-import com.atguigu.spzx.model.dto.product.ProductDto;
-import com.atguigu.spzx.model.entity.product.Product;
-import com.atguigu.spzx.model.entity.product.ProductDetails;
-import com.atguigu.spzx.model.entity.product.ProductSku;
+import com.spzx.model.dto.product.ProductDto;
+import com.spzx.model.entity.product.Product;
+import com.spzx.model.entity.product.ProductDetails;
+import com.spzx.model.entity.product.ProductSku;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-//  com.atguigu.spzx.manager.service.impl;
+//  com.spzx.admin.service.impl;
 @Service
 public class ProductServiceImpl implements ProductService {
 
@@ -89,7 +89,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public void updateById(Product product) {
+    public void update(Product product) {
 
         // 修改商品基本数据
         productMapper.updateById(product);
@@ -110,7 +110,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Transactional
     @Override
-    public void deleteById(Long id) {
+    public void delete(Long id) {
         productMapper.deleteById(id);                   // 根据id删除商品基本数据
         productSkuMapper.deleteByProductId(id);         // 根据商品id删除商品的sku数据
         productDetailsMapper.deleteByProductId(id);     // 根据商品的id删除商品的详情数据

@@ -1,9 +1,9 @@
 package com.spzx.admin.controller;
 
 import com.spzx.admin.service.ProductUnitService;
-import com.atguigu.spzx.model.entity.base.ProductUnit;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.common.Result;
+import com.spzx.model.entity.base.ProductUnit;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.common.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.List;
 
 @Tag(name = "商品计量单位数据管理接口")
 @RestController
-@RequestMapping("/admin/product/productUnit")
+@RequestMapping("/admin/product/unit")
 public class ProductUnitController {
 
     @Autowired

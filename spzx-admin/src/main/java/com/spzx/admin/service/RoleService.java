@@ -1,8 +1,8 @@
 package com.spzx.admin.service;
 
-import com.atguigu.spzx.model.dto.system.AssignMenuDto;
-import com.atguigu.spzx.model.dto.system.SysRoleDto;
-import com.atguigu.spzx.model.entity.admin.SysRole;
+import com.spzx.model.dto.system.AssignMenuDto;
+import com.spzx.model.dto.system.RoleDto;
+import com.spzx.model.entity.admin.Role;
 import com.github.pagehelper.PageInfo;
 
 import java.util.Map;
@@ -15,13 +15,13 @@ import java.util.Map;
 
 public interface RoleService {
 
-    PageInfo<SysRole> selectByPage(SysRoleDto sysRoleDto, Integer current, Integer limit);
+    PageInfo<Role> selectByPage(RoleDto roleDto, Integer current, Integer limit);
 
-    Map<String, Object> findAllRoles(Long userId);
+    Map<String, Object> selectByAdministratorId(Long userId);
 
-    void insert(SysRole sysRole);
+    void insert(Role role);
 
-    void update(SysRole sysRole);
+    void update(Role role);
 
     void delete(Long roleId);
 

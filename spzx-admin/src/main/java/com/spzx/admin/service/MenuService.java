@@ -1,8 +1,8 @@
 package com.spzx.admin.service;
 
-import com.atguigu.spzx.model.dto.system.SysMenuDto;
-import com.atguigu.spzx.model.entity.admin.SysMenu;
-import com.atguigu.spzx.model.vo.system.SysMenuVo;
+import com.spzx.model.dto.system.MenuDto;
+import com.spzx.model.entity.admin.Menu;
+import com.spzx.model.vo.system.SysMenuVo;
 
 import java.util.List;
 import java.util.Map;
@@ -15,15 +15,15 @@ import java.util.Map;
 
 public interface MenuService {
 
-    List<SysMenu> selectAll();
+    List<Menu> selectAll();
 
     Map<String, Object> selectAll(Long roleId);
 
-    void insert(SysMenuDto sysMenuDto);
+    void insert(MenuDto menuDto);
 
     void updateParentMenuIsHalf(Long parentId);
 
-    void update(SysMenuDto sysMenuDto);
+    void update(MenuDto menuDto);
 
     void delete(Long id);
 

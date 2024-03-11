@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atguigu.spzx.manager.mapper.ProductMapper">
+<mapper namespace="com.spzx.admin.mapper.ProductMapper">
 
-    <resultMap id="productMap" type="com.atguigu.spzx.model.entity.product.Product" autoMapping="true"></resultMap>
+    <resultMap id="productMap" type="com.spzx.model.entity.product.Product" autoMapping="true"></resultMap>
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">

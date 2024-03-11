@@ -1,12 +1,12 @@
 package com.spzx.admin.controller;
 
-import com.atguigu.spzx.common.log.annotation.Log;
+import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.AdministratorService;
-import com.atguigu.spzx.model.dto.system.AssignRoleDto;
-import com.atguigu.spzx.model.dto.system.SysUserDto;
-import com.atguigu.spzx.model.entity.admin.Administrator;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.common.Result;
+import com.spzx.model.dto.system.AssignRoleDto;
+import com.spzx.model.dto.system.AdministratorDto;
+import com.spzx.model.entity.admin.Administrator;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -62,8 +62,8 @@ public class AdministratorController {
     @PostMapping(value = "/select/{page}/{size}")
     public Result<PageInfo<Administrator>> selectByPage(@PathVariable(value = "page") Integer page,
                                                       @PathVariable(value = "size") Integer size,
-                                                      @RequestBody SysUserDto sysUserDto) {
-        PageInfo<Administrator> pageInfo = administratorService.selectByPage(sysUserDto, page, size);
+                                                      @RequestBody AdministratorDto administratorDto) {
+        PageInfo<Administrator> pageInfo = administratorService.selectByPage(administratorDto, page, size);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
 }

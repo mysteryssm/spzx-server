@@ -1,10 +1,10 @@
 package com.spzx.admin.controller;
 
 import com.spzx.admin.service.ProductService;
-import com.atguigu.spzx.model.dto.product.ProductDto;
-import com.atguigu.spzx.model.entity.product.Product;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.common.Result;
+import com.spzx.model.dto.product.ProductDto;
+import com.spzx.model.entity.product.Product;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -34,14 +34,14 @@ public class ProductController {
     @Operation(summary = "商品删除")
     @DeleteMapping("/delete/{productId}")
     public Result delete(@PathVariable Long productId) {
-        productService.deleteById(productId);
+        productService.delete(productId);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "商品修改")
     @PutMapping("/update")
     public Result update(@RequestBody Product product) {
-        productService.updateById(product);
+        productService.update(product);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 

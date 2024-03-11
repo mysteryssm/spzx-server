@@ -1,6 +1,6 @@
 package com.spzx.admin.mapper;
 
-import com.atguigu.spzx.model.entity.order.OrderStatistics;
+import com.spzx.model.entity.order.OrderStatistics;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

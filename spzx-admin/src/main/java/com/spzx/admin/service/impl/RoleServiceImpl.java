@@ -1,12 +1,12 @@
 package com.spzx.admin.service.impl;
 
-import com.spzx.admin.mapper.SysRoleMapper;
-import com.spzx.admin.mapper.SysRoleMenuMapper;
-import com.spzx.admin.mapper.SysUserRoleMapper;
+import com.spzx.admin.mapper.RoleMapper;
+import com.spzx.admin.mapper.RoleMenuMapper;
+import com.spzx.admin.mapper.AdministratorRoleMapper;
 import com.spzx.admin.service.RoleService;
-import com.atguigu.spzx.model.dto.system.AssignMenuDto;
-import com.atguigu.spzx.model.dto.system.SysRoleDto;
-import com.atguigu.spzx.model.entity.admin.SysRole;
+import com.spzx.model.dto.system.AssignMenuDto;
+import com.spzx.model.dto.system.RoleDto;
+import com.spzx.model.entity.admin.Role;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,27 +26,27 @@ import java.util.Map;
 public class RoleServiceImpl implements RoleService {
 
     @Autowired
-    private SysRoleMapper sysRoleMapper;
+    private RoleMapper roleMapper;
 
     @Autowired
-    private SysUserRoleMapper sysUserRoleMapper;
+    private AdministratorRoleMapper administratorRoleMapper;
 
     @Autowired
-    private SysRoleMenuMapper sysRoleMenuMapper;
+    private RoleMenuMapper roleMenuMapper;
 
     @Override
-    public PageInfo<SysRole> selectByPage(SysRoleDto sysRoleDto, Integer current, Integer limit) {
+    public PageInfo<Role> selectByPage(RoleDto roleDto, Integer current, Integer limit) {
         PageHelper.startPage(current, limit);   //设置分页参数
-        List<SysRole> sysRoleList = sysRoleMapper.findByPage(sysRoleDto);
-        PageInfo<SysRole> pageInfo = new PageInfo<>(sysRoleList);
+        List<Role> roleList = roleMapper.findByPage(roleDto);
+        PageInfo<Role> pageInfo = new PageInfo<>(roleList);
         return pageInfo;
     }
 
     @Override
-    public Map<String, Object> findAllRoles(Long userId) {
+    public Map<String, Object> selectByAdministratorId(Long userId) {
         Map<String , Object> resultMap = new HashMap<>();
-        List<SysRole> allRoles = sysRoleMapper.findAllRoles();  // 返回所有的角色信息
-        List<Long> userAllRoles = sysUserRoleMapper.findAllRoles(userId);   //allRoles 已包含所有角色信息，此处仅传入 roleId
+        List<Role> allRoles = roleMapper.findAllRoles();  // 返回所有的角色信息
+        List<Long> userAllRoles = administratorRoleMapper.findAllRoles(userId);   //allRoles 已包含所有角色信息，此处仅传入 roleId
 
         resultMap.put("allRolesList" , allRoles);
         resultMap.put("sysUserRoles", userAllRoles);
@@ -55,28 +55,28 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void insert(SysRole sysRole) {
-        sysRoleMapper.saveSysRole(sysRole);
+    public void insert(Role role) {
+        roleMapper.saveSysRole(role);
     }
 
     @Override
-    public void update(SysRole sysRole) {
-        sysRoleMapper.updateSysRole(sysRole);
+    public void update(Role role) {
+        roleMapper.updateSysRole(role);
     }
 
     @Override
     public void delete(Long roleId) {
-        sysRoleMapper.deleteSysRole(roleId);
+        roleMapper.deleteSysRole(roleId);
     }
 
     @Override
     public void assignMenu(AssignMenuDto assignMenuDto) {
-        sysRoleMenuMapper.deleteMenuByRoleId(assignMenuDto.getRoleId());    // 删除该角色所对应的菜单数据
+        roleMenuMapper.deleteMenuByRoleId(assignMenuDto.getRoleId());    // 删除该角色所对应的菜单数据
 
         List<Map<String, Number>> list = assignMenuDto.getMenuIdList();// 获取新的角色数据
 
         list.forEach(map -> {
-            sysRoleMenuMapper.assignMenu(assignMenuDto.getRoleId(), map);
+            roleMenuMapper.assignMenu(assignMenuDto.getRoleId(), map);
         });
     }
 }

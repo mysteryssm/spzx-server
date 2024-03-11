@@ -2,17 +2,17 @@ package com.spzx.admin.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import com.atguigu.spzx.common.exception.GlobalException;
-import com.spzx.admin.mapper.SysUserRoleMapper;
-import com.spzx.admin.mapper.SysUserMapper;
+import com.spzx.common.service.exception.GlobalException;
+import com.spzx.admin.mapper.AdministratorRoleMapper;
+import com.spzx.admin.mapper.AdministratorMapper;
 import com.spzx.admin.service.AdministratorService;
-import com.atguigu.spzx.model.dto.system.AssignRoleDto;
-import com.atguigu.spzx.model.dto.system.LoginDto;
-import com.atguigu.spzx.model.dto.system.SysUserDto;
-import com.atguigu.spzx.model.entity.admin.Administrator;
-import com.atguigu.spzx.model.globalEnum.RedisKeyEnum;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.system.LoginVo;
+import com.spzx.model.dto.system.AssignRoleDto;
+import com.spzx.model.dto.system.LoginDto;
+import com.spzx.model.dto.system.AdministratorDto;
+import com.spzx.model.entity.admin.Administrator;
+import com.spzx.model.globalEnum.RedisKeyEnum;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.system.LoginVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -34,10 +34,10 @@ import java.util.concurrent.TimeUnit;
 public class AdministratorServiceImpl implements AdministratorService {
 
     @Autowired
-    private SysUserMapper sysUserMapper;
+    private AdministratorMapper administratorMapper;
 
     @Autowired
-    private SysUserRoleMapper sysUserRoleMapper;
+    private AdministratorRoleMapper administratorRoleMapper;
 
     @Autowired
     private RedisTemplate<String , String> redisTemplate;
@@ -61,7 +61,7 @@ public class AdministratorServiceImpl implements AdministratorService {
             throw new GlobalException(ResultCodeEnum.CAPTCHA_ERROR);   //验证码错误时抛出异常
         }
 
-        Administrator administrator = sysUserMapper.queryUserByName(loginDto.getUserName());    //根据用户名查询用户
+        Administrator administrator = administratorMapper.queryUserByName(loginDto.getUserName());    //根据用户名查询用户
         //验证用户是否存在
         if(administrator == null) {
             log.info("用户名为{}的用户不存在", loginDto.getUserName());
@@ -101,9 +101,9 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     @Override
-    public PageInfo<Administrator> selectByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize) {
+    public PageInfo<Administrator> selectByPage(AdministratorDto administratorDto, Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum, pageSize);
-        List<Administrator> administratorList = sysUserMapper.findByPage(sysUserDto);
+        List<Administrator> administratorList = administratorMapper.findByPage(administratorDto);
         PageInfo pageInfo = new PageInfo(administratorList);
         return pageInfo;
     }
@@ -112,7 +112,7 @@ public class AdministratorServiceImpl implements AdministratorService {
     public void insert(Administrator administrator) {
 
         // 验证用户名是否已存在
-        if(sysUserMapper.queryUserByName(administrator.getUserName()) != null) {
+        if(administratorMapper.queryUserByName(administrator.getUserName()) != null) {
             throw new GlobalException(ResultCodeEnum.USER_NAME_IS_EXISTS);  // 若用户名已存在，抛出 USER_NAME_IS_EXISTS 异常
         }
 
@@ -120,26 +120,26 @@ public class AdministratorServiceImpl implements AdministratorService {
         String md5Password = DigestUtils.md5DigestAsHex(password.getBytes());    // 对用户密码进行 md5 加密
         administrator.setPassword(md5Password);
         administrator.setStatus(1);
-        sysUserMapper.saveSysUser(administrator); // 将用户信息存入数据库
+        administratorMapper.saveSysUser(administrator); // 将用户信息存入数据库
     }
 
     @Override
     public void update(Administrator administrator) {
-        sysUserMapper.updateSysUser(administrator);
+        administratorMapper.updateSysUser(administrator);
     }
 
     @Override
     public void delete(Long userId) {
-        sysUserMapper.deleteById(userId);
+        administratorMapper.deleteById(userId);
     }
 
     @Override
     public void assignRole(AssignRoleDto assignRoleDto) {
-        sysUserRoleMapper.deleteByUserId(assignRoleDto.getUserId());    // 删除该用户所对应的角色数据
+        administratorRoleMapper.deleteByUserId(assignRoleDto.getUserId());    // 删除该用户所对应的角色数据
 
         List<Long> roleIdList = assignRoleDto.getRoleIdList();  // 获取新的角色数据
         roleIdList.forEach(roleId -> {
-            sysUserRoleMapper.assignRole(assignRoleDto.getUserId(), roleId);
+            administratorRoleMapper.assignRole(assignRoleDto.getUserId(), roleId);
         });
     }
 }

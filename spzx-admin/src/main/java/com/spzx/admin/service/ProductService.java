@@ -1,7 +1,7 @@
 package com.spzx.admin.service;
 
-import com.atguigu.spzx.model.dto.product.ProductDto;
-import com.atguigu.spzx.model.entity.product.Product;
+import com.spzx.model.dto.product.ProductDto;
+import com.spzx.model.entity.product.Product;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -15,9 +15,9 @@ public interface ProductService {
 
     Product selectByProductId(Long id);
 
-    void updateById(Product product);
+    void update(Product product);
 
-    void deleteById(Long id);
+    void delete(Long id);
 
     void updateAuditStatus(Long id, Integer auditStatus);
 

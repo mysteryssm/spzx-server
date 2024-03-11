@@ -2,12 +2,12 @@ package com.spzx.admin.interceptor;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import com.atguigu.spzx.model.entity.admin.Administrator;
-import com.atguigu.spzx.model.globalEnum.RedisKeyEnum;
-import com.atguigu.spzx.model.globalEnum.RequestMethod;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.common.Result;
-import com.atguigu.spzx.utils.AuthContextUtil;
+import com.spzx.model.entity.admin.Administrator;
+import com.spzx.model.globalEnum.RedisKeyEnum;
+import com.spzx.model.globalEnum.RequestMethod;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.common.Result;
+import com.spzx.common.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;

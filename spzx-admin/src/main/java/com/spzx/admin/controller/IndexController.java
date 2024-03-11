@@ -1,16 +1,16 @@
 package com.spzx.admin.controller;
 
-import com.atguigu.spzx.common.log.annotation.Log;
+import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.MenuService;
 import com.spzx.admin.service.AdministratorService;
 import com.spzx.admin.service.CaptchaService;
-import com.atguigu.spzx.model.dto.system.LoginDto;
-import com.atguigu.spzx.model.entity.admin.Administrator;
-import com.atguigu.spzx.model.vo.common.Result;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.system.CaptchaVo;
-import com.atguigu.spzx.model.vo.system.LoginVo;
-import com.atguigu.spzx.model.vo.system.SysMenuVo;
+import com.spzx.model.dto.system.LoginDto;
+import com.spzx.model.entity.admin.Administrator;
+import com.spzx.model.vo.common.Result;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.system.CaptchaVo;
+import com.spzx.model.vo.system.LoginVo;
+import com.spzx.model.vo.system.SysMenuVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;

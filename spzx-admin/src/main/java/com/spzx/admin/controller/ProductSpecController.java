@@ -1,9 +1,9 @@
 package com.spzx.admin.controller;
 
 import com.spzx.admin.service.ProductSpecService;
-import com.atguigu.spzx.model.entity.product.ProductSpec;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.common.Result;
+import com.spzx.model.entity.product.ProductSpec;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

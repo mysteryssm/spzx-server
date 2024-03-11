@@ -3,9 +3,9 @@ package com.spzx.admin.service.impl;
 import cn.hutool.core.date.DateUtil;
 import com.spzx.admin.mapper.OrderStatisticsMapper;
 import com.spzx.admin.service.OrderInfoService;
-import com.atguigu.spzx.model.dto.order.OrderStatisticsDto;
-import com.atguigu.spzx.model.entity.order.OrderStatistics;
-import com.atguigu.spzx.model.vo.order.OrderStatisticsVo;
+import com.spzx.model.dto.order.OrderStatisticsDto;
+import com.spzx.model.entity.order.OrderStatistics;
+import com.spzx.model.vo.order.OrderStatisticsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
-// com.atguigu.spzx.manager.service.impl;
+// com.spzx.admin.service.impl;
 @Service
 public class OrderInfoServiceImpl implements OrderInfoService {
 

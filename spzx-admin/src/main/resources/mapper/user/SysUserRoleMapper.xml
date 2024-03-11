@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
-<mapper namespace="com.atguigu.spzx.manager.mapper.SysUserRoleMapper">
+<mapper namespace="com.spzx.admin.mapper.SysUserRoleMapper">
 
     <insert id="assignRole">
         insert into sys_user_role(user_id , role_id , create_time , update_time , is_deleted)

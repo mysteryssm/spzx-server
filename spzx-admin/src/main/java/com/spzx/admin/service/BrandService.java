@@ -1,6 +1,6 @@
 package com.spzx.admin.service;
 
-import com.atguigu.spzx.model.entity.product.Brand;
+import com.spzx.model.entity.product.Brand;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

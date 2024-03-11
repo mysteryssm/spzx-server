@@ -18,7 +18,7 @@
                  )
     </insert>
 
-    <resultMap id="productDetailsMap" type="com.atguigu.spzx.model.entity.product.ProductDetails" autoMapping="true"></resultMap>
+    <resultMap id="productDetailsMap" type="com.spzx.model.entity.product.ProductDetails" autoMapping="true"></resultMap>
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">

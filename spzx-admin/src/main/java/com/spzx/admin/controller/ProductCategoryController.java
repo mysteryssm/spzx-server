@@ -1,9 +1,9 @@
 package com.spzx.admin.controller;
 
 import com.spzx.admin.service.CategoryService;
-import com.atguigu.spzx.model.entity.product.Category;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.common.Result;
+import com.spzx.model.entity.product.Category;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.common.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletResponse;
@@ -36,7 +36,7 @@ public class ProductCategoryController {
 
     @Operation(summary = "分类导出")
     @GetMapping(value = "/export")
-    public Result exportCategory(HttpServletResponse httpServletResponse) {
+    public Result export(HttpServletResponse httpServletResponse) {
         categoryService.export(httpServletResponse);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }

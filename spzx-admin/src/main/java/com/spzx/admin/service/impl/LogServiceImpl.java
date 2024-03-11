@@ -1,8 +1,8 @@
 package com.spzx.admin.service.impl;
 
-import com.atguigu.spzx.common.log.service.LogService;
+import com.spzx.common.log.service.LogService;
 import com.spzx.admin.mapper.LogMapper;
-import com.atguigu.spzx.model.entity.log.LogEntity;
+import com.spzx.model.entity.log.LogEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

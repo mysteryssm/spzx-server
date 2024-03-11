@@ -1,6 +1,6 @@
 package com.spzx.admin.mapper;
 
-import com.atguigu.spzx.model.entity.product.ProductSku;
+import com.spzx.model.entity.product.ProductSku;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

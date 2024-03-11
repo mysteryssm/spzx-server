@@ -1,7 +1,7 @@
 package com.spzx.admin.mapper;
 
-import com.atguigu.spzx.model.dto.product.CategoryBrandDto;
-import com.atguigu.spzx.model.entity.product.CategoryBrand;
+import com.spzx.model.dto.product.CategoryBrandDto;
+import com.spzx.model.entity.product.CategoryBrand;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -14,9 +14,9 @@ import java.util.List;
 
 @Mapper
 public interface CategoryBrandMapper {
-    List<CategoryBrand> query(CategoryBrandDto categoryBrandDto);
+    List<CategoryBrand> select(CategoryBrandDto categoryBrandDto);
 
-    void add(CategoryBrand categoryBrand);
+    void inset(CategoryBrand categoryBrand);
 
     void update(CategoryBrand categoryBrand);
 

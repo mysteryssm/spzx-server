@@ -1,5 +1,5 @@
+import com.spzx.model.entity.admin.Menu;
 import com.spzx.admin.service.MenuService;
-import com.atguigu.spzx.model.entity.admin.SysMenu;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -17,6 +17,6 @@ public class MenuServiceImplTest extends SpringbootUnitTest{
 
     @Test
     public void findAllNodesTest() {
-        List<SysMenu> allNodes = menuService.selectAll();
+        List<Menu> allNodes = menuService.selectAll();
     }
 }

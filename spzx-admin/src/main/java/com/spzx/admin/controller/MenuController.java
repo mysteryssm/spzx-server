@@ -1,11 +1,11 @@
 package com.spzx.admin.controller;
 
-import com.atguigu.spzx.common.log.annotation.Log;
+import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.MenuService;
-import com.atguigu.spzx.model.dto.system.SysMenuDto;
-import com.atguigu.spzx.model.entity.admin.SysMenu;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.common.Result;
+import com.spzx.model.dto.system.MenuDto;
+import com.spzx.model.entity.admin.Menu;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.common.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +31,8 @@ public class MenuController {
     @Log(title = "菜单添加", businessType = 1)
     @Operation(summary = "菜单添加")
     @PostMapping(value = "/insert")
-    public Result insert(@RequestBody SysMenuDto sysMenuDto) {
-        menuService.insert(sysMenuDto);
+    public Result insert(@RequestBody MenuDto menuDto) {
+        menuService.insert(menuDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
@@ -47,16 +47,16 @@ public class MenuController {
     @Log(title = "菜单修改", businessType = 3)
     @Operation(summary = "菜单修改")
     @PutMapping(value = "/update")
-    public Result update(@RequestBody SysMenuDto sysMenuDto) {
-        menuService.update(sysMenuDto);
+    public Result update(@RequestBody MenuDto menuDto) {
+        menuService.update(menuDto);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "菜单查询")
     @GetMapping(value = "/select/all")
-    public Result<List<SysMenu>> selectAll() {
-        List<SysMenu> sysMenuList = menuService.selectAll();
-        return Result.build(sysMenuList, ResultCodeEnum.SUCCESS);
+    public Result<List<Menu>> selectAll() {
+        List<Menu> menuList = menuService.selectAll();
+        return Result.build(menuList, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "指定角色菜单查询")

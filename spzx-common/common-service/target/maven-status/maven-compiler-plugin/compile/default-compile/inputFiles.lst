@@ -1,8 +1,8 @@
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\exception\GlobalExceptionHandler.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\anno\EnableUserLoginAuthInterceptor.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\config\Knife4jConfig.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\feign\UserTokenFeignInterceptor.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\interceptor\UserLoginAuthInterceptor.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\config\UserWebMvcConfiguration.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\exception\GlobalException.java
-D:\学习\教科书\JAVA\材料\spzx-server\spzx-common\common-service\src\main\java\com\atguigu\spzx\common\anno\EnableUserTokenFeignInterceptor.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-common\common-service\src\main\java\com\spzx\common\service\anno\EnableUserTokenFeignInterceptor.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-common\common-service\src\main\java\com\spzx\common\service\config\UserWebMvcConfiguration.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-common\common-service\src\main\java\com\spzx\common\service\config\Knife4jConfig.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-common\common-service\src\main\java\com\spzx\common\service\anno\EnableUserLoginAuthInterceptor.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-common\common-service\src\main\java\com\spzx\common\service\exception\GlobalException.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-common\common-service\src\main\java\com\spzx\common\service\feign\UserTokenFeignInterceptor.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-common\common-service\src\main\java\com\spzx\common\service\interceptor\UserLoginAuthInterceptor.java
+C:\Users\Administrator\Desktop\姚才康\spzx-server\spzx-common\common-service\src\main\java\com\spzx\common\service\exception\GlobalExceptionHandler.java

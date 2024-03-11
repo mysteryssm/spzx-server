@@ -3,7 +3,7 @@ package com.spzx.admin.task;
 import cn.hutool.core.date.DateUtil;
 import com.spzx.admin.mapper.OrderInfoMapper;
 import com.spzx.admin.mapper.OrderStatisticsMapper;
-import com.atguigu.spzx.model.entity.order.OrderStatistics;
+import com.spzx.model.entity.order.OrderStatistics;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;

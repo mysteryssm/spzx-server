@@ -42,7 +42,7 @@
                  )
     </insert>
 
-    <resultMap id="productSkuMap" type="com.atguigu.spzx.model.entity.product.ProductSku" autoMapping="true"></resultMap>
+    <resultMap id="productSkuMap" type="com.spzx.model.entity.product.ProductSku" autoMapping="true"></resultMap>
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">

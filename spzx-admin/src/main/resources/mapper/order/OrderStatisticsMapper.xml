@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.atguigu.spzx.manager.mapper.OrderStatisticsMapper">
+<mapper namespace="com.spzx.admin.mapper.OrderStatisticsMapper">
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
@@ -21,7 +21,7 @@
                  )
     </insert>
 
-    <resultMap id="orderStatisticsMap" type="com.atguigu.spzx.model.entity.order.OrderStatistics" autoMapping="true"></resultMap>
+    <resultMap id="orderStatisticsMap" type="com.spzx.model.entity.order.OrderStatistics" autoMapping="true"></resultMap>
 
     <select id="selectList" resultMap="orderStatisticsMap">
         select <include refid="columns" />

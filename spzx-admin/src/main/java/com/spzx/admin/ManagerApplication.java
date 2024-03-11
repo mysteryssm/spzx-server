@@ -1,6 +1,6 @@
 package com.spzx.admin;
 
-import com.atguigu.spzx.common.log.annotation.EnableLogAspect;
+import com.spzx.common.log.annotation.EnableLogAspect;
 import com.spzx.admin.properties.ALiYunOSSProperties;
 import com.spzx.admin.properties.UserAuthProperties;
 import org.springframework.boot.SpringApplication;

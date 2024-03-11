@@ -1,6 +1,6 @@
 package com.spzx.admin.service;
 
-import com.atguigu.spzx.model.entity.base.ProductUnit;
+import com.spzx.model.entity.base.ProductUnit;
 
 import java.util.List;
 

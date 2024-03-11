@@ -2,7 +2,7 @@ package com.spzx.admin.service.impl;
 
 import com.spzx.admin.mapper.BrandMapper;
 import com.spzx.admin.service.BrandService;
-import com.atguigu.spzx.model.entity.product.Brand;
+import com.spzx.model.entity.product.Brand;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ public class BrandServiceImpl implements BrandService {
 
     @Override
     public void add(Brand brand) {
-        brandMapper.add(brand);
+        brandMapper.insert(brand);
     }
 
     @Override
@@ -40,14 +40,14 @@ public class BrandServiceImpl implements BrandService {
     @Override
     public PageInfo<Brand> selectByPage(Integer page, Integer limit) {
         PageHelper.startPage(page, limit);  //设置分页参数
-        List<Brand> list = brandMapper.query(); //获取数据列表
+        List<Brand> list = brandMapper.select(); //获取数据列表
         PageInfo pageInfo = new PageInfo(list); //将列表转换为 PageInfo 类型的数据
         return pageInfo;
     }
 
     @Override
     public List<Brand> selectAll() {
-        List<Brand> list = brandMapper.queryAll();
+        List<Brand> list = brandMapper.selectAll();
         return list;
     }
 

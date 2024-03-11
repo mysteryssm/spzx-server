@@ -2,8 +2,8 @@ package com.spzx.admin.service.impl;
 
 import com.spzx.admin.mapper.CategoryBrandMapper;
 import com.spzx.admin.service.CategoryBrandService;
-import com.atguigu.spzx.model.dto.product.CategoryBrandDto;
-import com.atguigu.spzx.model.entity.product.CategoryBrand;
+import com.spzx.model.dto.product.CategoryBrandDto;
+import com.spzx.model.entity.product.CategoryBrand;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
 
     @Override
     public PageInfo<CategoryBrand> insert(CategoryBrand categoryBrand) {
-        categoryBrandMapper.add(categoryBrand);
+        categoryBrandMapper.inset(categoryBrand);
         return null;
     }
 
@@ -42,7 +42,7 @@ public class CategoryBrandServiceImpl implements CategoryBrandService {
     @Override
     public PageInfo<CategoryBrand> selectByPage(Integer page, Integer limit, CategoryBrandDto categoryBrandDto) {
         PageHelper.startPage(page, limit);
-        List<CategoryBrand> list = categoryBrandMapper.query(categoryBrandDto);
+        List<CategoryBrand> list = categoryBrandMapper.select(categoryBrandDto);
         PageInfo<CategoryBrand> pageInfo = new PageInfo<>(list);
         return pageInfo;
     }

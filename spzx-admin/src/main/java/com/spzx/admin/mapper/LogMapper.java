@@ -1,6 +1,6 @@
 package com.spzx.admin.mapper;
 
-import com.atguigu.spzx.model.entity.log.LogEntity;
+import com.spzx.model.entity.log.LogEntity;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

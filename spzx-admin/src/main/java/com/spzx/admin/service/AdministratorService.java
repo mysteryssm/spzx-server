@@ -1,10 +1,10 @@
 package com.spzx.admin.service;
 
-import com.atguigu.spzx.model.dto.system.AssignRoleDto;
-import com.atguigu.spzx.model.dto.system.LoginDto;
-import com.atguigu.spzx.model.dto.system.SysUserDto;
-import com.atguigu.spzx.model.entity.admin.Administrator;
-import com.atguigu.spzx.model.vo.system.LoginVo;
+import com.spzx.model.dto.system.AssignRoleDto;
+import com.spzx.model.dto.system.LoginDto;
+import com.spzx.model.dto.system.AdministratorDto;
+import com.spzx.model.entity.admin.Administrator;
+import com.spzx.model.vo.system.LoginVo;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -33,11 +33,11 @@ public interface AdministratorService {
 
     /**
      * @Description: 用户条件分页查询接口
-     * @param sysUserDto
+     * @param administratorDto
      * @param pageNum
      * @param pageSize
      */
-    PageInfo<Administrator> selectByPage(SysUserDto sysUserDto, Integer pageNum, Integer pageSize);
+    PageInfo<Administrator> selectByPage(AdministratorDto administratorDto, Integer pageNum, Integer pageSize);
 
     /**
      * @Description: 用户添加接口

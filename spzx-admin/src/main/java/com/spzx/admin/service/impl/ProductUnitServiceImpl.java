@@ -2,7 +2,7 @@ package com.spzx.admin.service.impl;
 
 import com.spzx.admin.mapper.ProductUnitMapper;
 import com.spzx.admin.service.ProductUnitService;
-import com.atguigu.spzx.model.entity.base.ProductUnit;
+import com.spzx.model.entity.base.ProductUnit;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

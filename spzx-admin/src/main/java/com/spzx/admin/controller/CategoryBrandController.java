@@ -1,11 +1,11 @@
 package com.spzx.admin.controller;
 
-import com.atguigu.spzx.common.log.annotation.Log;
+import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.CategoryBrandService;
-import com.atguigu.spzx.model.dto.product.CategoryBrandDto;
-import com.atguigu.spzx.model.entity.product.CategoryBrand;
-import com.atguigu.spzx.model.globalEnum.ResultCodeEnum;
-import com.atguigu.spzx.model.vo.common.Result;
+import com.spzx.model.dto.product.CategoryBrandDto;
+import com.spzx.model.entity.product.CategoryBrand;
+import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
