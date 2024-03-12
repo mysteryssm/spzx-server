@@ -22,7 +22,7 @@ public class UserLoginAuthInterceptor implements HandlerInterceptor {
         // 如果token不为空，那么此时验证token的合法性
         String userInfoJSON = redisTemplate.opsForValue().get("user:spzx:" + request.getHeader("token"));
         AuthContextUtil.setUserInfo(JSON.parseObject(userInfoJSON , UserInfo.class));
-        return true ;
+        return true;
 
     }
 

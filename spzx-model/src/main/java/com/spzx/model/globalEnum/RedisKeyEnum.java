@@ -10,7 +10,7 @@ import lombok.Getter;
 
 @Getter
 public enum RedisKeyEnum {
-    USER_LOGIN(1, "user:login:token:"),
+    USER_LOGIN_TOKEN(1, "user:login:token:"),
     USER_LOGIN_CAPTCHA(2, "user:login:captcha:"),
     CATEGORY_FIRST(3, "category:first");
 

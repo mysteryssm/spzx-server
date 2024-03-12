@@ -49,7 +49,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         if(antPathMatcher.match("/api/**/auth/**", path)) {
             if(null == userInfo) {
                 ServerHttpResponse response = exchange.getResponse();
-                return out(response, ResultCodeEnum.LOGIN_AUTH);
+                return out(response, ResultCodeEnum.USER_LOGIN_AUTH);
             }
         }
 

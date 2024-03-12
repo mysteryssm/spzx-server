@@ -44,7 +44,6 @@ public class IndexController {
         return Result.build(captchaVo, ResultCodeEnum.SUCCESS);
     }
 
-    @Log(title = "管理员登录", businessType = 0)
     @Operation(summary = "管理员登录")
     @PostMapping(value = "/login")
     public Result<LoginVo> login(@RequestBody LoginDto loginDto) {
@@ -73,7 +72,6 @@ public class IndexController {
         return Result.build(list, ResultCodeEnum.SUCCESS);
     }
 
-    @Log(title = "管理员退出登录", businessType = -1)
     @Operation(summary = "管理员退出登录")
     @GetMapping(value = "/logout")
     public Result logout(@RequestHeader(name = "token") String token) {

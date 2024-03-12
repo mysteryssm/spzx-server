@@ -27,7 +27,7 @@ public class AdminWebMvcConfiguration implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(adminLoginAuthInterceptor)
                 .excludePathPatterns(userAuthProperties.getNoAuthUrls())
-                .addPathPatterns("/**");
+                .addPathPatterns("/admin/**");
     }
 
     //允许跨域

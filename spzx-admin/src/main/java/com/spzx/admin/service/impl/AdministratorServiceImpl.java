@@ -65,7 +65,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         //验证用户是否存在
         if(administrator == null) {
             log.info("用户名为{}的用户不存在", loginDto.getUserName());
-            throw new GlobalException(ResultCodeEnum.LOGIN_ERROR); //用户不存在时抛出异常
+            throw new GlobalException(ResultCodeEnum.ADMINISTRATOR_LOGIN_ERROR); //用户不存在时抛出异常
         }
 
         String inputPassword = loginDto.getPassword(); //从loginDto中获取用户输入的密码
@@ -73,14 +73,14 @@ public class AdministratorServiceImpl implements AdministratorService {
         //验证密码是否正确
         if(!md5InputPassword.equals(administrator.getPassword())) {
             log.info("用户名为{}的用户密码不为{}", loginDto.getUserName(), md5InputPassword);
-            throw new GlobalException(ResultCodeEnum.LOGIN_ERROR); //密码错误时抛出异常
+            throw new GlobalException(ResultCodeEnum.ADMINISTRATOR_LOGIN_ERROR); //密码错误时抛出异常
         }
 
         redisTemplate.delete(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + codeKey);    //用户成功登录需要删除redis中的验证码
 
         String token = UUID.randomUUID().toString().replace("-", "");   // 生成token
         // 将token作为key放入Redis中，value为用户信息，并设置过期时间
-        redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token , JSON.toJSONString(administrator) , 7, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN_TOKEN.getKeyPrefix() + token , JSON.toJSONString(administrator) , 7, TimeUnit.DAYS);
 
         // 构建响应结果对象
         LoginVo loginVo = new LoginVo() ;
@@ -91,13 +91,13 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     public Administrator getUserInfo(String token) {
-        String AdministratorInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token);   // 通过 token 获取用户信息
+        String AdministratorInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN_TOKEN.getKeyPrefix() + token);   // 通过 token 获取用户信息
         return JSON.parseObject(AdministratorInfoJson , Administrator.class) ; // 将 json 格式的用户信息转换为 SysUser 类
     }
 
     @Override
     public void logout(String token) {
-        redisTemplate.delete(RedisKeyEnum.USER_LOGIN.getKeyPrefix() + token) ;
+        redisTemplate.delete(RedisKeyEnum.USER_LOGIN_TOKEN.getKeyPrefix() + token) ;
     }
 
     @Override
