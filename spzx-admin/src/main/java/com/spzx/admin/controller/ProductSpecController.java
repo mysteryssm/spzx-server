@@ -25,7 +25,7 @@ public class ProductSpecController {
     private ProductSpecService productSpecService ;
 
     @Operation(summary = "商品规格分页查询")
-    @GetMapping("/select{page}/{size}")
+    @GetMapping("/select/{page}/{size}")
     public Result<PageInfo<ProductSpec>> selectByPage(@PathVariable Integer page, @PathVariable Integer size) {
         PageInfo<ProductSpec> pageInfo = productSpecService.selectByPage(page, size);
         return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;

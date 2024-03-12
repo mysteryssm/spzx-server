@@ -46,7 +46,7 @@ public class ProductController {
     }
 
     @Operation(summary = "商品分页查询")
-    @GetMapping(value = "/select/{page}/{size}")
+    @PostMapping(value = "/select/{page}/{size}")
     public Result<PageInfo<Product>> selectByPage(@PathVariable Integer page,
                                                 @PathVariable Integer size,
                                                 @RequestBody ProductDto productDto) {
