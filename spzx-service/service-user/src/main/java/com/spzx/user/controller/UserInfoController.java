@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "用户注册")
+@Tag(name = "用户接口")
 @RestController
 @RequestMapping("api/user/userInfo")
 public class UserInfoController {
