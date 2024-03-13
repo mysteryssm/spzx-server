@@ -2,7 +2,7 @@ package com.spzx.common.log.util;
 
 import com.alibaba.fastjson.JSON;
 import com.spzx.common.log.annotation.Log;
-import com.spzx.model.entity.log.LogEntity;
+import com.spzx.model.entity.admin.LogEntity;
 import com.spzx.common.utils.AuthContextUtil;
 import io.netty.handler.codec.http.HttpMethod;
 import jakarta.servlet.http.HttpServletRequest;

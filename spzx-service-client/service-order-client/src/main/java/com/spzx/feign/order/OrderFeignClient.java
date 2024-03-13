@@ -1,6 +1,6 @@
 package com.spzx.feign.order;
 
-import com.spzx.model.entity.order.OrderInfo;
+import com.spzx.model.entity.webapp.OrderInfo;
 import com.spzx.model.vo.common.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,6 +1,6 @@
 package com.spzx.user.mapper;
 
-import com.spzx.model.entity.user.UserBrowseHistory;
+import com.spzx.model.entity.webapp.UserBrowseHistory;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;

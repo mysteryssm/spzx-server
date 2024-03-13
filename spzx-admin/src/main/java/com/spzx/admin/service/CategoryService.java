@@ -1,6 +1,6 @@
 package com.spzx.admin.service;
 
-import com.spzx.model.entity.product.Category;
+import com.spzx.model.entity.common.Category;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.multipart.MultipartFile;
 

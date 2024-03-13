@@ -12,8 +12,9 @@
     <artifactId>spzx-common</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>common-util</module>
+        <module>common-log</module>
         <module>common-service</module>
+        <module>common-util</module>
     </modules>
 
     <dependencies>

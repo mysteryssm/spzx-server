@@ -5,7 +5,7 @@ import cn.hutool.captcha.CircleCaptcha;
 import com.spzx.admin.service.CaptchaService;
 import com.spzx.model.globalEnum.RedisKeyEnum;
 import com.spzx.model.globalEnum.RedisValueEnum;
-import com.spzx.model.vo.system.CaptchaVo;
+import com.spzx.model.vo.admin.CaptchaVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -30,7 +30,7 @@ public class CaptchaServiceImpl implements CaptchaService {
         String imageBase64 = circleCaptcha.getImageBase64();    //返回图片验证码base64编码
         String captchaKey = UUID.randomUUID().toString().replace("-", "");     // 生成uuid作为图片验证码的key
 
-        redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + captchaKey, codeValue, 5 , TimeUnit.MINUTES);   // 将验证码存储到Redis中
+        redisTemplate.opsForValue().set(RedisKeyEnum.ADMINISTRATOR_LOGIN_CAPTCHA.getKeyPrefix() + captchaKey, codeValue, 5 , TimeUnit.MINUTES);   // 将验证码存储到Redis中
 
         // 构建验证码响应结果数据
         CaptchaVo captchaVo = new CaptchaVo() ;

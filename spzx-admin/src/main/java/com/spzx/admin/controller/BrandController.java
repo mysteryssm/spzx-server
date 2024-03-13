@@ -2,7 +2,7 @@ package com.spzx.admin.controller;
 
 import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.BrandService;
-import com.spzx.model.entity.product.Brand;
+import com.spzx.model.entity.common.Brand;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;

@@ -1,6 +1,6 @@
 package com.spzx.admin.service;
 
-import com.spzx.model.vo.system.CaptchaVo;
+import com.spzx.model.vo.admin.CaptchaVo;
 
 /**
  * @author ljl

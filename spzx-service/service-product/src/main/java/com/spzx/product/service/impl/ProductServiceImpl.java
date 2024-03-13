@@ -1,12 +1,12 @@
 package com.spzx.product.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.spzx.model.dto.h5.ProductSkuDto;
-import com.spzx.model.dto.product.SkuSaleDto;
-import com.spzx.model.entity.product.Product;
-import com.spzx.model.entity.product.ProductDetails;
-import com.spzx.model.entity.product.ProductSku;
-import com.spzx.model.vo.h5.ProductItemVo;
+import com.spzx.model.dto.webapp.ProductSkuDto;
+import com.spzx.model.dto.webapp.SkuSaleDto;
+import com.spzx.model.entity.common.Product;
+import com.spzx.model.entity.common.ProductDetails;
+import com.spzx.model.entity.common.ProductSku;
+import com.spzx.model.vo.webapp.ProductItemVo;
 import com.spzx.product.mapper.ProductDetailsMapper;
 import com.spzx.product.mapper.ProductMapper;
 import com.spzx.product.mapper.ProductSkuMapper;
@@ -35,13 +35,13 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDetailsMapper productDetailsMapper;
     @Override
-    public List<ProductSku> findProductSkuBySale() {
+    public List<ProductSku> selectProductSkuBySale() {
         return productSkuMapper.findProductSkuBySale();
     }
 
     // 接口实现类
     @Override
-    public PageInfo<ProductSku> findByPage(Integer page, Integer limit, ProductSkuDto productSkuDto) {
+    public PageInfo<ProductSku> selectByPage(Integer page, Integer limit, ProductSkuDto productSkuDto) {
         PageHelper.startPage(page, limit);
         List<ProductSku> productSkuList = productSkuMapper.findByPage(productSkuDto);
         return new PageInfo<>(productSkuList);

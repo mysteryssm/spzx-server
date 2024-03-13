@@ -1,6 +1,6 @@
 package com.spzx.user.mapper;
 
-import com.spzx.model.entity.user.UserInfo;
+import com.spzx.model.entity.webapp.UserInfo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 

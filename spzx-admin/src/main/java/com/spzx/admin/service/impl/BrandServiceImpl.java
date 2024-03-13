@@ -2,7 +2,7 @@ package com.spzx.admin.service.impl;
 
 import com.spzx.admin.mapper.BrandMapper;
 import com.spzx.admin.service.BrandService;
-import com.spzx.model.entity.product.Brand;
+import com.spzx.model.entity.common.Brand;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

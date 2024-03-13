@@ -1,12 +1,12 @@
 package com.spzx.user.controller;
 
-import com.spzx.model.dto.h5.UserLoginDto;
-import com.spzx.model.dto.h5.UserRegisterDto;
-import com.spzx.model.entity.user.UserBrowseHistory;
-import com.spzx.model.entity.user.UserCollect;
+import com.spzx.model.dto.webapp.UserLoginDto;
+import com.spzx.model.dto.webapp.UserRegisterDto;
+import com.spzx.model.entity.webapp.UserBrowseHistory;
+import com.spzx.model.entity.webapp.UserCollect;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalEnum.ResultCodeEnum;
-import com.spzx.model.vo.h5.UserInfoVo;
+import com.spzx.model.vo.webapp.UserInfoVo;
 import com.spzx.user.service.UserInfoService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;

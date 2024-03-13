@@ -1,7 +1,9 @@
 package com.spzx.user.service.impl;
 
+import com.spzx.model.globalEnum.RedisKeyEnum;
+import com.spzx.user.properties.SmsProperties;
 import com.spzx.user.service.SmsService;
-import com.spzx.common.utils.HttpUtils;
+import com.spzx.user.utils.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.http.HttpResponse;
@@ -21,60 +23,59 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Service
 public class SmsServiceImpl implements SmsService {
-    @Autowired
-    private RedisTemplate<String , String> redisTemplate ;
 
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
+
+    @Autowired
+    private SmsProperties smsProperties;
+
+    /**
+     * 通过第三方短信服务发送短信验证码
+     * @param phone
+     */
     @Override
-    public void sendValidateCode(String phone) {
+    public void captcha(String phone) {
+
         //查询redis是否已经缓存了验证码
-        String code = redisTemplate.opsForValue().get("phone:code:" + phone);
-        if(StringUtils.hasText(code)) {
+        String redisCaptcha = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + phone);
+        if(StringUtils.hasText(redisCaptcha)) {
             return;
         }
 
-        //1.如果没有就生成验证码
-        String validateCode = RandomStringUtils.randomNumeric(4);      // 生成验证码
-        log.info(validateCode);
-        //2.将验证码放入redisl里面，并设置过期时间5分钟
-        redisTemplate.opsForValue().set("phone:code:" + phone , validateCode , 5 , TimeUnit.MINUTES);
-        //3.向手机发送验证码
-//        sendSms(phone , validateCode);
+        String captcha = RandomStringUtils.randomNumeric(4);   //生成四位验证码
+
+        //将验证码放入redis，并设置过期时间5分钟
+        redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + phone, captcha , 5 , TimeUnit.MINUTES);
+
+        sendSms(phone, captcha);
     }
 
-    // 发送短信方法
-    public void sendSms(String phone, String validateCode) {
+    /**
+     * 传入手机号和生成的验证码，使用第三方服务进行发送
+     * @param phone
+     * @param captcha
+     */
+    public void sendSms(String phone, String captcha) {
 
-        String host = "https://gyytz.market.alicloudapi.com";
-        String path = "/sms/smsSend";
-        String method = "POST";
-        String appcode = "54391e15353b47aaa1069558fcc3d641";
-        Map<String, String> headers = new HashMap<String, String>();
-        //最后在header中的格式(中间是英文空格)为Authorization:APPCODE 83359fd73fe94948385f570e3c139105
-        headers.put("Authorization", "APPCODE " + appcode);
-        Map<String, String> querys = new HashMap<String, String>();
+        Map<String, String> headers = new HashMap<>();
+        Map<String, String> querys = new HashMap<>();
+        Map<String, String> bodys = new HashMap<>();
+
+        headers.put("Authorization", "APPCODE " + smsProperties.getAppcode());
+//        headers.put("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
         querys.put("mobile", phone);
-        querys.put("param", "**code**:"+validateCode + "**minute**:5");
-
-        //smsSignId（短信前缀）和templateId（短信模板），可登录国阳云控制台自助申请。参考文档：http://help.guoyangyun.com/Problem/Qm.html
-        querys.put("smsSignId", "2e65b1bb3d054466b82f0c9d125465e2");
-        querys.put("templateId", "908e94ccf08b4476ba6c876d13f084ad");
-        Map<String, String> bodys = new HashMap<String, String>();
-
+        querys.put("param", "**code**:" + captcha + "**minute**:5");
+        querys.put("smsSignId", smsProperties.getSmsSignId());
+        querys.put("templateId", smsProperties.getTemplateId());
 
         try {
-            /**
-             * 重要提示如下:
-             * HttpUtils请从\r\n\t    \t* https://github.com/aliyun/
-             * api-gateway-demo-sign-java/blob/master/src/main/java/com/
-             * aliyun/api/gateway/demo/util/HttpUtils.java\r\n\t    \t* 下载
-             *
-             * 相应的依赖请参照
-             * https://github.com/aliyun/api-gateway-demo-sign-java/blob/master/pom.xml
-             */
-            HttpResponse response = HttpUtils.doPost(host, path, method, headers, querys, bodys);
-            System.out.println(response.toString());
-            //获取response的body
-            //System.out.println(EntityUtils.toString(response.getEntity()));
+
+            HttpResponse response = HttpUtils.doPost(smsProperties.getHost(), smsProperties.getPath(),
+                    smsProperties.getMethod(), headers, querys, bodys);
+            log.info("短信验证码发送成功：" + captcha);
+            log.info(response.toString());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

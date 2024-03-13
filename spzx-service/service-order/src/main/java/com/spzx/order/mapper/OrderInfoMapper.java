@@ -1,6 +1,6 @@
 package com.spzx.order.mapper;
 
-import com.spzx.model.entity.order.OrderInfo;
+import com.spzx.model.entity.webapp.OrderInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

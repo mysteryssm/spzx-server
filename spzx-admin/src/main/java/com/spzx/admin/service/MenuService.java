@@ -1,8 +1,8 @@
 package com.spzx.admin.service;
 
-import com.spzx.model.dto.system.MenuDto;
+import com.spzx.model.dto.admin.MenuDto;
 import com.spzx.model.entity.admin.Menu;
-import com.spzx.model.vo.system.SysMenuVo;
+import com.spzx.model.vo.admin.MenuVo;
 
 import java.util.List;
 import java.util.Map;
@@ -27,5 +27,5 @@ public interface MenuService {
 
     void delete(Long id);
 
-    List<SysMenuVo> findMenusByUserId(Long userId);
+    List<MenuVo> findMenusByUserId(Long userId);
 }

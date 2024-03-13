@@ -1,7 +1,7 @@
 package com.spzx.common.service.interceptor;
 
 import com.alibaba.fastjson.JSON;
-import com.spzx.model.entity.user.UserInfo;
+import com.spzx.model.entity.webapp.UserInfo;
 import com.spzx.common.utils.AuthContextUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

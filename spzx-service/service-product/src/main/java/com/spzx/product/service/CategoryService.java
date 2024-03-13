@@ -1,6 +1,6 @@
 package com.spzx.product.service;
 
-import com.spzx.model.entity.product.Category;
+import com.spzx.model.entity.common.Category;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
 // 业务接口
 public interface CategoryService {
 
-    List<Category> findFirstCategory();
+    List<Category> selectFirstLevelCategory();
 
-    List<Category> findCategoryTree();
+    List<Category> selectAllCategory();
 }

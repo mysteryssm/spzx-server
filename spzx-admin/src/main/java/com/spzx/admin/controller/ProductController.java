@@ -1,8 +1,8 @@
 package com.spzx.admin.controller;
 
 import com.spzx.admin.service.ProductService;
-import com.spzx.model.dto.product.ProductDto;
-import com.spzx.model.entity.product.Product;
+import com.spzx.model.dto.admin.ProductDto;
+import com.spzx.model.entity.common.Product;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;

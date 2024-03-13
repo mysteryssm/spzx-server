@@ -1,6 +1,6 @@
 package com.spzx.feign.cart;
 
-import com.spzx.model.entity.h5.CartInfo;
+import com.spzx.model.entity.webapp.CartInfo;
 import com.spzx.model.vo.common.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

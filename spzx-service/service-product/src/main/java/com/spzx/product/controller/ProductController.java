@@ -1,47 +1,47 @@
 package com.spzx.product.controller;
 
 import com.spzx.feign.user.UserFeignClient;
-import com.spzx.model.dto.h5.ProductSkuDto;
-import com.spzx.model.dto.product.SkuSaleDto;
-import com.spzx.model.entity.product.ProductSku;
-import com.spzx.model.entity.user.UserBrowseHistory;
+import com.spzx.model.dto.webapp.ProductSkuDto;
+import com.spzx.model.dto.webapp.SkuSaleDto;
+import com.spzx.model.entity.common.ProductSku;
+import com.spzx.model.entity.webapp.UserBrowseHistory;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalEnum.ResultCodeEnum;
-import com.spzx.model.vo.h5.ProductItemVo;
+import com.spzx.model.vo.webapp.ProductItemVo;
 import com.spzx.product.service.ProductService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.simpleframework.xml.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Tag(name = "商品列表管理")
+@Tag(name = "商品接口")
 @RestController
-@RequestMapping(value="/api/product")
+@RequestMapping(value = "/api/product")
 @SuppressWarnings({"unchecked", "rawtypes"})
 public class ProductController {
 	
 	@Autowired
 	private ProductService productService;
 
-
 	@Autowired
 	private UserFeignClient userFeignClient;
 
-	@Operation(summary = "分页查询")
+	@Operation(summary = "商品分页查询")
 	@GetMapping(value = "/{page}/{limit}")
-	public Result<PageInfo<ProductSku>> findByPage(@Parameter(name = "page", description = "当前页码", required = true) @PathVariable Integer page,
-												   @Parameter(name = "limit", description = "每页记录数", required = true) @PathVariable Integer limit,
-												   @Parameter(name = "productSkuDto", description = "搜索条件对象", required = false) ProductSkuDto productSkuDto) {
-		PageInfo<ProductSku> pageInfo = productService.findByPage(page, limit, productSkuDto);
+	public Result<PageInfo<ProductSku>> findByPage(@PathVariable(name = "page") Integer page,
+												   @PathVariable(name = "limit") Integer limit,
+												   @RequestBody ProductSkuDto productSkuDto) {
+		PageInfo<ProductSku> pageInfo = productService.selectByPage(page, limit, productSkuDto);
 		return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
 	}
 
 	@Operation(summary = "商品详情")
-	@GetMapping("item/{skuId}")
+	@GetMapping(value = "/item/{skuId}")
 	public Result<ProductItemVo> item(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable String skuId) {
 		ProductItemVo productItemVo;
 		if (!"undefined".equals(skuId)) {
@@ -64,7 +64,7 @@ public class ProductController {
 	 * @param skuId
 	 */
 	@Operation(summary = "获取商品sku信息")
-	@GetMapping("getBySkuId/{skuId}")
+	@GetMapping(value = "/getBySkuId/{skuId}")
 	public ProductSku getBySkuId(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable Long skuId) {
 		ProductSku productSku = productService.getBySkuId(skuId);
 		return productSku;

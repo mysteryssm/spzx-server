@@ -5,7 +5,6 @@ com\spzx\admin\interceptor\AdminLoginAuthInterceptor.class
 com\spzx\admin\mapper\AdministratorMapper.class
 com\spzx\admin\service\ProductService.class
 com\spzx\admin\service\impl\AdministratorServiceImpl.class
-com\spzx\admin\properties\MinioProperties.class
 com\spzx\admin\service\impl\ProductSpecServiceImpl.class
 com\spzx\admin\mapper\MenuMapper.class
 com\spzx\admin\controller\MenuController.class
@@ -28,6 +27,7 @@ com\spzx\admin\controller\ProductCategoryController.class
 com\spzx\admin\mapper\ProductDetailsMapper.class
 com\spzx\admin\service\impl\CategoryBrandServiceImpl.class
 com\spzx\admin\properties\ALiYunOSSProperties.class
+com\spzx\admin\utils\MenuUtil.class
 com\spzx\admin\mapper\ProductMapper.class
 com\spzx\admin\mapper\OrderStatisticsMapper.class
 com\spzx\admin\task\OrderStatisticsTask.class

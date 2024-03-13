@@ -1,8 +1,9 @@
-package com.spzx.gateway.filter;// com.spzx.gateway.filter;
+package com.spzx.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.spzx.model.entity.user.UserInfo;
+import com.spzx.model.entity.webapp.UserInfo;
+import com.spzx.model.globalEnum.RedisKeyEnum;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
@@ -32,15 +33,10 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
-    //过滤器
-    //首页、分类、商品列表等这些页面当前不需要登录就可以访问；
-    //商品详情等不强制登录，如果需要收藏商品，那边就需要登录；
-    //购物车、订单等必须登录。
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        //1、获取请求路径
 
-        ServerHttpRequest request = exchange.getRequest();
+        ServerHttpRequest request = exchange.getRequest();  //获取请求路径
         String path = request.getURI().getPath();
         log.info("path {}", path);
 
@@ -78,7 +74,7 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             token = tokenList.get(0);
         }
         if(!StringUtils.isEmpty(token)) {
-            String userInfoJSON = redisTemplate.opsForValue().get("user:spzx:"+token);
+            String userInfoJSON = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN_TOKEN.getKeyPrefix() + token);
             if(StringUtils.isEmpty(userInfoJSON)) {
                 return null ;
             }else {

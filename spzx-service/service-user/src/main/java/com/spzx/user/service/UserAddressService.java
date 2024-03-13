@@ -1,6 +1,6 @@
 package com.spzx.user.service;
 
-import com.spzx.model.entity.user.UserAddress;
+import com.spzx.model.entity.webapp.UserAddress;
 
 import java.util.List;
 

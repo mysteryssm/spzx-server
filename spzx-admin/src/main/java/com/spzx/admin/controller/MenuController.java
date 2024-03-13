@@ -2,7 +2,7 @@ package com.spzx.admin.controller;
 
 import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.MenuService;
-import com.spzx.model.dto.system.MenuDto;
+import com.spzx.model.dto.admin.MenuDto;
 import com.spzx.model.entity.admin.Menu;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;

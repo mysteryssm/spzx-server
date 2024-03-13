@@ -10,9 +10,11 @@ import lombok.Getter;
 
 @Getter
 public enum RedisKeyEnum {
-    USER_LOGIN_TOKEN(1, "user:login:token:"),
-    USER_LOGIN_CAPTCHA(2, "user:login:captcha:"),
-    CATEGORY_FIRST(3, "category:first");
+    ADMINISTRATOR_LOGIN_TOKEN(1, "administrator:login:token:"),
+    ADMINISTRATOR_LOGIN_CAPTCHA(2, "administrator:login:captcha:"),
+    USER_LOGIN_TOKEN(3, "user:login:token:"),
+    USER_LOGIN_CAPTCHA(4, "user:login:captcha:"),
+    CATEGORY_FIRST(3, "category:first:");
 
     private Integer code;
     private String keyPrefix;

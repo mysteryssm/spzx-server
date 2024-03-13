@@ -2,8 +2,8 @@ package com.spzx.admin.controller;
 
 import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.AdministratorService;
-import com.spzx.model.dto.system.AssignRoleDto;
-import com.spzx.model.dto.system.AdministratorDto;
+import com.spzx.model.dto.admin.AssignRoleDto;
+import com.spzx.model.dto.admin.AdministratorDto;
 import com.spzx.model.entity.admin.Administrator;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;

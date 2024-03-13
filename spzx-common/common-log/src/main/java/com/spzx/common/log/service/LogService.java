@@ -1,6 +1,6 @@
 package com.spzx.common.log.service;
 
-import com.spzx.model.entity.log.LogEntity;
+import com.spzx.model.entity.admin.LogEntity;
 import org.springframework.stereotype.Service;
 
 @Service

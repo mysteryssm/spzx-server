@@ -1,6 +1,6 @@
 package com.spzx.product.controller;
 
-import com.spzx.model.entity.product.Category;
+import com.spzx.model.entity.common.Category;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import com.spzx.product.service.CategoryService;
@@ -16,8 +16,7 @@ import java.util.List;
 @Tag(name = "分类接口管理")
 @RestController
 @RequestMapping(value="/api/product/category")
-//@CrossOrigin//解决跨域
-//@SuppressWarnings({"unchecked", "rawtypes"})
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class CategoryController {
    
    @Autowired
@@ -26,7 +25,7 @@ public class CategoryController {
    @Operation(summary = "获取分类树形数据")
    @GetMapping("/findCategoryTree")
    public Result<List<Category>> findCategoryTree(){
-      List<Category> list = categoryService.findCategoryTree();
+      List<Category> list = categoryService.selectAllCategory();
       return Result.build(list,  ResultCodeEnum.SUCCESS);
    }
 

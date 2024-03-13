@@ -2,7 +2,7 @@ package com.spzx.admin.service.impl;
 
 import com.spzx.admin.mapper.ProductSpecMapper;
 import com.spzx.admin.service.ProductSpecService;
-import com.spzx.model.entity.product.ProductSpec;
+import com.spzx.model.entity.common.ProductSpec;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

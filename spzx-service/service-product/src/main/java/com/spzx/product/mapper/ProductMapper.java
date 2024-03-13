@@ -1,6 +1,6 @@
 package com.spzx.product.mapper;
 
-import com.spzx.model.entity.product.Product;
+import com.spzx.model.entity.common.Product;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

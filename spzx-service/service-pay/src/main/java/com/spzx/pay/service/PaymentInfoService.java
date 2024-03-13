@@ -1,6 +1,6 @@
 package com.spzx.pay.service;
 
-import com.spzx.model.entity.pay.PaymentInfo;
+import com.spzx.model.entity.webapp.PaymentInfo;
 
 import java.util.Map;
 

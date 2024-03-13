@@ -2,8 +2,8 @@ package com.spzx.admin.controller;
 
 import com.spzx.model.entity.admin.Role;
 import com.spzx.admin.service.RoleService;
-import com.spzx.model.dto.system.AssignMenuDto;
-import com.spzx.model.dto.system.RoleDto;
+import com.spzx.model.dto.admin.AssignMenuDto;
+import com.spzx.model.dto.admin.RoleDto;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;

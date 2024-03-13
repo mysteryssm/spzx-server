@@ -1,11 +1,11 @@
 package com.spzx.product.service;
 
-import com.spzx.model.entity.product.Brand;
+import com.spzx.model.entity.common.Brand;
 
 import java.util.List;
 
 public interface BrandService {
 
-    List<Brand> findAll();
+    List<Brand> selectAll();
 
 }

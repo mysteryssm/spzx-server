@@ -1,6 +1,6 @@
 package com.spzx.order.mapper;
 
-import com.spzx.model.entity.order.OrderLog;
+import com.spzx.model.entity.webapp.OrderLog;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

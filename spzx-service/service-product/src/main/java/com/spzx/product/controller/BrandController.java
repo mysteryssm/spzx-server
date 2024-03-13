@@ -1,6 +1,6 @@
 package com.spzx.product.controller;
 
-import com.spzx.model.entity.product.Brand;
+import com.spzx.model.entity.common.Brand;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import com.spzx.product.service.BrandService;
@@ -13,19 +13,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@Tag(name = "品牌管理")
+@Tag(name = "品牌接口")
 @RestController
 @RequestMapping(value="/api/product/brand")
-//@SuppressWarnings({"unchecked", "rawtypes"})
+@SuppressWarnings({"unchecked", "rawtypes"})
 public class BrandController {
    
    @Autowired
    private BrandService brandService;
    
-   @Operation(summary = "获取全部品牌")
+   @Operation(summary = "品牌查询")
    @GetMapping("/findAll")
-   public Result<List<Brand>> findAll() {
-      List<Brand> list = brandService.findAll();
+   public Result<List<Brand>> selectAll() {
+      List<Brand> list = brandService.selectAll();
       return Result.build(list, ResultCodeEnum.SUCCESS);
    }
 

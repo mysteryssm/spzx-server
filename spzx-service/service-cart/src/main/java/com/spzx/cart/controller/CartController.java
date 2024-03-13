@@ -2,7 +2,7 @@ package com.spzx.cart.controller;
 
 import com.spzx.cart.service.CartService;
 import com.spzx.feign.user.UserFeignClient;
-import com.spzx.model.entity.h5.CartInfo;
+import com.spzx.model.entity.webapp.CartInfo;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import io.swagger.v3.oas.annotations.Operation;

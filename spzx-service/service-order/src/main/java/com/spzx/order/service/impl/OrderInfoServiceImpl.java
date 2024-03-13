@@ -4,16 +4,16 @@ import com.spzx.common.service.exception.GlobalException;
 import com.spzx.feign.cart.CartFeignClient;
 import com.spzx.feign.product.ProductFeignClient;
 import com.spzx.feign.user.UserFeignClient;
-import com.spzx.model.dto.h5.OrderInfoDto;
-import com.spzx.model.entity.h5.CartInfo;
-import com.spzx.model.entity.order.OrderInfo;
-import com.spzx.model.entity.order.OrderItem;
-import com.spzx.model.entity.order.OrderLog;
-import com.spzx.model.entity.product.ProductSku;
-import com.spzx.model.entity.user.UserAddress;
-import com.spzx.model.entity.user.UserInfo;
+import com.spzx.model.dto.webapp.OrderDto;
+import com.spzx.model.entity.webapp.CartInfo;
+import com.spzx.model.entity.webapp.OrderInfo;
+import com.spzx.model.entity.webapp.OrderItem;
+import com.spzx.model.entity.webapp.OrderLog;
+import com.spzx.model.entity.common.ProductSku;
+import com.spzx.model.entity.webapp.UserAddress;
+import com.spzx.model.entity.webapp.UserInfo;
 import com.spzx.model.globalEnum.ResultCodeEnum;
-import com.spzx.model.vo.h5.TradeVo;
+import com.spzx.model.vo.webapp.TradeVo;
 import com.spzx.order.mapper.OrderInfoMapper;
 import com.spzx.order.mapper.OrderItemMapper;
 import com.spzx.order.mapper.OrderLogMapper;
@@ -90,9 +90,9 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Transactional
     @Override
-    public Long submitOrder(OrderInfoDto orderInfoDto) {
+    public Long submitOrder(OrderDto orderDto) {
         //1、获取order的InfoDto,获取所有订单项List List<OrderItem>
-        List<OrderItem> orderItemList = orderInfoDto.getOrderItemList();
+        List<OrderItem> orderItemList = orderDto.getOrderItemList();
 
         //2、判断List<OrderItem>为空，抛出异常
         if (CollectionUtils.isEmpty(orderItemList)) {
@@ -121,7 +121,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         //用户昵称
         orderInfo.setNickName(userInfo.getNickName());
         // 远程调用service-user模块的用户收货地址信息
-        UserAddress userAddress = userFeignClient.getUserAddress(orderInfoDto.getUserAddressId());
+        UserAddress userAddress = userFeignClient.getUserAddress(orderDto.getUserAddressId());
         orderInfo.setReceiverName(userAddress.getName());
         orderInfo.setReceiverPhone(userAddress.getPhone());
         orderInfo.setReceiverTagName(userAddress.getTagName());
@@ -137,7 +137,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         orderInfo.setTotalAmount(totalAmount);
         orderInfo.setCouponAmount(new BigDecimal(0));
         orderInfo.setOriginalTotalAmount(totalAmount);
-        orderInfo.setFeightFee(orderInfoDto.getFeightFee());
+        orderInfo.setFeightFee(orderDto.getFeightFee());
         orderInfo.setPayType(2);
         orderInfo.setOrderStatus(0);
         orderInfoMapper.save(orderInfo);

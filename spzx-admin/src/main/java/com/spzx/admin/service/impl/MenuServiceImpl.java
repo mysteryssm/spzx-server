@@ -5,10 +5,10 @@ import com.spzx.model.entity.admin.Menu;
 import com.spzx.admin.mapper.MenuMapper;
 import com.spzx.admin.mapper.RoleMenuMapper;
 import com.spzx.admin.service.MenuService;
-import com.spzx.model.dto.system.MenuDto;
+import com.spzx.model.dto.admin.MenuDto;
 import com.spzx.model.globalEnum.ResultCodeEnum;
-import com.spzx.model.vo.system.SysMenuVo;
-import com.spzx.common.utils.MenuUtil;
+import com.spzx.model.vo.admin.MenuVo;
+import com.spzx.admin.utils.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -84,10 +84,10 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<SysMenuVo> findMenusByUserId(Long userId) {
+    public List<MenuVo> findMenusByUserId(Long userId) {
         List<Menu> list = menuMapper.findMenusByUserId(userId);
         List<Menu> listTree = MenuUtil.buildTree(list);
-        List<SysMenuVo> menuVoList = MenuUtil.menuList2MenuVoList(listTree);
+        List<MenuVo> menuVoList = MenuUtil.menuList2MenuVoList(listTree);
 
         return menuVoList;
     }

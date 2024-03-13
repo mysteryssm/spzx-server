@@ -1,7 +1,7 @@
 package com.spzx.product.mapper;
 
-import com.spzx.model.dto.h5.ProductSkuDto;
-import com.spzx.model.entity.product.ProductSku;
+import com.spzx.model.dto.webapp.ProductSkuDto;
+import com.spzx.model.entity.common.ProductSku;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

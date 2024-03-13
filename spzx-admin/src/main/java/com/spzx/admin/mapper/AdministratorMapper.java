@@ -1,6 +1,6 @@
 package com.spzx.admin.mapper;
 
-import com.spzx.model.dto.system.AdministratorDto;
+import com.spzx.model.dto.admin.AdministratorDto;
 import com.spzx.model.entity.admin.Administrator;
 import org.apache.ibatis.annotations.Mapper;
 

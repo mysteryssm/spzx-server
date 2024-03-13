@@ -3,7 +3,7 @@
 
 <mapper namespace="com.spzx.order.mapper.OrderInfoMapper">
 
-    <resultMap id="orderInfoMap" type="com.spzx.model.entity.order.OrderInfo" autoMapping="true">
+    <resultMap id="orderInfoMap" type="com.spzx.model.entity.webapp.OrderInfo" autoMapping="true">
     </resultMap>
 
     <!-- 用于select查询公用抽取的列 -->

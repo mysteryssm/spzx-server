@@ -1,6 +1,6 @@
 package com.spzx.cart.service;
 
-import com.spzx.model.entity.h5.CartInfo;
+import com.spzx.model.entity.webapp.CartInfo;
 
 import java.util.List;
 

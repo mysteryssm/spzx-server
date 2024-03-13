@@ -1,7 +1,7 @@
 package com.spzx.admin.mapper;
 
-import com.spzx.model.dto.product.CategoryBrandDto;
-import com.spzx.model.entity.product.CategoryBrand;
+import com.spzx.model.dto.admin.CategoryBrandDto;
+import com.spzx.model.entity.common.CategoryBrand;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

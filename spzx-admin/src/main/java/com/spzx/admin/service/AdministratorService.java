@@ -1,10 +1,10 @@
 package com.spzx.admin.service;
 
-import com.spzx.model.dto.system.AssignRoleDto;
-import com.spzx.model.dto.system.LoginDto;
-import com.spzx.model.dto.system.AdministratorDto;
+import com.spzx.model.dto.admin.AssignRoleDto;
+import com.spzx.model.dto.admin.AdministratorLoginDto;
+import com.spzx.model.dto.admin.AdministratorDto;
 import com.spzx.model.entity.admin.Administrator;
-import com.spzx.model.vo.system.LoginVo;
+import com.spzx.model.vo.admin.LoginVo;
 import com.github.pagehelper.PageInfo;
 
 /**
@@ -17,7 +17,7 @@ public interface AdministratorService {
      * 根据用户名查询用户数据
      * @return
      */
-    public abstract LoginVo login(LoginDto loginDto) ;
+    public abstract LoginVo login(AdministratorLoginDto administratorLoginDto) ;
 
     /**
      * 根据token查询用户数据

@@ -6,13 +6,13 @@ import com.spzx.common.service.exception.GlobalException;
 import com.spzx.admin.mapper.AdministratorRoleMapper;
 import com.spzx.admin.mapper.AdministratorMapper;
 import com.spzx.admin.service.AdministratorService;
-import com.spzx.model.dto.system.AssignRoleDto;
-import com.spzx.model.dto.system.LoginDto;
-import com.spzx.model.dto.system.AdministratorDto;
+import com.spzx.model.dto.admin.AssignRoleDto;
+import com.spzx.model.dto.admin.AdministratorLoginDto;
+import com.spzx.model.dto.admin.AdministratorDto;
 import com.spzx.model.entity.admin.Administrator;
 import com.spzx.model.globalEnum.RedisKeyEnum;
 import com.spzx.model.globalEnum.ResultCodeEnum;
-import com.spzx.model.vo.system.LoginVo;
+import com.spzx.model.vo.admin.LoginVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import lombok.extern.slf4j.Slf4j;
@@ -43,11 +43,11 @@ public class AdministratorServiceImpl implements AdministratorService {
     private RedisTemplate<String , String> redisTemplate;
 
     @Override
-    public LoginVo login(LoginDto loginDto) {
+    public LoginVo login(AdministratorLoginDto administratorLoginDto) {
 
-        String captcha = loginDto.getCaptcha();     // 用户输入的验证码
-        String codeKey = loginDto.getCodeKey();     // 验证码的key，用于在Redis中查询对应的验证码
-        String redisCaptcha = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + codeKey);   //从Redis中获取验证码
+        String captcha = administratorLoginDto.getCaptcha();     // 用户输入的验证码
+        String codeKey = administratorLoginDto.getCodeKey();     // 验证码的key，用于在Redis中查询对应的验证码
+        String redisCaptcha = redisTemplate.opsForValue().get(RedisKeyEnum.ADMINISTRATOR_LOGIN_CAPTCHA.getKeyPrefix() + codeKey);   //从Redis中获取验证码
 
         // 校验验证码是否过期
         if (StrUtil.isEmpty(redisCaptcha)) {
@@ -61,26 +61,26 @@ public class AdministratorServiceImpl implements AdministratorService {
             throw new GlobalException(ResultCodeEnum.CAPTCHA_ERROR);   //验证码错误时抛出异常
         }
 
-        Administrator administrator = administratorMapper.queryUserByName(loginDto.getUserName());    //根据用户名查询用户
+        Administrator administrator = administratorMapper.queryUserByName(administratorLoginDto.getUserName());    //根据用户名查询用户
         //验证用户是否存在
         if(administrator == null) {
-            log.info("用户名为{}的用户不存在", loginDto.getUserName());
+            log.info("用户名为{}的用户不存在", administratorLoginDto.getUserName());
             throw new GlobalException(ResultCodeEnum.ADMINISTRATOR_LOGIN_ERROR); //用户不存在时抛出异常
         }
 
-        String inputPassword = loginDto.getPassword(); //从loginDto中获取用户输入的密码
+        String inputPassword = administratorLoginDto.getPassword(); //从loginDto中获取用户输入的密码
         String md5InputPassword = DigestUtils.md5DigestAsHex(inputPassword.getBytes()); // 将用户输入密码进行md5加密，32位小
         //验证密码是否正确
         if(!md5InputPassword.equals(administrator.getPassword())) {
-            log.info("用户名为{}的用户密码不为{}", loginDto.getUserName(), md5InputPassword);
+            log.info("用户名为{}的用户密码不为{}", administratorLoginDto.getUserName(), md5InputPassword);
             throw new GlobalException(ResultCodeEnum.ADMINISTRATOR_LOGIN_ERROR); //密码错误时抛出异常
         }
 
-        redisTemplate.delete(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + codeKey);    //用户成功登录需要删除redis中的验证码
+        redisTemplate.delete(RedisKeyEnum.ADMINISTRATOR_LOGIN_CAPTCHA.getKeyPrefix() + codeKey);    //用户成功登录需要删除redis中的验证码
 
         String token = UUID.randomUUID().toString().replace("-", "");   // 生成token
         // 将token作为key放入Redis中，value为用户信息，并设置过期时间
-        redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN_TOKEN.getKeyPrefix() + token , JSON.toJSONString(administrator) , 7, TimeUnit.DAYS);
+        redisTemplate.opsForValue().set(RedisKeyEnum.ADMINISTRATOR_LOGIN_TOKEN.getKeyPrefix() + token , JSON.toJSONString(administrator) , 7, TimeUnit.DAYS);
 
         // 构建响应结果对象
         LoginVo loginVo = new LoginVo() ;
@@ -91,13 +91,13 @@ public class AdministratorServiceImpl implements AdministratorService {
     }
 
     public Administrator getUserInfo(String token) {
-        String AdministratorInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN_TOKEN.getKeyPrefix() + token);   // 通过 token 获取用户信息
+        String AdministratorInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.ADMINISTRATOR_LOGIN_TOKEN.getKeyPrefix() + token);   // 通过 token 获取用户信息
         return JSON.parseObject(AdministratorInfoJson , Administrator.class) ; // 将 json 格式的用户信息转换为 SysUser 类
     }
 
     @Override
     public void logout(String token) {
-        redisTemplate.delete(RedisKeyEnum.USER_LOGIN_TOKEN.getKeyPrefix() + token) ;
+        redisTemplate.delete(RedisKeyEnum.ADMINISTRATOR_LOGIN_TOKEN.getKeyPrefix() + token) ;
     }
 
     @Override

@@ -3,7 +3,7 @@
 
 <mapper namespace="com.spzx.product.mapper.ProductDetailsMapper">
 
-    <resultMap id="productDetailsMap" type="com.spzx.model.entity.product.ProductDetails" autoMapping="true">
+    <resultMap id="productDetailsMap" type="com.spzx.model.entity.common.ProductDetails" autoMapping="true">
     </resultMap>
 
     <!-- 用于select查询公用抽取的列 -->

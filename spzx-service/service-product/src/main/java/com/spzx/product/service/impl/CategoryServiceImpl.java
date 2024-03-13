@@ -1,7 +1,7 @@
 package com.spzx.product.service.impl;
 
 import com.alibaba.fastjson.JSON;
-import com.spzx.model.entity.product.Category;
+import com.spzx.model.entity.common.Category;
 import com.spzx.model.globalEnum.RedisKeyEnum;
 import com.spzx.product.mapper.CategoryMapper;
 import com.spzx.product.service.CategoryService;
@@ -28,18 +28,18 @@ public class CategoryServiceImpl implements CategoryService {
     private RedisTemplate<String , String> redisTemplate ;
 
     @Override
-    public List<Category> findFirstCategory() {
+    public List<Category> selectFirstLevelCategory() {
 
         // 首先尝试从 Redis 中查询一级分类
         String categoryListJSON = redisTemplate.opsForValue().get(RedisKeyEnum.CATEGORY_FIRST.getKeyPrefix());
         if(!StringUtils.isEmpty(categoryListJSON)) {
+            // parseArray() 将 JSON 转为 List
             List<Category> categoryList = JSON.parseArray(categoryListJSON, Category.class);
-            log.info("从 Redis 中查询到一级分类");
             return categoryList;
         }
 
-        List<Category> categoryList = categoryMapper.findFirstCategory();
-        log.info("从MySQL中查询到一级分类");
+        // 否则从 MySQL 中查询一级分类
+        List<Category> categoryList = categoryMapper.selectFirstLevelCategory();
         redisTemplate.opsForValue().set(RedisKeyEnum.CATEGORY_FIRST.getKeyPrefix(),
                 JSON.toJSONString(categoryList) , 7 , TimeUnit.DAYS);
         return categoryList;
@@ -47,7 +47,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Cacheable(value = "category" , key = "'all'")
     @Override
-    public List<Category> findCategoryTree() {
+    public List<Category> selectAllCategory() {
         List<Category> categoryList = categoryMapper.findAll(); //查询所有分类，返回list集合
 
         //通过条件parentid=0得到所有的一级分类

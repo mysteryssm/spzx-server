@@ -71,7 +71,7 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.10.100:3306/db_spzx?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://121.41.52.4:3306/db_spzx?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
     username: root
     password: root
 ```
@@ -86,7 +86,7 @@ spring:
 # Redis的相关配置
 data:
   redis:
-    host: 192.168.10.100
+    host: 121.41.52.4
     port: 6379
 ```
 
@@ -96,7 +96,7 @@ data:
 # Redis的相关配置
 data:
   redis:
-    host: 192.168.10.100
+    host: 121.41.52.4
     port: 6379
 ```
 
@@ -108,7 +108,7 @@ data:
 cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: 121.41.52.4:8848
 ```
 
 2）启动
@@ -123,18 +123,18 @@ cloud:
 cloud:
     nacos:
       discovery:
-        server-addr: localhost:8848
+        server-addr: 121.41.52.4:8848
   # 配置数据库连接信息
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://192.168.10.100:3306/db_spzx?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
+    url: jdbc:mysql://121.41.52.4:3306/db_spzx?characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=GMT%2B8
     username: root
     password: root
   # Redis的相关配置
   data:
     redis:
-      host: 192.168.10.100
+      host: 121.41.52.4
       port: 6379
 ```
 

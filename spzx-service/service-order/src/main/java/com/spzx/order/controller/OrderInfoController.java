@@ -1,11 +1,11 @@
 package com.spzx.order.controller;
 
 import com.spzx.feign.user.UserFeignClient;
-import com.spzx.model.dto.h5.OrderInfoDto;
-import com.spzx.model.entity.order.OrderInfo;
+import com.spzx.model.dto.webapp.OrderDto;
+import com.spzx.model.entity.webapp.OrderInfo;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalEnum.ResultCodeEnum;
-import com.spzx.model.vo.h5.TradeVo;
+import com.spzx.model.vo.webapp.TradeVo;
 import com.spzx.order.service.OrderInfoService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,8 +35,8 @@ public class OrderInfoController {
 
    @Operation(summary = "提交订单")
    @PostMapping("auth/submitOrder")
-   public Result<Long> submitOrder(@Parameter(name = "orderInfoDto", description = "请求参数实体类", required = true) @RequestBody OrderInfoDto orderInfoDto) {
-      Long orderId = orderInfoService.submitOrder(orderInfoDto);
+   public Result<Long> submitOrder(@Parameter(name = "orderInfoDto", description = "请求参数实体类", required = true) @RequestBody OrderDto orderDto) {
+      Long orderId = orderInfoService.submitOrder(orderDto);
       return Result.build(orderId, ResultCodeEnum.SUCCESS);
    }
 

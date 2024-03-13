@@ -2,7 +2,7 @@ package com.spzx.common.log.aspect;
 
 import com.spzx.common.log.service.LogService;
 import com.spzx.common.log.util.LogUtil;
-import com.spzx.model.entity.log.LogEntity;
+import com.spzx.model.entity.admin.LogEntity;
 import com.spzx.common.log.annotation.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

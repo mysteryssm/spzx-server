@@ -5,7 +5,7 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.alipay.api.response.AlipayTradeWapPayResponse;
 import com.spzx.common.service.exception.GlobalException;
-import com.spzx.model.entity.pay.PaymentInfo;
+import com.spzx.model.entity.webapp.PaymentInfo;
 import com.spzx.model.globalEnum.ResultCodeEnum;
 import com.spzx.pay.properties.AlipayProperties;
 import com.spzx.pay.service.AlipayService;

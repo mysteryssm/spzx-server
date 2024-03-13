@@ -4,7 +4,7 @@
 
 <mapper namespace="com.spzx.user.mapper.UserAddressMapper">
 
-    <resultMap id="userAddressMap" type="com.spzx.model.entity.user.UserAddress" autoMapping="true">
+    <resultMap id="userAddressMap" type="com.spzx.model.entity.webapp.UserAddress" autoMapping="true">
     </resultMap>
 
     <!-- 用于select查询公用抽取的列 -->
@@ -34,7 +34,7 @@
         id = #{id}
     </select>
 
-    <update id="updateByid" parameterType="com.spzx.model.entity.user.UserAddress">
+    <update id="updateByid" parameterType="com.spzx.model.entity.webapp.UserAddress">
         UPDATE user_address
         <set>
             <!-- 使用动态SQL判断字段是否为空，如果不为空则进行更新 -->
@@ -71,7 +71,7 @@
     </update>
 
 
-    <insert id="save" parameterType="com.spzx.model.entity.user.UserAddress">
+    <insert id="save" parameterType="com.spzx.model.entity.webapp.UserAddress">
         insert into user_address
         (
             user_id,

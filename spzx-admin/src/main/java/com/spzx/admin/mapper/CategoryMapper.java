@@ -1,7 +1,7 @@
 package com.spzx.admin.mapper;
 
-import com.spzx.model.entity.product.Category;
-import com.spzx.model.vo.product.CategoryExcelVo;
+import com.spzx.model.entity.common.Category;
+import com.spzx.model.vo.admin.CategoryExcelVo;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.spzx.pay.mapper;
 
-import com.spzx.model.entity.pay.PaymentInfo;
+import com.spzx.model.entity.webapp.PaymentInfo;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper

@@ -1,6 +1,6 @@
 package com.spzx.admin.mapper;
 
-import com.spzx.model.dto.system.RoleDto;
+import com.spzx.model.dto.admin.RoleDto;
 import com.spzx.model.entity.admin.Role;
 import org.apache.ibatis.annotations.Mapper;
 

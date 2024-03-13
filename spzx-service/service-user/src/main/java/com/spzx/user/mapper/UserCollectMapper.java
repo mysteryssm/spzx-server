@@ -1,7 +1,7 @@
 package com.spzx.user.mapper;
 
-import com.spzx.model.entity.user.UserBrowseHistory;
-import com.spzx.model.entity.user.UserCollect;
+import com.spzx.model.entity.webapp.UserBrowseHistory;
+import com.spzx.model.entity.webapp.UserCollect;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

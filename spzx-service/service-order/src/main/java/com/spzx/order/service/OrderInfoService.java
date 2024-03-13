@@ -1,8 +1,8 @@
 package com.spzx.order.service;
 
-import com.spzx.model.dto.h5.OrderInfoDto;
-import com.spzx.model.entity.order.OrderInfo;
-import com.spzx.model.vo.h5.TradeVo;
+import com.spzx.model.dto.webapp.OrderDto;
+import com.spzx.model.entity.webapp.OrderInfo;
+import com.spzx.model.vo.webapp.TradeVo;
 import com.github.pagehelper.PageInfo;
 
 //业务接口
@@ -10,7 +10,7 @@ public interface OrderInfoService {
     TradeVo getTrade();
 
     //提交订单
-    Long submitOrder(OrderInfoDto orderInfoDto);
+    Long submitOrder(OrderDto orderDto);
 
     OrderInfo getOrderInfo(Long orderId);
 

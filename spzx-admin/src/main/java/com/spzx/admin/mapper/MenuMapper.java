@@ -1,6 +1,6 @@
 package com.spzx.admin.mapper;
 
-import com.spzx.model.dto.system.MenuDto;
+import com.spzx.model.dto.admin.MenuDto;
 import com.spzx.model.entity.admin.Menu;
 import org.apache.ibatis.annotations.Mapper;
 

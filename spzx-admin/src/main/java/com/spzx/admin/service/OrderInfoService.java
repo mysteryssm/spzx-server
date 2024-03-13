@@ -1,7 +1,7 @@
 package com.spzx.admin.service;
 
-import com.spzx.model.dto.order.OrderStatisticsDto;
-import com.spzx.model.vo.order.OrderStatisticsVo;
+import com.spzx.model.dto.admin.OrderStatisticsDto;
+import com.spzx.model.vo.admin.OrderStatisticsVo;
 
 /**
  * @author ljl

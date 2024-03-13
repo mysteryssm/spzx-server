@@ -33,11 +33,6 @@ spzx:
       - /webjars/**
       - /swagger-ui/**
       - /*/api-docs/**
-#  minio:
-#    endpointUrl: http://127.0.0.1:9090
-#    accessKey: yogi
-#    secreKey: 1448381936yckYCK
-#    bucketName: spzx-bucket
   alioss:
     endpoint: oss-cn-hangzhou.aliyuncs.com
     bucketName: spzx-bucket-yck

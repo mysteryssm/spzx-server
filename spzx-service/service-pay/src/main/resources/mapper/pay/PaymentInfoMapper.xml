@@ -3,7 +3,7 @@
 
 <mapper namespace="com.spzx.pay.mapper.PaymentInfoMapper">
 
-	<resultMap id="paymentInfoMap" type="com.spzx.model.entity.pay.PaymentInfo" autoMapping="true">
+	<resultMap id="paymentInfoMap" type="com.spzx.model.entity.webapp.PaymentInfo" autoMapping="true">
 	</resultMap>
 
 	<!-- 用于select查询公用抽取的列 -->

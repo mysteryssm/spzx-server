@@ -2,8 +2,8 @@ package com.spzx.admin.service.impl;
 
 import com.spzx.admin.mapper.CategoryBrandMapper;
 import com.spzx.admin.service.CategoryBrandService;
-import com.spzx.model.dto.product.CategoryBrandDto;
-import com.spzx.model.entity.product.CategoryBrand;
+import com.spzx.model.dto.admin.CategoryBrandDto;
+import com.spzx.model.entity.common.CategoryBrand;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;

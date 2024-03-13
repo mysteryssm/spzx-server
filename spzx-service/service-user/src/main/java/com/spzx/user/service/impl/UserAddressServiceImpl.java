@@ -1,6 +1,6 @@
 package com.spzx.user.service.impl;
 
-import com.spzx.model.entity.user.UserAddress;
+import com.spzx.model.entity.webapp.UserAddress;
 import com.spzx.user.mapper.UserAddressMapper;
 import com.spzx.user.mapper.UserRegionMapper;
 import com.spzx.user.service.UserAddressService;

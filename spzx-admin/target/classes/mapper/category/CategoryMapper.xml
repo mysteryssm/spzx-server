@@ -5,7 +5,7 @@
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
 <mapper namespace="com.spzx.admin.mapper.CategoryMapper">
 
-    <resultMap id="categoryMap" type="com.spzx.model.entity.product.Category" autoMapping="true">
+    <resultMap id="categoryMap" type="com.spzx.model.entity.common.Category" autoMapping="true">
     </resultMap>
 
     <!-- 用于select查询公用抽取的列 -->

@@ -3,9 +3,9 @@ package com.spzx.admin.service.impl;
 import cn.hutool.core.date.DateUtil;
 import com.spzx.admin.mapper.OrderStatisticsMapper;
 import com.spzx.admin.service.OrderInfoService;
-import com.spzx.model.dto.order.OrderStatisticsDto;
-import com.spzx.model.entity.order.OrderStatistics;
-import com.spzx.model.vo.order.OrderStatisticsVo;
+import com.spzx.model.dto.admin.OrderStatisticsDto;
+import com.spzx.model.entity.admin.OrderStatistics;
+import com.spzx.model.vo.admin.OrderStatisticsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

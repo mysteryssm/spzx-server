@@ -1,7 +1,7 @@
 package com.spzx.common.utils;
 
 import com.spzx.model.entity.admin.Administrator;
-import com.spzx.model.entity.user.UserInfo;
+import com.spzx.model.entity.webapp.UserInfo;
 
 /**
  * @author ljl

@@ -1,10 +1,10 @@
 package com.spzx.user.service;
 
-import com.spzx.model.dto.h5.UserLoginDto;
-import com.spzx.model.dto.h5.UserRegisterDto;
-import com.spzx.model.entity.user.UserBrowseHistory;
-import com.spzx.model.entity.user.UserCollect;
-import com.spzx.model.vo.h5.UserInfoVo;
+import com.spzx.model.dto.webapp.UserLoginDto;
+import com.spzx.model.dto.webapp.UserRegisterDto;
+import com.spzx.model.entity.webapp.UserBrowseHistory;
+import com.spzx.model.entity.webapp.UserCollect;
+import com.spzx.model.vo.webapp.UserInfoVo;
 import com.github.pagehelper.PageInfo;
 
 // 业务接口

@@ -1,6 +1,6 @@
 package com.spzx.admin.service;
 
-import com.spzx.model.entity.product.ProductSpec;
+import com.spzx.model.entity.common.ProductSpec;
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;

@@ -1,6 +1,6 @@
 package com.spzx.user.mapper;
 
-import com.spzx.model.entity.user.UserAddress;
+import com.spzx.model.entity.webapp.UserAddress;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

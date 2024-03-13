@@ -1,6 +1,6 @@
 package com.spzx.product.service.impl;
 
-import com.spzx.model.entity.product.Brand;
+import com.spzx.model.entity.common.Brand;
 import com.spzx.product.mapper.BrandMapper;
 import com.spzx.product.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class BrandServiceImpl implements BrandService {
     //这是为了避免缓存的是空对象或空集合导致的不必要的开销和缓存污染问题。
 	@Cacheable(value = "brandList", unless="#result.size() == 0")
     @Override
-    public List<Brand> findAll() {
-        return brandMapper.findAll();
+    public List<Brand> selectAll() {
+        return brandMapper.selectAll();
     }
 
 }

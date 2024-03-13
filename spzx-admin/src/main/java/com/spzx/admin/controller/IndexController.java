@@ -1,16 +1,15 @@
 package com.spzx.admin.controller;
 
-import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.MenuService;
 import com.spzx.admin.service.AdministratorService;
 import com.spzx.admin.service.CaptchaService;
-import com.spzx.model.dto.system.LoginDto;
+import com.spzx.model.dto.admin.AdministratorLoginDto;
 import com.spzx.model.entity.admin.Administrator;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalEnum.ResultCodeEnum;
-import com.spzx.model.vo.system.CaptchaVo;
-import com.spzx.model.vo.system.LoginVo;
-import com.spzx.model.vo.system.SysMenuVo;
+import com.spzx.model.vo.admin.CaptchaVo;
+import com.spzx.model.vo.admin.LoginVo;
+import com.spzx.model.vo.admin.MenuVo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +37,7 @@ public class IndexController {
     private CaptchaService captchaService;
 
     @Operation(summary = "验证码生成")
-    @GetMapping("/captcha")
+    @GetMapping(value = "/captcha")
     public Result<CaptchaVo> getCaptcha() {
         CaptchaVo captchaVo = captchaService.generateCaptcha();
         return Result.build(captchaVo, ResultCodeEnum.SUCCESS);
@@ -46,8 +45,8 @@ public class IndexController {
 
     @Operation(summary = "管理员登录")
     @PostMapping(value = "/login")
-    public Result<LoginVo> login(@RequestBody LoginDto loginDto) {
-        LoginVo loginVo = administratorService.login(loginDto);
+    public Result<LoginVo> login(@RequestBody AdministratorLoginDto administratorLoginDto) {
+        LoginVo loginVo = administratorService.login(administratorLoginDto);
         return Result.build(loginVo, ResultCodeEnum.SUCCESS);
     }
 
@@ -66,9 +65,9 @@ public class IndexController {
 
     @Operation(summary = "管理员菜单界面生成")
     @GetMapping("/menus")
-    public Result<List<SysMenuVo>> getMenus(@RequestHeader(name = "token") String token) {
+    public Result<List<MenuVo>> getMenus(@RequestHeader(name = "token") String token) {
         Administrator administrator = administratorService.getUserInfo(token);
-        List<SysMenuVo> list = menuService.findMenusByUserId(administrator.getId());
+        List<MenuVo> list = menuService.findMenusByUserId(administrator.getId());
         return Result.build(list, ResultCodeEnum.SUCCESS);
     }
 

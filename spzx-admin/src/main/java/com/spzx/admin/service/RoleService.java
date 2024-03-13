@@ -1,7 +1,7 @@
 package com.spzx.admin.service;
 
-import com.spzx.model.dto.system.AssignMenuDto;
-import com.spzx.model.dto.system.RoleDto;
+import com.spzx.model.dto.admin.AssignMenuDto;
+import com.spzx.model.dto.admin.RoleDto;
 import com.spzx.model.entity.admin.Role;
 import com.github.pagehelper.PageInfo;
 
