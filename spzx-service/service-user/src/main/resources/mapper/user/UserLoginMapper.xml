@@ -3,7 +3,7 @@
 
 <mapper namespace="com.spzx.user.mapper.UserLoginMapper">
 
-    <resultMap id="userInfoMap" type="com.spzx.model.entity.webapp.UserInfo" autoMapping="true">
+    <resultMap id="userInfoMap" type="com.spzx.model.entity.webapp.User" autoMapping="true">
     </resultMap>
 
     <!-- 用于select查询公用抽取的列 -->

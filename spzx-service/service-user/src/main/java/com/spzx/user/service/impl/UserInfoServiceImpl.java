@@ -7,7 +7,7 @@ import com.spzx.feign.product.ProductFeignClient;
 import com.spzx.model.entity.common.ProductSku;
 import com.spzx.model.entity.webapp.UserBrowseHistory;
 import com.spzx.model.entity.webapp.UserCollect;
-import com.spzx.model.entity.webapp.UserInfo;
+import com.spzx.model.entity.webapp.User;
 import com.spzx.model.globalConstant.RedisKeyEnum;
 import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.webapp.UserInfoVo;
@@ -53,19 +53,19 @@ public class UserInfoServiceImpl implements UserInfoService {
 			throw new GlobalException(ResultCodeEnum.USER_LOGIN_AUTH);
 		}
 
-		UserInfo userInfo = JSON.parseObject(userInfoJSON , UserInfo.class);
+		User user = JSON.parseObject(userInfoJSON , User.class);
 		UserInfoVo userInfoVo = new UserInfoVo();
 
 		// 将用户信息转化为 响应结果实体类
-		BeanUtils.copyProperties(userInfo, userInfoVo);
+		BeanUtils.copyProperties(user, userInfoVo);
 		return userInfoVo;
 	}
 
 	@Override
 	public void saveUserCollect(Long id) {
-		UserInfo userInfo = AuthContextUtil.getUserInfo();
+		User user = AuthContextUtil.getUser();
 		UserCollect userCollect = new UserCollect();
-		userCollect.setUserId(userInfo.getId());
+		userCollect.setUserId(user.getId());
 		userCollect.setCreateTime(new Date());
 		userCollect.setUpdateTime(new Date());
 		userCollect.setSkuId(id);
@@ -76,9 +76,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public PageInfo<UserCollect> findUserBrowseHistoryPage(Integer page, Integer limit) {
 		PageHelper.startPage(page , limit) ;
-		UserInfo userInfo = AuthContextUtil.getUserInfo();
+		User user = AuthContextUtil.getUser();
 		//根据条件查询所有数据
-		List<UserCollect> userCollects = userCollectMapper.findUserBrowseHistoryPage(userInfo.getId()) ;
+		List<UserCollect> userCollects = userCollectMapper.findUserBrowseHistoryPage(user.getId()) ;
 		//查询商品的suk信息
 		List<ProductSkuVO> productSkus = new ArrayList<>();
 
@@ -96,9 +96,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	public PageInfo<UserBrowseHistory> findUserCollectPage(Integer page, Integer limit) {
 		PageHelper.startPage(page , limit) ;
-		UserInfo userInfo = AuthContextUtil.getUserInfo();
+		User user = AuthContextUtil.getUser();
 		//根据条件查询所有数据
-		List<UserBrowseHistory> userBrowseHistories = userCollectMapper.findUserCollectPage(userInfo.getId()) ;
+		List<UserBrowseHistory> userBrowseHistories = userCollectMapper.findUserCollectPage(user.getId()) ;
 		//查询商品的suk信息
 		List<ProductSkuVO> productSkus = new ArrayList<>();
 		for (UserBrowseHistory userBrowseHistory : userBrowseHistories) {
@@ -116,8 +116,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Transactional
 	@Override
 	public void updatecancelCollect(Long skuId) {
-		UserInfo userInfo = AuthContextUtil.getUserInfo();
-		userBrowseHistoryMapper.updatecancelCollect(skuId , userInfo.getId());
+		User user = AuthContextUtil.getUser();
+		userBrowseHistoryMapper.updatecancelCollect(skuId , user.getId());
 
 	}
 
@@ -125,13 +125,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 	@Override
 	@Transactional
 	public void savecollect(Long skuId) {
-		UserInfo userInfo = AuthContextUtil.getUserInfo();
-		if (userInfo != null) {
-			UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectcollect(skuId, userInfo.getId());
+		User user = AuthContextUtil.getUser();
+		if (user != null) {
+			UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectcollect(skuId, user.getId());
 			if (userBrowseHistory == null) {
-				userBrowseHistoryMapper.savecollect(skuId, userInfo.getId());
+				userBrowseHistoryMapper.savecollect(skuId, user.getId());
 			} else {
-				userBrowseHistoryMapper.updatecollect(skuId, userInfo.getId());
+				userBrowseHistoryMapper.updatecollect(skuId, user.getId());
 			}
 		} else {
 			throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
@@ -141,9 +141,9 @@ public class UserInfoServiceImpl implements UserInfoService {
 	//查询商品是否已经收藏
 	@Override
 	public Boolean findUserisCollect(Long skuId) {
-		UserInfo userInfo = AuthContextUtil.getUserInfo();
-		if (userInfo != null) {
-			UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectusercollect(skuId, userInfo.getId());
+		User user = AuthContextUtil.getUser();
+		if (user != null) {
+			UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectusercollect(skuId, user.getId());
 			if (userBrowseHistory == null) {
 				return false;
 			} else {

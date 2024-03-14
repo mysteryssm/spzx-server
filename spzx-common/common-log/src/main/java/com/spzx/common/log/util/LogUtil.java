@@ -46,7 +46,7 @@ public class LogUtil {
                 logEntity.setOperParam(params);
             }
         }
-        logEntity.setOperName(AuthContextUtil.get().getUserName());
+        logEntity.setOperName(AuthContextUtil.getAdministrator().getUserName());
     }
 
     //操作执行之后调用

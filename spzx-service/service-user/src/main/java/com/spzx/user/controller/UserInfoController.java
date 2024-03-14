@@ -1,5 +1,8 @@
 package com.spzx.user.controller;
 
+import cn.hutool.core.bean.BeanUtil;
+import com.spzx.common.utils.AuthContextUtil;
+import com.spzx.model.entity.webapp.User;
 import com.spzx.model.entity.webapp.UserBrowseHistory;
 import com.spzx.model.entity.webapp.UserCollect;
 import com.spzx.model.vo.common.Result;
@@ -22,15 +25,20 @@ public class UserInfoController {
     private UserInfoService userInfoService;
 
     @Operation(summary = "当前登录用户信息获取")
-    @GetMapping("/auth/getCurrentUserInfo")
+    @GetMapping(value = "/auth/getCurrentUserInfo")
     public Result<UserInfoVo> getCurrentUserInfo(HttpServletRequest request) {
         String token = request.getHeader("token");
-        UserInfoVo userInfoVo = userInfoService.getCurrentUserInfo(token) ;
-        return Result.build(userInfoVo , ResultCodeEnum.SUCCESS) ;
+        UserInfoVo userInfoVo = userInfoService.getCurrentUserInfo(token);
+
+//        User user = AuthContextUtil.getUser();
+//        UserInfoVo userInfoVo = new UserInfoVo();
+//        BeanUtil.copyProperties(user, userInfoVo);
+
+        return Result.build(userInfoVo, ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "新增商品浏览信息")
-    @GetMapping("/isCollect/{id}")
+    @GetMapping(value = "/isCollect/{id}")
     public Result<UserInfoVo> saveUserCollect(@PathVariable("id") String id) {
         if ("undefined".equals(id)){
             return Result.build(false , ResultCodeEnum.SUCCESS) ;
@@ -45,22 +53,24 @@ public class UserInfoController {
     }
 
     @Operation(summary = "商品浏览信息分页展示")
-    @GetMapping("/auth/findUserBrowseHistoryPage/{page}/{limit}")
-    public Result<UserInfoVo> findUserBrowseHistoryPage(@PathVariable Integer page, @PathVariable Integer limit) {
+    @GetMapping(value = "/auth/findUserBrowseHistoryPage/{page}/{limit}")
+    public Result<UserInfoVo> findUserBrowseHistoryPage(@PathVariable(name = "page") Integer page,
+                                                        @PathVariable(name = "limit") Integer limit) {
         PageInfo<UserCollect> pageInfo = userInfoService.findUserBrowseHistoryPage(page, limit);
         return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "收藏商品分页展示")
-    @GetMapping("/auth/findUserCollectPage/{page}/{limit}")
-    public Result<UserInfoVo> findUserCollectPage(@PathVariable Integer page, @PathVariable Integer limit) {
+    @GetMapping(value = "/auth/findUserCollectPage/{page}/{limit}")
+    public Result<UserInfoVo> findUserCollectPage(@PathVariable(name = "page") Integer page,
+                                                  @PathVariable(name = "limit") Integer limit) {
         PageInfo<UserBrowseHistory> pageInfo = userInfoService.findUserCollectPage(page, limit);
         return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "取消收藏")
     @GetMapping("/auth/cancelCollect/{skuId}")
-    public Result updatecancelCollect(@PathVariable String skuId) {
+    public Result updatecancelCollect(@PathVariable(name = "skuId") String skuId) {
         // 参数校验，确保skuId不为空
         if (skuId == null || skuId.isEmpty() || skuId.equals("undefined")) {
             // 获取当前浏览量最多的商品并取消收藏
@@ -74,8 +84,8 @@ public class UserInfoController {
 
 
     @Operation(summary = "添加收藏")
-    @GetMapping("/auth/collect/{skuId}")
-    public Result savecollect(@PathVariable String skuId) {
+    @GetMapping(value = "/auth/collect/{skuId}")
+    public Result savecollect(@PathVariable(name = "skuId") String skuId) {
         // 参数校验，确保skuId不为空
         if (skuId == null || skuId.isEmpty() || skuId.equals("undefined")) {
             // 获取当前浏览量最多的商品

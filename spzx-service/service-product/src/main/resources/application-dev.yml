@@ -7,6 +7,8 @@ spring:
   cloud:
     nacos:
       discovery:
+        ip: 120.27.201.144
+        port: 1452
         server-addr: 121.41.52.4:8848
   # 配置数据库连接信息
   datasource:

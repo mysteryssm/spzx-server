@@ -33,7 +33,7 @@ public class AlipayController {
     private PaymentInfoService paymentInfoService;
 
     @Operation(summary="支付宝下单")
-    @GetMapping("submitAlipay/{orderNo}")
+    @GetMapping(value = "/submitAlipay/{orderNo}")
     @ResponseBody
     public Result<String> submitAlipay(@Parameter(name = "orderNo", description = "订单号", required = true) @PathVariable(value = "orderNo") String orderNo) {
         String form = alipayService.submitAlipay(orderNo);
@@ -41,7 +41,7 @@ public class AlipayController {
     }
 
     @Operation(summary="支付宝异步回调")
-    @RequestMapping("callback/notify")
+    @RequestMapping(value = "/callback/notify")
     @ResponseBody
     public String alipayNotify(@RequestParam Map<String, String> paramMap, HttpServletRequest request) {
         log.info("AlipayController...alipayNotify方法执行了...");

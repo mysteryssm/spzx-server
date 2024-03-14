@@ -25,22 +25,23 @@ public class UserLoginController {
     private UserLoginService userLoginService;
 
     @Operation(summary = "用户注册")
-    @PostMapping("/register")
+    @PostMapping(value = "/register")
     public Result register(@RequestBody UserRegisterDto userRegisterDto) {
         userLoginService.register(userRegisterDto);
         return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "用户登录")
-    @PostMapping("/login")
+    @PostMapping(value = "/login")
     public Result<String> login(@RequestBody UserLoginDto userLoginDto) {
         String token = userLoginService.login(userLoginDto);
         return Result.build(userLoginService.login(userLoginDto), ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "用户退出登录")
-    @PostMapping("/logout")
+    @PostMapping(value = "/logout")
     public Result logout(@RequestParam(name = "token") String token) {
+        userLoginService.logout(token);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 

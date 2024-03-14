@@ -23,7 +23,7 @@ public class UserAddressServiceImpl implements UserAddressService {
    //获取用户地址列表
    @Override
    public List<UserAddress> findUserAddressList() {
-      Long userId = AuthContextUtil.getUserInfo().getId();
+      Long userId = AuthContextUtil.getUser().getId();
       return userAddressMapper.findByUserId(userId);
    }
 
@@ -48,7 +48,7 @@ public class UserAddressServiceImpl implements UserAddressService {
    @Override
    public void save(UserAddress userAddress) {
       //获取用户userID
-      Long userId = AuthContextUtil.getUserInfo().getId();
+      Long userId = AuthContextUtil.getUser().getId();
       userAddress.setUserId(userId);
       //拼接全部地址
       String provinceCode = userRegionMapper.selectByCode(userAddress.getProvinceCode());

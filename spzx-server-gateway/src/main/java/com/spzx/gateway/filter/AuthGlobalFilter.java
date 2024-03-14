@@ -2,7 +2,7 @@ package com.spzx.gateway.filter;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.spzx.model.entity.webapp.UserInfo;
+import com.spzx.model.entity.webapp.User;
 import com.spzx.model.globalConstant.RedisKeyEnum;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalConstant.ResultCodeEnum;
@@ -29,27 +29,27 @@ import java.util.List;
 public class AuthGlobalFilter implements GlobalFilter, Ordered {
 
     @Autowired
-    private RedisTemplate<String , String> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     private AntPathMatcher antPathMatcher = new AntPathMatcher();
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        ServerHttpRequest request = exchange.getRequest();  //获取请求路径
-        String path = request.getURI().getPath();
-        log.info("path {}", path);
+        ServerHttpRequest request = exchange.getRequest();  // 获取请求
+        String path = request.getURI().getPath();   // 从请求中取出请求路径
 
-        UserInfo userInfo = this.getUserInfo(request);
-        ////2、判断请求路径是否满足规则，api接口，异步请求，校验用户必须登录
+
+        // 判断请求路径是否需要校验
         if(antPathMatcher.match("/api/**/auth/**", path)) {
-            if(null == userInfo) {
+            User user = this.getUserInfo(request);  // 从请求中获取用户信息
+            if(null == user) {
                 ServerHttpResponse response = exchange.getResponse();
-                return out(response, ResultCodeEnum.USER_LOGIN_AUTH);
+                return out(response, ResultCodeEnum.USER_LOGIN_AUTH);   // 用户未登录返回错误信息
             }
         }
 
-        return chain.filter(exchange);
+        return chain.filter(exchange);  // 放行
     }
 
     @Override
@@ -57,17 +57,12 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
         return 0;
     }
 
-    //返回错误信息
-    private Mono<Void> out(ServerHttpResponse response, ResultCodeEnum resultCodeEnum) {
-        Result result = Result.build(null, resultCodeEnum);
-        byte[] bits = JSONObject.toJSONString(result).getBytes(StandardCharsets.UTF_8);
-        DataBuffer buffer = response.bufferFactory().wrap(bits);
-        //指定编码，否则在浏览器中会中文乱码
-        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
-        return response.writeWith(Mono.just(buffer));
-    }
-
-    private UserInfo getUserInfo(ServerHttpRequest request) {
+    /**
+     * 从请求中获取用户信息
+     * @param request
+     * @return
+     */
+    private User getUserInfo(ServerHttpRequest request) {
         String token = "";
         List<String> tokenList = request.getHeaders().get("token");
         if(null  != tokenList) {
@@ -78,9 +73,25 @@ public class AuthGlobalFilter implements GlobalFilter, Ordered {
             if(StringUtils.isEmpty(userInfoJSON)) {
                 return null ;
             }else {
-                return JSON.parseObject(userInfoJSON , UserInfo.class) ;
+                return JSON.parseObject(userInfoJSON , User.class) ;
             }
         }
         return null;
     }
+
+    /**
+     * 返回错误信息
+     * @param response
+     * @param resultCodeEnum
+     * @return
+     */
+    private Mono<Void> out(ServerHttpResponse response, ResultCodeEnum resultCodeEnum) {
+        Result result = Result.build(null, resultCodeEnum);
+        byte[] bits = JSONObject.toJSONString(result).getBytes(StandardCharsets.UTF_8);
+        DataBuffer buffer = response.bufferFactory().wrap(bits);
+        //指定编码，否则在浏览器中会中文乱码
+        response.getHeaders().add("Content-Type", "application/json;charset=UTF-8");
+        return response.writeWith(Mono.just(buffer));
+    }
+
 }

@@ -48,21 +48,23 @@ public class AdminLoginAuthInterceptor implements HandlerInterceptor {
         }
 
         //若用户信息为空，则返回用户未登录状态码给前端并拦截请求
-        String AdministratorInfoJson = redisTemplate.opsForValue().get(RedisKeyEnum.ADMINISTRATOR_LOGIN_TOKEN.getKeyPrefix() + token);
-        if(StrUtil.isEmpty(AdministratorInfoJson)) {
+        String AdministratorJson = redisTemplate.opsForValue().get(RedisKeyEnum.ADMINISTRATOR_LOGIN_TOKEN.getKeyPrefix() + token);
+        if(StrUtil.isEmpty(AdministratorJson)) {
             responseNoLoginInfo(response);
             return false;
         }
 
-        Administrator administrator = JSON.parseObject(AdministratorInfoJson, Administrator.class); // 将 JSON 格式的用户系统转化为对应的实体类
-        AuthContextUtil.set(administrator);   //将用户数据存储到 ThreadLocal 中
+        Administrator administrator = JSON.parseObject(AdministratorJson, Administrator.class); // 将 JSON 格式的用户系统转化为对应的实体类
+        AuthContextUtil.setAdministrator(administrator);   //将用户数据存储到 ThreadLocal 中
 
+        // 获取当前 token 的过期时间
         Long oldExpire = redisTemplate.getExpire(RedisKeyEnum.ADMINISTRATOR_LOGIN_TOKEN.getKeyPrefix() + token);
         if(oldExpire <= 1800) {
             oldExpire += 1800;
         }
         //重置 Redis 中的 token 以及用户数据的有效时间
-        redisTemplate.expire(RedisKeyEnum.ADMINISTRATOR_LOGIN_TOKEN.getKeyPrefix() + token , oldExpire, TimeUnit.SECONDS);
+        redisTemplate.expire(RedisKeyEnum.ADMINISTRATOR_LOGIN_TOKEN.getKeyPrefix() + token ,
+                oldExpire, TimeUnit.SECONDS);
 
         return true;   //放行
     }

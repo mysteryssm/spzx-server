@@ -11,7 +11,7 @@ import com.spzx.model.entity.webapp.OrderItem;
 import com.spzx.model.entity.webapp.OrderLog;
 import com.spzx.model.entity.common.ProductSku;
 import com.spzx.model.entity.webapp.UserAddress;
-import com.spzx.model.entity.webapp.UserInfo;
+import com.spzx.model.entity.webapp.User;
 import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.webapp.TradeVo;
 import com.spzx.order.mapper.OrderInfoMapper;
@@ -112,14 +112,14 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         }
 
         //4、添加数据到order_info表，封装数据到orderInfor对象中，
-        UserInfo userInfo = AuthContextUtil.getUserInfo();
+        User user = AuthContextUtil.getUser();
         OrderInfo orderInfo = new OrderInfo();
         //订单编号
         orderInfo.setOrderNo(String.valueOf(System.currentTimeMillis()));
         //用户id
-        orderInfo.setUserId(userInfo.getId());
+        orderInfo.setUserId(user.getId());
         //用户昵称
-        orderInfo.setNickName(userInfo.getNickName());
+        orderInfo.setNickName(user.getNickName());
         // 远程调用service-user模块的用户收货地址信息
         UserAddress userAddress = userFeignClient.getUserAddress(orderDto.getUserAddressId());
         orderInfo.setReceiverName(userAddress.getName());
@@ -197,7 +197,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
                                             Integer limit,
                                             Integer orderStatus) {
         PageHelper.startPage(page, limit);
-        Long userId = AuthContextUtil.getUserInfo().getId();
+        Long userId = AuthContextUtil.getUser().getId();
         List<OrderInfo> orderInfoList = orderInfoMapper.findUserPage(userId, orderStatus);
 
         orderInfoList.forEach(orderInfo -> {

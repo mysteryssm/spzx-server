@@ -5,7 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.spzx.common.service.exception.GlobalException;
 import com.spzx.model.dto.webapp.UserLoginDto;
 import com.spzx.model.dto.webapp.UserRegisterDto;
-import com.spzx.model.entity.webapp.UserInfo;
+import com.spzx.model.entity.webapp.User;
 import com.spzx.model.globalConstant.DefaultUserAttribute;
 import com.spzx.model.globalConstant.RedisKeyEnum;
 import com.spzx.model.globalConstant.ResultCodeEnum;
@@ -68,23 +68,23 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
 
         // 根据用户名查询用户信息
-        UserInfo userInfo = userLoginMapper.selectUserByUsername(username);
+        User user = userLoginMapper.selectUserByUsername(username);
 
         // 判断该手机号是否已经注册
-        if(userInfo != null) {
+        if(user != null) {
             throw new GlobalException(ResultCodeEnum.USER_NAME_IS_EXISTS);
         }
 
-        userInfo = new UserInfo();
-        userInfo.setUsername(username);
-        userInfo.setNickName(nickName);
-        userInfo.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
-        userInfo.setPhone(username);
-        userInfo.setStatus(1);
-        userInfo.setSex(0);
-        userInfo.setAvatar(DefaultUserAttribute.DEFAULT_AVATAR);
+        user = new User();
+        user.setUsername(username);
+        user.setNickName(nickName);
+        user.setPassword(DigestUtils.md5DigestAsHex(password.getBytes()));
+        user.setPhone(username);
+        user.setStatus(1);
+        user.setSex(0);
+        user.setAvatar(DefaultUserAttribute.DEFAULT_AVATAR);
 
-        userLoginMapper.insert(userInfo);
+        userLoginMapper.insert(user);
 
         // 删除验证码
         redisTemplate.delete(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + username);
@@ -106,28 +106,28 @@ public class UserLoginServiceImpl implements UserLoginService {
             throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
         }
 
-        UserInfo userInfo = userLoginMapper.selectUserByUsername(username);
+        User user = userLoginMapper.selectUserByUsername(username);
 
         // 校验该手机号是否已注册
-        if(userInfo == null) {
+        if(user == null) {
             throw new GlobalException(ResultCodeEnum.USER_LOGIN_ERROR);
         }
 
         String md5InputPassword = DigestUtils.md5DigestAsHex(password.getBytes());
 
         //校验密码是否正确
-        if(!md5InputPassword.equals(userInfo.getPassword())) {
+        if(!md5InputPassword.equals(user.getPassword())) {
             throw new GlobalException(ResultCodeEnum.USER_LOGIN_ERROR);
         }
 
         //校验该账号是否被禁用
-        if(userInfo.getStatus() == 0) {
+        if(user.getStatus() == 0) {
             throw new GlobalException(ResultCodeEnum.ACCOUNT_STOP);
         }
 
         String token = UUID.randomUUID().toString().replaceAll("-", "");    // 随机生成 token
         redisTemplate.opsForValue().set(RedisKeyEnum.USER_LOGIN_TOKEN.getKeyPrefix() + token,
-                JSON.toJSONString(userInfo), 30, TimeUnit.DAYS);
+                JSON.toJSONString(user), 30, TimeUnit.DAYS);
 
         return token;
     }

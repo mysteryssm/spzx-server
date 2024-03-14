@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Data
 @Schema(description = "用户实体类")
-public class UserInfo extends BaseEntity {
+public class User extends BaseEntity {
 
    private static final long serialVersionUID = 1L;
 
