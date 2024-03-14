@@ -1,5 +1,0 @@
-com\spzx\common\log\aspect\LogAspect.class
-com\spzx\common\log\service\LogService.class
-com\spzx\common\log\annotation\Log.class
-com\spzx\common\log\annotation\EnableLogAspect.class
-com\spzx\common\log\util\LogUtil.class

@@ -1,7 +1,0 @@
-com\spzx\order\OrderApplication.class
-com\spzx\order\mapper\OrderItemMapper.class
-com\spzx\order\service\OrderInfoService.class
-com\spzx\order\mapper\OrderInfoMapper.class
-com\spzx\order\service\impl\OrderInfoServiceImpl.class
-com\spzx\order\controller\OrderInfoController.class
-com\spzx\order\mapper\OrderLogMapper.class

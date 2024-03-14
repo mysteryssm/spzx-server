@@ -1,8 +1,0 @@
-com\spzx\common\service\interceptor\UserLoginAuthInterceptor.class
-com\spzx\common\service\feign\UserTokenFeignInterceptor.class
-com\spzx\common\service\anno\EnableUserTokenFeignInterceptor.class
-com\spzx\common\service\anno\EnableUserLoginAuthInterceptor.class
-com\spzx\common\service\exception\GlobalExceptionHandler.class
-com\spzx\common\service\config\Knife4jConfig.class
-com\spzx\common\service\config\UserWebMvcConfiguration.class
-com\spzx\common\service\exception\GlobalException.class
