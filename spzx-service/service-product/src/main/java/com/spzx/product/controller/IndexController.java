@@ -3,7 +3,7 @@ package com.spzx.product.controller;
 import com.spzx.model.entity.common.Category;
 import com.spzx.model.entity.common.ProductSku;
 import com.spzx.model.vo.common.Result;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.webapp.IndexVo;
 import com.spzx.product.service.CategoryService;
 import com.spzx.product.service.ProductService;

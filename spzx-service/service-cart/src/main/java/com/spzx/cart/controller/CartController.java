@@ -4,7 +4,7 @@ import com.spzx.cart.service.CartService;
 import com.spzx.feign.user.UserFeignClient;
 import com.spzx.model.entity.webapp.CartInfo;
 import com.spzx.model.vo.common.Result;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

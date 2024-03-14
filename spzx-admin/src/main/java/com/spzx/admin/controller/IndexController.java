@@ -6,7 +6,7 @@ import com.spzx.admin.service.CaptchaService;
 import com.spzx.model.dto.admin.AdministratorLoginDto;
 import com.spzx.model.entity.admin.Administrator;
 import com.spzx.model.vo.common.Result;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.admin.CaptchaVo;
 import com.spzx.model.vo.admin.LoginVo;
 import com.spzx.model.vo.admin.MenuVo;

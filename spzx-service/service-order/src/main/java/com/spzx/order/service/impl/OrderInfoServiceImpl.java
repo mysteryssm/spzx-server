@@ -12,7 +12,7 @@ import com.spzx.model.entity.webapp.OrderLog;
 import com.spzx.model.entity.common.ProductSku;
 import com.spzx.model.entity.webapp.UserAddress;
 import com.spzx.model.entity.webapp.UserInfo;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.webapp.TradeVo;
 import com.spzx.order.mapper.OrderInfoMapper;
 import com.spzx.order.mapper.OrderItemMapper;
@@ -96,14 +96,14 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         //2、判断List<OrderItem>为空，抛出异常
         if (CollectionUtils.isEmpty(orderItemList)) {
-            throw new GlobalException(ResultCodeEnum.DATA_ERROR);
+            throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
         }
 
         //3、校验商品库存是否充足，遍历List<OrderItem>集合，
         for (OrderItem orderItem : orderItemList) {
             ProductSku productSku = productFeignClient.getBySkuId(orderItem.getSkuId());
             if(null == productSku) {
-                throw new GlobalException(ResultCodeEnum.DATA_ERROR);
+                throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
             }
             // 校验每一个OrderItem库存量是否充足，远程调用service-product模块的sku表（库存量）
             if(orderItem.getSkuNum().intValue() > productSku.getStockNum().intValue()) {

@@ -5,10 +5,10 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 @Mapper
-public interface UserInfoMapper {
+public interface UserLoginMapper {
 
-    void save(UserInfo userInfo);
+    void insert(UserInfo userInfo);
 
-    UserInfo getByUsername(@Param("username") String username);
+    UserInfo selectUserByUsername(@Param("username") String username);
 
 }

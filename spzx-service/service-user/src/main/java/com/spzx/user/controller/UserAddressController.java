@@ -3,7 +3,7 @@ package com.spzx.user.controller;
 import com.spzx.model.entity.base.Region;
 import com.spzx.model.entity.webapp.UserAddress;
 import com.spzx.model.vo.common.Result;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.user.service.UserAddressService;
 import com.spzx.user.service.UserRegionService;
 import io.swagger.v3.oas.annotations.Operation;

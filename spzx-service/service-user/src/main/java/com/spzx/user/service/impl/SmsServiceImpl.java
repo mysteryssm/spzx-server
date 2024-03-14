@@ -1,6 +1,6 @@
 package com.spzx.user.service.impl;
 
-import com.spzx.model.globalEnum.RedisKeyEnum;
+import com.spzx.model.globalConstant.RedisKeyEnum;
 import com.spzx.user.properties.SmsProperties;
 import com.spzx.user.service.SmsService;
 import com.spzx.user.utils.HttpUtils;
@@ -10,7 +10,6 @@ import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,10 +37,10 @@ public class SmsServiceImpl implements SmsService {
     public void captcha(String phone) {
 
         //查询redis是否已经缓存了验证码
-        String redisCaptcha = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + phone);
-        if(StringUtils.hasText(redisCaptcha)) {
-            return;
-        }
+//        String redisCaptcha = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN_CAPTCHA.getKeyPrefix() + phone);
+//        if(StringUtils.hasText(redisCaptcha)) {
+//            return;
+//        }
 
         String captcha = RandomStringUtils.randomNumeric(4);   //生成四位验证码
 

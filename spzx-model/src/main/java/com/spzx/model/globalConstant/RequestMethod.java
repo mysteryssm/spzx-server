@@ -1,4 +1,4 @@
-package com.spzx.model.globalEnum;
+package com.spzx.model.globalConstant;
 
 /**
  * @description: RequestMethod

@@ -2,7 +2,7 @@ package com.spzx.admin.controller;
 
 import com.spzx.admin.service.ProductSpecService;
 import com.spzx.model.entity.common.ProductSpec;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;

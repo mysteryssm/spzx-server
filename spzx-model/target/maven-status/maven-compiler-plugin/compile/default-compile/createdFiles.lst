@@ -1,7 +1,10 @@
 com\spzx\model\vo\admin\OrderStatisticsVo.class
 com\spzx\model\vo\webapp\ProductItemVo.class
 com\spzx\model\dto\admin\ProductDto.class
+com\spzx\model\globalConstant\DefaultUserAttribute.class
+com\spzx\model\globalConstant\ResultCodeEnum.class
 com\spzx\model\entity\webapp\OrderInfo.class
+com\spzx\model\globalConstant\RedisValueEnum.class
 com\spzx\model\dto\admin\AssignRoleDto.class
 com\spzx\model\dto\webapp\UserRegisterDto.class
 com\spzx\model\vo\webapp\ProductSkuVO.class
@@ -10,10 +13,11 @@ com\spzx\model\dto\webapp\SkuSaleDto.class
 com\spzx\model\entity\webapp\OrderLog.class
 com\spzx\model\entity\admin\LogEntity.class
 com\spzx\model\vo\webapp\IndexVo.class
-com\spzx\model\globalEnum\RequestMethod.class
 com\spzx\model\dto\admin\MenuDto.class
 com\spzx\model\entity\base\BaseEntity.class
+com\spzx\model\globalConstant\RedisKeyEnum.class
 com\spzx\model\entity\webapp\PaymentInfo.class
+com\spzx\model\globalConstant\RequestMethod.class
 com\spzx\model\entity\base\Region.class
 com\spzx\model\entity\common\ProductSpec.class
 com\spzx\model\dto\admin\RoleDto.class
@@ -21,6 +25,7 @@ com\spzx\model\entity\admin\Administrator.class
 com\spzx\model\vo\admin\MenuVo.class
 com\spzx\model\entity\admin\Menu.class
 com\spzx\model\entity\common\ProductSku.class
+com\spzx\model\globalConstant\OperatorTypeEnum.class
 com\spzx\model\entity\webapp\UserBrowseHistory.class
 com\spzx\model\entity\webapp\OrderItem.class
 com\spzx\model\vo\webapp\TradeVo.class
@@ -31,15 +36,11 @@ com\spzx\model\dto\admin\CategoryBrandDto.class
 com\spzx\model\dto\admin\AdministratorDto.class
 com\spzx\model\vo\admin\CaptchaVo.class
 com\spzx\model\entity\common\Brand.class
-com\spzx\model\globalEnum\OperatorTypeEnum.class
 com\spzx\model\dto\admin\AssignMenuDto.class
-com\spzx\model\globalEnum\ResultCodeEnum.class
 com\spzx\model\entity\webapp\CartInfo.class
 com\spzx\model\entity\admin\SysRoleUser.class
 com\spzx\model\vo\admin\CategoryExcelVo.class
 com\spzx\model\entity\common\Product.class
-com\spzx\model\globalEnum\RedisKeyEnum.class
-com\spzx\model\globalEnum\RedisValueEnum.class
 com\spzx\model\vo\webapp\UserInfoVo.class
 com\spzx\model\entity\base\ProductUnit.class
 com\spzx\model\dto\webapp\ProductSkuDto.class

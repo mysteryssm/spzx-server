@@ -10,8 +10,8 @@ import com.spzx.model.dto.admin.AssignRoleDto;
 import com.spzx.model.dto.admin.AdministratorLoginDto;
 import com.spzx.model.dto.admin.AdministratorDto;
 import com.spzx.model.entity.admin.Administrator;
-import com.spzx.model.globalEnum.RedisKeyEnum;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.RedisKeyEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.admin.LoginVo;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -56,7 +56,7 @@ public class AdministratorServiceImpl implements AdministratorService {
         }
 
         // 校验验证码是否正确
-        if (StrUtil.isEmpty(redisCaptcha) || !StrUtil.equalsIgnoreCase(redisCaptcha, captcha)) {
+        if (!StrUtil.equalsIgnoreCase(redisCaptcha, captcha)) {
             log.info("验证码{}错误，正确验证码为{}", captcha, redisCaptcha);
             throw new GlobalException(ResultCodeEnum.CAPTCHA_ERROR);   //验证码错误时抛出异常
         }

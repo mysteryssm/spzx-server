@@ -1,11 +1,9 @@
 package com.spzx.user.controller;
 
-import com.spzx.model.dto.webapp.UserLoginDto;
-import com.spzx.model.dto.webapp.UserRegisterDto;
 import com.spzx.model.entity.webapp.UserBrowseHistory;
 import com.spzx.model.entity.webapp.UserCollect;
 import com.spzx.model.vo.common.Result;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.webapp.UserInfoVo;
 import com.spzx.user.service.UserInfoService;
 import com.github.pagehelper.PageInfo;
@@ -15,29 +13,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@Tag(name = "用户接口")
+@Tag(name = "用户信息接口")
 @RestController
-@RequestMapping("api/user/userInfo")
+@RequestMapping("/api/user/userInfo")
 public class UserInfoController {
 
     @Autowired
     private UserInfoService userInfoService;
 
-    @Operation(summary = "用户注册")
-    @PostMapping("register")
-    public Result register(@RequestBody UserRegisterDto userRegisterDto) {
-        userInfoService.register(userRegisterDto);
-        return Result.build(null , ResultCodeEnum.SUCCESS) ;
-    }
-
-    @Operation(summary = "用户登录")
-    @PostMapping("login")
-    public Result login(@RequestBody UserLoginDto userLoginDto) {
-        return Result.build(userInfoService.login(userLoginDto), ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary = "获取当前登录用户信息")
-    @GetMapping("auth/getCurrentUserInfo")
+    @Operation(summary = "当前登录用户信息获取")
+    @GetMapping("/auth/getCurrentUserInfo")
     public Result<UserInfoVo> getCurrentUserInfo(HttpServletRequest request) {
         String token = request.getHeader("token");
         UserInfoVo userInfoVo = userInfoService.getCurrentUserInfo(token) ;
@@ -45,7 +30,7 @@ public class UserInfoController {
     }
 
     @Operation(summary = "新增商品浏览信息")
-    @GetMapping("isCollect/{id}")
+    @GetMapping("/isCollect/{id}")
     public Result<UserInfoVo> saveUserCollect(@PathVariable("id") String id) {
         if ("undefined".equals(id)){
             return Result.build(false , ResultCodeEnum.SUCCESS) ;
@@ -60,21 +45,21 @@ public class UserInfoController {
     }
 
     @Operation(summary = "商品浏览信息分页展示")
-    @GetMapping("auth/findUserBrowseHistoryPage/{page}/{limit}")
+    @GetMapping("/auth/findUserBrowseHistoryPage/{page}/{limit}")
     public Result<UserInfoVo> findUserBrowseHistoryPage(@PathVariable Integer page, @PathVariable Integer limit) {
         PageInfo<UserCollect> pageInfo = userInfoService.findUserBrowseHistoryPage(page, limit);
         return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "收藏商品分页展示")
-    @GetMapping("auth/findUserCollectPage/{page}/{limit}")
+    @GetMapping("/auth/findUserCollectPage/{page}/{limit}")
     public Result<UserInfoVo> findUserCollectPage(@PathVariable Integer page, @PathVariable Integer limit) {
         PageInfo<UserBrowseHistory> pageInfo = userInfoService.findUserCollectPage(page, limit);
         return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "取消收藏")
-    @GetMapping("auth/cancelCollect/{skuId}")
+    @GetMapping("/auth/cancelCollect/{skuId}")
     public Result updatecancelCollect(@PathVariable String skuId) {
         // 参数校验，确保skuId不为空
         if (skuId == null || skuId.isEmpty() || skuId.equals("undefined")) {
@@ -109,7 +94,7 @@ public class UserInfoController {
      * @Description: 远程调用：获取浏览量最多的商品
      */
     @Operation(summary = "获取浏览量最多的商品")
-    @GetMapping("auth/BrowseHistory")
+    @GetMapping("/auth/BrowseHistory")
     public UserBrowseHistory getByBrowseHistory() {
         UserBrowseHistory userBrowseHistory = userInfoService.getMostFrequentSkuId();
         return userBrowseHistory;

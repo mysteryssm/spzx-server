@@ -6,7 +6,7 @@ import com.alipay.api.request.AlipayTradeWapPayRequest;
 import com.alipay.api.response.AlipayTradeWapPayResponse;
 import com.spzx.common.service.exception.GlobalException;
 import com.spzx.model.entity.webapp.PaymentInfo;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.pay.properties.AlipayProperties;
 import com.spzx.pay.service.AlipayService;
 import com.spzx.pay.service.PaymentInfoService;
@@ -63,7 +63,7 @@ public class AlipayServiceImpl implements AlipayService {
             return response.getBody();
         } else {
             log.info("调用失败");
-            throw new GlobalException(ResultCodeEnum.DATA_ERROR);
+            throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
         }
     }
 

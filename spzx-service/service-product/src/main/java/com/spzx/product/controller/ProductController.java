@@ -6,14 +6,13 @@ import com.spzx.model.dto.webapp.SkuSaleDto;
 import com.spzx.model.entity.common.ProductSku;
 import com.spzx.model.entity.webapp.UserBrowseHistory;
 import com.spzx.model.vo.common.Result;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.webapp.ProductItemVo;
 import com.spzx.product.service.ProductService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.simpleframework.xml.Path;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

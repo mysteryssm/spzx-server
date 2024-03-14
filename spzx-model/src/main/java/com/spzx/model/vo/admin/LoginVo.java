@@ -8,9 +8,9 @@ import lombok.Data;
 public class LoginVo {
 
     @Schema(description = "token")
-    private String token ;
+    private String token;
 
     @Schema(description = "刷新token可以为空")
-    private String refresh_token ;
+    private String refresh_token;
 
 }

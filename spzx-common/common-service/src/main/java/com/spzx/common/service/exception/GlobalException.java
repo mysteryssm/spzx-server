@@ -1,6 +1,6 @@
 package com.spzx.common.service.exception;
 
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import lombok.Data;
 
 /**

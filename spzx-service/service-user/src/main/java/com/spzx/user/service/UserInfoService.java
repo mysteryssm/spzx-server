@@ -9,9 +9,6 @@ import com.github.pagehelper.PageInfo;
 
 // 业务接口
 public interface UserInfoService {
-    void register(UserRegisterDto userRegisterDto);
-
-    Object login(UserLoginDto userLoginDto);
 
     UserInfoVo getCurrentUserInfo(String token);
 

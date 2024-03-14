@@ -5,7 +5,7 @@ import com.spzx.admin.service.AdministratorService;
 import com.spzx.model.dto.admin.AssignRoleDto;
 import com.spzx.model.dto.admin.AdministratorDto;
 import com.spzx.model.entity.admin.Administrator;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;

@@ -3,7 +3,7 @@ package com.spzx.pay.controller;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.spzx.model.vo.common.Result;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.pay.properties.AlipayProperties;
 import com.spzx.pay.service.AlipayService;
 import com.spzx.pay.service.PaymentInfoService;

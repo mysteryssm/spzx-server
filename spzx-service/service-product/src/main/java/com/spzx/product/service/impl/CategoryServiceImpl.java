@@ -2,7 +2,7 @@ package com.spzx.product.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.spzx.model.entity.common.Category;
-import com.spzx.model.globalEnum.RedisKeyEnum;
+import com.spzx.model.globalConstant.RedisKeyEnum;
 import com.spzx.product.mapper.CategoryMapper;
 import com.spzx.product.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;

@@ -7,7 +7,7 @@ import com.spzx.admin.listener.ExcelListener;
 import com.spzx.admin.mapper.CategoryMapper;
 import com.spzx.admin.service.CategoryService;
 import com.spzx.model.entity.common.Category;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.admin.CategoryExcelVo;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.BeanUtils;
@@ -71,7 +71,7 @@ public class CategoryServiceImpl implements CategoryService {
                     .doWrite(categoryExcelVoList);
         } catch (IOException e) {
             e.printStackTrace();
-            throw new GlobalException(ResultCodeEnum.DATA_ERROR);
+            throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
         }
     }
 
@@ -84,7 +84,7 @@ public class CategoryServiceImpl implements CategoryService {
                     .sheet()
                     .doRead();
         } catch (IOException e) {
-            throw new GlobalException(ResultCodeEnum.DATA_ERROR);
+            throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
         }
     }
 }

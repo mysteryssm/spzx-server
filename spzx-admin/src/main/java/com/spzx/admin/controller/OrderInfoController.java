@@ -2,7 +2,7 @@ package com.spzx.admin.controller;
 
 import com.spzx.admin.service.OrderInfoService;
 import com.spzx.model.dto.admin.OrderStatisticsDto;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.vo.admin.OrderStatisticsVo;
 import io.swagger.v3.oas.annotations.Operation;

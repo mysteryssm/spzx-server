@@ -1,6 +1,6 @@
 package com.spzx.common.log.annotation;
 
-import com.spzx.model.globalEnum.OperatorTypeEnum;
+import com.spzx.model.globalConstant.OperatorTypeEnum;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

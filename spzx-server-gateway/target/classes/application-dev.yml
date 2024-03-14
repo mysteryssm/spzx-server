@@ -1,5 +1,5 @@
 server:
-  port: 8500
+  port: 1450
 spring:
   application:
     name: spzx-server-gateway
@@ -15,7 +15,7 @@ spring:
         cors-configurations:
           '[/**]':
             allowedOriginPatterns: "*"
-            # 允许请求中携带的头信息,表示允许所有来源的跨域请求。
+            # 允许请求中携带的头信息,表示允许所有来源的跨域请求
             allowedHeaders: "*"
             # 运行跨域的请求方式
             allowedMethods: "*"
@@ -48,3 +48,4 @@ spring:
     redis:
       host: 121.41.52.4
       port: 6379
+      password: 1448381936yckYCK

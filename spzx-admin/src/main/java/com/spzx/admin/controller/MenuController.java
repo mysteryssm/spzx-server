@@ -4,7 +4,7 @@ import com.spzx.common.log.annotation.Log;
 import com.spzx.admin.service.MenuService;
 import com.spzx.model.dto.admin.MenuDto;
 import com.spzx.model.entity.admin.Menu;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

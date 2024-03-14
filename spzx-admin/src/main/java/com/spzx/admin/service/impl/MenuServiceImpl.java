@@ -6,7 +6,7 @@ import com.spzx.admin.mapper.MenuMapper;
 import com.spzx.admin.mapper.RoleMenuMapper;
 import com.spzx.admin.service.MenuService;
 import com.spzx.model.dto.admin.MenuDto;
-import com.spzx.model.globalEnum.ResultCodeEnum;
+import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.admin.MenuVo;
 import com.spzx.admin.utils.MenuUtil;
 import org.springframework.beans.factory.annotation.Autowired;

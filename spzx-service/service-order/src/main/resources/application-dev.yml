@@ -1,6 +1,6 @@
 # application-dev.yml
 server:
-  port: 8514
+  port: 1454
 
 spring:
   application:
