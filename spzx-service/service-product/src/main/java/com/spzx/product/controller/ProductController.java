@@ -31,7 +31,7 @@ public class ProductController {
 	private UserFeignClient userFeignClient;
 
 	@Operation(summary = "商品分页查询")
-	@GetMapping(value = "/{page}/{limit}")
+	@PostMapping(value = "/{page}/{limit}")
 	public Result<PageInfo<ProductSku>> select(@PathVariable(name = "page") Integer page,
 											   @PathVariable(name = "limit") Integer limit,
 											   @RequestBody ProductSkuDto productSkuDto) {
