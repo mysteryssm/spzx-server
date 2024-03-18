@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -68,114 +69,101 @@ public class CartServiceImpl implements CartService {
     @Override
     public void delete(Long skuId) {
 
-        // 获取当前登录的用户数据
-        Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
+        Long userId = AuthContextUtil.getUser().getId();    //从 ThreadLocal 中获取用户信息，得到用户 id
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;     // 获取该用户购物车对应的 key
 
-        //获取缓存对象
-        redisTemplate.opsForHash().delete(cartKey ,String.valueOf(skuId)) ;
+        redisTemplate.opsForHash().delete(cartKey ,String.valueOf(skuId));
+
     }
-    //更新购物车商品选中状态
-    @Override
-    public void checkCart(Long skuId, Integer isChecked) {
 
-        // 获取当前登录的用户数据
+    @Override
+    public void deleteAll() {
+
         Long userId = AuthContextUtil.getUser().getId();
         String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
 
-        //判断key是否包含filed
-        Boolean hasKey = redisTemplate.opsForHash().hasKey(cartKey, String.valueOf(skuId));
-        if(hasKey) {
+        redisTemplate.delete(cartKey);  // 通过 cartKey 清空对应的所有 hash 键值对
+    }
+
+    @Override
+    public void check(Long skuId, Integer isChecked) {
+
+        Long userId = AuthContextUtil.getUser().getId();
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
+
+        // 判断是否包含该用户对应的 key 且购物车中是否包含 filed
+        if(redisTemplate.opsForHash().hasKey(cartKey, String.valueOf(skuId))) {
             String cartInfoJSON = redisTemplate.opsForHash().get(cartKey, String.valueOf(skuId)).toString();
             CartInfo cartInfo = JSON.parseObject(cartInfoJSON, CartInfo.class);
-            cartInfo.setIsChecked(isChecked);
-            redisTemplate.opsForHash().put(cartKey , String.valueOf(skuId) , JSON.toJSONString(cartInfo));
+            if(!Objects.equals(cartInfo.getIsChecked(), isChecked)) {
+                cartInfo.setIsChecked(isChecked);
+                redisTemplate.opsForHash().put(cartKey, String.valueOf(skuId) , JSON.toJSONString(cartInfo));
+            }
         }
-
     }
 
-    //完成购物车商品的全选
-    public void allCheckCart(Integer isChecked) {
+    public void checkAll(Integer isChecked) {
 
-        // 获取当前登录的用户数据
         Long userId = AuthContextUtil.getUser().getId();
         String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
 
         // 获取所有的购物项数据
         List<Object> objectList = redisTemplate.opsForHash().values(cartKey);
         if(!CollectionUtils.isEmpty(objectList)) {
-            objectList.stream().map(cartInfoJSON -> {
-                CartInfo cartInfo = JSON.parseObject(cartInfoJSON.toString(), CartInfo.class);
-                cartInfo.setIsChecked(isChecked);
-                return cartInfo ;
-            }).forEach(cartInfo -> redisTemplate.opsForHash().put(cartKey , String.valueOf(cartInfo.getSkuId()) , JSON.toJSONString(cartInfo)));
-
+            objectList.stream()
+                    .map(cartInfoJSON -> {
+                        CartInfo cartInfo = JSON.parseObject(cartInfoJSON.toString(), CartInfo.class);
+                        cartInfo.setIsChecked(isChecked);
+                        return cartInfo;
+                    })
+                    .forEach(cartInfo -> redisTemplate.opsForHash().put(cartKey, String.valueOf(cartInfo.getSkuId()) , JSON.toJSONString(cartInfo)));
         }
     }
 
-    //清空购物车
     @Override
-    public void deleteAll() {
+    public List<CartInfo> select() {
+
         Long userId = AuthContextUtil.getUser().getId();
         String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
-        redisTemplate.delete(cartKey);
+
+        List<Object> cartInfoList = redisTemplate.opsForHash().values(cartKey);
+        if (!CollectionUtils.isEmpty(cartInfoList)) {
+            List<CartInfo> infoList = cartInfoList.stream()
+                    .map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
+                    .sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime()))
+                    .collect(Collectors.toList());
+            return infoList;
+        }
+
+        return new ArrayList<>() ;
     }
 
-    //选中的商品
     @Override
-    public List<CartInfo> getAllCkecked() {
+    public List<CartInfo> selectChecked() {
+
         Long userId = AuthContextUtil.getUser().getId();
         String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
-        List<Object> objectList = redisTemplate.opsForHash().values(cartKey);       // 获取所有的购物项数据
+        List<Object> objectList = redisTemplate.opsForHash().values(cartKey);   // 获取所有的购物项数据
         if(!CollectionUtils.isEmpty(objectList)) {
-            List<CartInfo> cartInfoList = objectList.stream().map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
+            List<CartInfo> cartInfoList = objectList.stream()
+                    .map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
                     .filter(cartInfo -> cartInfo.getIsChecked() == 1)
                     .collect(Collectors.toList());
-            return cartInfoList ;
+            return cartInfoList;
         }
-        return new ArrayList<>() ;
+        return new ArrayList<>();
     }
 
     @Override
     public void deleteChecked() {
-        //获取userid，构建key
         Long userId = AuthContextUtil.getUser().getId();
         String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
-        //根据key获取redis所有的value
         List<Object> objectList = redisTemplate.opsForHash().values(cartKey);       // 删除选中的购物项数据
-        //删除选中商品
         if(!CollectionUtils.isEmpty(objectList)) {
-            objectList.stream().map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
+            objectList.stream()
+                    .map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
                     .filter(cartInfo -> cartInfo.getIsChecked() == 1)
                     .forEach(cartInfo -> redisTemplate.opsForHash().delete(cartKey , String.valueOf(cartInfo.getSkuId())));
         }
     }
-
-    @Override
-    public List<CartInfo> getCartList() {
-
-        // 用map()方法将每个JSON字符串转换为CartInfo对象，
-        // 即将商品信息从JSON字符串反序列化为Java对象。然后，
-        // 使用sorted()方法根据商品的创建时间进行排序，以便后续的展示。
-        // 最后，使用collect()方法将处理后的CartInfo对象收集到一个新的List中，并返回该列表作为结果。
-        // 如果购物车为空，则返回一个空的ArrayList对象作为结果。
-        // 获取当前登录的用户信息
-        Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
-
-        // 获取数据
-        List<Object> cartInfoList = redisTemplate.opsForHash().values(cartKey);
-//        System.out.println("cartInfoList:"+cartInfoList);
-        if (!CollectionUtils.isEmpty(cartInfoList)) {
-            List<CartInfo> infoList = cartInfoList.stream().map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
-                    .sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime()))
-                    .collect(Collectors.toList());
-//            System.out.println("infoList"+infoList);
-            return infoList ;
-        }
-
-        return new ArrayList<>() ;
-    }
-
-
 }

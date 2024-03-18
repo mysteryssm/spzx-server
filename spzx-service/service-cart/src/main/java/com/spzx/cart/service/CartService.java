@@ -9,15 +9,15 @@ public interface CartService {
 
     void delete(Long skuId);
 
-    void deleteChecked();
-
-    void checkCart(Long skuId, Integer isChecked);
-
-    void allCheckCart(Integer isChecked);
-
     void deleteAll();
 
-    List<CartInfo> getAllCkecked();
+    void check(Long skuId, Integer isChecked);
 
-    List<CartInfo> getCartList();
+    void checkAll(Integer isChecked);
+
+    List<CartInfo> select();
+
+    List<CartInfo> selectChecked();
+
+    void deleteChecked();
 }

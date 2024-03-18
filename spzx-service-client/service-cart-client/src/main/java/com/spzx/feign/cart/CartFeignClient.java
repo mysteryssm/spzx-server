@@ -15,9 +15,9 @@ import java.util.List;
 public interface CartFeignClient {
 
     @GetMapping(value = "/api/order/cart/auth/getAllCkecked")
-    public abstract List<CartInfo> getAllCkecked() ;
+    public abstract List<CartInfo> selectChecked();
 
     @GetMapping(value = "/api/order/cart/auth/deleteChecked")
-    public abstract Result deleteChecked() ;
+    public abstract Result deleteChecked();
 
 }

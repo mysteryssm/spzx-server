@@ -64,7 +64,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         //Long userId = AuthContextUtil.getUserInfo().getId();
 
         // 获取选中的购物项列表数据
-        List<CartInfo> cartInfoList = cartFeignClient.getAllCkecked() ;
+        List<CartInfo> cartInfoList = cartFeignClient.selectChecked();
         List<OrderItem> orderItemList = new ArrayList<>();
         for (CartInfo cartInfo : cartInfoList) {        // 将购物项数据转换成功订单明细数据
             OrderItem orderItem = new OrderItem();

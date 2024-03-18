@@ -14,7 +14,7 @@ import java.util.List;
 
 @Tag(name = "购物车接口")
 @RestController
-@RequestMapping("api/order/cart/auth")
+@RequestMapping("/api/order/cart/auth")
 public class CartController {
 
     @Autowired
@@ -47,37 +47,45 @@ public class CartController {
 
     @Operation(summary = "购物车商品选中状态更新")
     @GetMapping("/checkCart/{skuId}/{isChecked}")
-    public Result checkCart(@PathVariable(value = "skuId") Long skuId, @PathVariable(value = "isChecked") Integer isChecked) {
-        cartService.checkCart(skuId, isChecked);
+    public Result check(@PathVariable(value = "skuId") Long skuId,
+                        @PathVariable(value = "isChecked") Integer isChecked) {
+        cartService.check(skuId, isChecked);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary="购物车商品全部选中状态更新")
+    @Operation(summary="购物车商品选中状态全部更新")
     @GetMapping("/allCheckCart/{isChecked}")
-    public Result allCheckCart(@PathVariable(value = "isChecked") Integer isChecked){
-        cartService.allCheckCart(isChecked);
+    public Result checkAll(@PathVariable(value = "isChecked") Integer isChecked){
+        cartService.checkAll(isChecked);
         return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    //远程调用使用，删除生成订单的购物车商品
-    @GetMapping(value = "/deleteChecked")
-    public Result deleteChecked() {
-        cartService.deleteChecked();
-        return Result.build(null , ResultCodeEnum.SUCCESS);
     }
 
     @Operation(summary = "查询购物车")
     @GetMapping("/cartList")
-    public Result<List<CartInfo>> cartList() {
-        List<CartInfo> cartInfoList = cartService.getCartList();
+    public Result<List<CartInfo>> select() {
+        List<CartInfo> cartInfoList = cartService.select();
         return Result.build(cartInfoList, ResultCodeEnum.SUCCESS);
     }
 
-    //远程调用订单结算时候使用，获取购物车选中商品列表
-    @Operation(summary="选中的购物车")
-    @GetMapping(value = "/getAllCkecked")
-    public List<CartInfo> getAllChecked() {
-        List<CartInfo> cartInfoList = cartService.getAllCkecked();
+    /**
+     * 远程调用订单结算时候使用，获取购物车选中的商品列表
+     * @return
+     */
+    @Operation(summary = "选中的购物车")
+    @GetMapping(value = "/getAllChecked")
+    public List<CartInfo> selectChecked() {
+        List<CartInfo> cartInfoList = cartService.selectChecked();
         return cartInfoList;
+    }
+
+    /**
+     *  下单时远程调用，删除订单中的购物车商品
+     * @return
+     */
+    @Operation(summary = "下单回调购物车商品删除")
+    @GetMapping(value = "/deleteChecked")
+    public Result deleteChecked() {
+        cartService.deleteChecked();
+        return Result.build(null , ResultCodeEnum.SUCCESS);
     }
 }

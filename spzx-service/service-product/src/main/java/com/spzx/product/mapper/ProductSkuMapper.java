@@ -13,7 +13,7 @@ public interface ProductSkuMapper {
 
     List<ProductSku> findByPage(ProductSkuDto productSkuDto);
 
-    ProductSku getById(Long skuId);
+    ProductSku getBySkuId(Long skuId);
 
     List<ProductSku> findByProductId(Long productId);
 

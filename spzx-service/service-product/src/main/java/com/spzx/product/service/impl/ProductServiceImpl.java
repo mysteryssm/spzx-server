@@ -32,6 +32,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProductMapper productMapper;
+
     @Autowired
     private ProductDetailsMapper productDetailsMapper;
     @Override
@@ -39,7 +40,6 @@ public class ProductServiceImpl implements ProductService {
         return productSkuMapper.findProductSkuBySale();
     }
 
-    // 接口实现类
     @Override
     public PageInfo<ProductSku> select(Integer page, Integer limit, ProductSkuDto productSkuDto) {
         PageHelper.startPage(page, limit);
@@ -47,16 +47,13 @@ public class ProductServiceImpl implements ProductService {
         return new PageInfo<>(productSkuList);
     }
 
-    // 接口实现类
-
-
     @Override
     public ProductItemVo item(String skuId) {
         //1、创建vo对象，封装最终的数据
         ProductItemVo productItemVo = new ProductItemVo();
 
         //2、根据skuid获取当前sku信息
-        ProductSku productSku = productSkuMapper.getById(Long.valueOf(skuId));
+        ProductSku productSku = productSkuMapper.getBySkuId(Long.valueOf(skuId));
 
         //3、根据第二步获取sku，从sku获取productId，获取当前商品信息
         Product product = productMapper.getById(productSku.getProductId());
@@ -86,13 +83,11 @@ public class ProductServiceImpl implements ProductService {
         return productItemVo;
     }
 
-    //业务接口实现
     @Override
     public ProductSku getBySkuId(Long skuId) {
-        return productSkuMapper.getById(skuId);
+        return productSkuMapper.getBySkuId(skuId);
     }
 
-    //业务接口实现
     @Transactional
     @Override
     public Boolean update(List<SkuSaleDto> skuSaleDtoList) {

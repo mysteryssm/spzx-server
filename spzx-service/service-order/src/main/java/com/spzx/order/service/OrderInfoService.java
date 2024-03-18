@@ -26,5 +26,4 @@ public interface OrderInfoService {
     //远程调用：更新订单状态
     void updateOrderStatus(String orderNo, Integer orderStatus);
 
-
 }
