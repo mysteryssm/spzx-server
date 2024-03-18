@@ -25,7 +25,7 @@ public class CartController {
 
     @Operation(summary = "添加购物车")
     @GetMapping("/addToCart/{skuId}/{skuNum}")
-    public Result addToCart(@PathVariable("skuId") String skuId, @PathVariable("skuNum") Integer skuNum) {
+    public Result insert(@PathVariable("skuId") String skuId, @PathVariable("skuNum") Integer skuNum) {
         Long id = "undefined".equals(skuId) ? userFeignClient.getByBrowseHistory().getSkuId() : Long.valueOf(skuId);
         cartService.insert(id, skuNum);
         return Result.build(null, ResultCodeEnum.SUCCESS);
@@ -34,7 +34,7 @@ public class CartController {
     @Operation(summary = "购物车商品删除")
     @DeleteMapping("/deleteCart/{skuId}")
     public Result delete(@PathVariable("skuId") Long skuId) {
-        cartService.deleteCart(skuId);
+        cartService.delete(skuId);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
@@ -45,14 +45,14 @@ public class CartController {
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "更新购物车商品选中状态")
+    @Operation(summary = "购物车商品选中状态更新")
     @GetMapping("/checkCart/{skuId}/{isChecked}")
     public Result checkCart(@PathVariable(value = "skuId") Long skuId, @PathVariable(value = "isChecked") Integer isChecked) {
         cartService.checkCart(skuId, isChecked);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary="更新购物车商品全部选中状态")
+    @Operation(summary="购物车商品全部选中状态更新")
     @GetMapping("/allCheckCart/{isChecked}")
     public Result allCheckCart(@PathVariable(value = "isChecked") Integer isChecked){
         cartService.allCheckCart(isChecked);

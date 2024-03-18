@@ -34,22 +34,22 @@ public class CartServiceImpl implements CartService {
     @Override
     public void insert(Long skuId, Integer skuNum) {
 
-        Long userId = AuthContextUtil.getUser().getId();    //从 ThreadLocal 中获取用户信息
+        Long userId = AuthContextUtil.getUser().getId();    //从 ThreadLocal 中获取用户信息，得到用户 id
 
-        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;    // 构建购物车对应的 key
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;    // 获取该用户购物车对应的 key
 
         // 从redis中获取购物车数据，key field value
         Object cartInfoObj = redisTemplate.opsForHash().get(cartKey, String.valueOf(skuId));
         CartInfo cartInfo;
 
-        if(null != cartInfoObj) {
+        if(null != cartInfoObj) {   // 若购物车中已经存在该商品，更新商品数量
             cartInfo = JSON.parseObject(cartInfoObj.toString(), CartInfo.class);
             cartInfo.setSkuNum(cartInfo.getSkuNum() + skuNum);  // 更新购物车中商品数量
             cartInfo.setIsChecked(1);   // 将该商品置为选中状态
             cartInfo.setUpdateTime(new Date()); // 更新购物车修改时间
-        }else {
+        }else { // 不存在该商品则添加商品
             cartInfo = new CartInfo();
-            ProductSku productSku = productFeignClient.getBySkuId(skuId).getData();   // 根据 skuId 获取到商品sku信息
+            ProductSku productSku = productFeignClient.getBySkuId(skuId).getData();   // 根据 skuId 获取商品信息
             cartInfo.setCartPrice(productSku.getSalePrice());
             cartInfo.setSkuNum(skuNum);
             cartInfo.setSkuId(skuId);
@@ -59,7 +59,6 @@ public class CartServiceImpl implements CartService {
             cartInfo.setIsChecked(1);
             cartInfo.setCreateTime(new Date());
             cartInfo.setUpdateTime(new Date());
-
         }
 
         // 将商品数据存储到购物车中
@@ -67,33 +66,7 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public List<CartInfo> getCartList() {
-
-        // 用map()方法将每个JSON字符串转换为CartInfo对象，
-        // 即将商品信息从JSON字符串反序列化为Java对象。然后，
-        // 使用sorted()方法根据商品的创建时间进行排序，以便后续的展示。
-        // 最后，使用collect()方法将处理后的CartInfo对象收集到一个新的List中，并返回该列表作为结果。
-        // 如果购物车为空，则返回一个空的ArrayList对象作为结果。
-        // 获取当前登录的用户信息
-        Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
-
-        // 获取数据
-        List<Object> cartInfoList = redisTemplate.opsForHash().values(cartKey);
-//        System.out.println("cartInfoList:"+cartInfoList);
-        if (!CollectionUtils.isEmpty(cartInfoList)) {
-            List<CartInfo> infoList = cartInfoList.stream().map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
-                    .sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime()))
-                    .collect(Collectors.toList());
-//            System.out.println("infoList"+infoList);
-            return infoList ;
-        }
-
-        return new ArrayList<>() ;
-    }
-
-    @Override
-    public void deleteCart(Long skuId) {
+    public void delete(Long skuId) {
 
         // 获取当前登录的用户数据
         Long userId = AuthContextUtil.getUser().getId();
@@ -176,6 +149,32 @@ public class CartServiceImpl implements CartService {
                     .filter(cartInfo -> cartInfo.getIsChecked() == 1)
                     .forEach(cartInfo -> redisTemplate.opsForHash().delete(cartKey , String.valueOf(cartInfo.getSkuId())));
         }
+    }
+
+    @Override
+    public List<CartInfo> getCartList() {
+
+        // 用map()方法将每个JSON字符串转换为CartInfo对象，
+        // 即将商品信息从JSON字符串反序列化为Java对象。然后，
+        // 使用sorted()方法根据商品的创建时间进行排序，以便后续的展示。
+        // 最后，使用collect()方法将处理后的CartInfo对象收集到一个新的List中，并返回该列表作为结果。
+        // 如果购物车为空，则返回一个空的ArrayList对象作为结果。
+        // 获取当前登录的用户信息
+        Long userId = AuthContextUtil.getUser().getId();
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
+
+        // 获取数据
+        List<Object> cartInfoList = redisTemplate.opsForHash().values(cartKey);
+//        System.out.println("cartInfoList:"+cartInfoList);
+        if (!CollectionUtils.isEmpty(cartInfoList)) {
+            List<CartInfo> infoList = cartInfoList.stream().map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
+                    .sorted((o1, o2) -> o2.getCreateTime().compareTo(o1.getCreateTime()))
+                    .collect(Collectors.toList());
+//            System.out.println("infoList"+infoList);
+            return infoList ;
+        }
+
+        return new ArrayList<>() ;
     }
 
 

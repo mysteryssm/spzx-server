@@ -7,9 +7,9 @@ import java.util.List;
 public interface CartService {
     void insert(Long skuId, Integer skuNum);
 
-    List<CartInfo> getCartList();
+    void delete(Long skuId);
 
-    void deleteCart(Long skuId);
+    void deleteChecked();
 
     void checkCart(Long skuId, Integer isChecked);
 
@@ -19,5 +19,5 @@ public interface CartService {
 
     List<CartInfo> getAllCkecked();
 
-    void deleteChecked();
+    List<CartInfo> getCartList();
 }
