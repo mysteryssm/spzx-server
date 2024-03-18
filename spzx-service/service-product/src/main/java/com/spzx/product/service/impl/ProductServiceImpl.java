@@ -41,7 +41,7 @@ public class ProductServiceImpl implements ProductService {
 
     // 接口实现类
     @Override
-    public PageInfo<ProductSku> selectByPage(Integer page, Integer limit, ProductSkuDto productSkuDto) {
+    public PageInfo<ProductSku> select(Integer page, Integer limit, ProductSkuDto productSkuDto) {
         PageHelper.startPage(page, limit);
         List<ProductSku> productSkuList = productSkuMapper.findByPage(productSkuDto);
         return new PageInfo<>(productSkuList);
@@ -95,7 +95,7 @@ public class ProductServiceImpl implements ProductService {
     //业务接口实现
     @Transactional
     @Override
-    public Boolean updateSkuSaleNum(List<SkuSaleDto> skuSaleDtoList) {
+    public Boolean update(List<SkuSaleDto> skuSaleDtoList) {
         if(!CollectionUtils.isEmpty(skuSaleDtoList)) {
             for(SkuSaleDto skuSaleDto : skuSaleDtoList) {
                 productSkuMapper.updateSale(skuSaleDto.getSkuId(), skuSaleDto.getNum());

@@ -9,9 +9,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableUserLoginAuthInterceptor
-@EnableFeignClients(basePackages = {
-        "com.spzx"
-})
+@EnableFeignClients(basePackages = {"com.spzx"})
 @EnableConfigurationProperties(value = { AlipayProperties.class })
 public class PayApplication {
 

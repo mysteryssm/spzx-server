@@ -6,6 +6,7 @@ import com.spzx.feign.product.ProductFeignClient;
 import com.spzx.model.entity.webapp.CartInfo;
 import com.spzx.model.entity.common.ProductSku;
 import com.spzx.common.utils.AuthContextUtil;
+import com.spzx.model.globalConstant.RedisKeyEnum;
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
  * @author ljl
  * @create 2023-11-04-1:21
  */
-//业务接口实现
+
 @Service
 public class CartServiceImpl implements CartService {
 
@@ -30,39 +31,25 @@ public class CartServiceImpl implements CartService {
     @Autowired
     private ProductFeignClient productFeignClient;
 
-    private String getCartKey(Long userId) {
-        //定义key user:cart:userId
-        return "user:cart:" + userId;
-    }
-
-    //skuId：商品sku的id值
-    //skuNum：商品数量
     @Override
-    public void addToCart(Long skuId, Integer skuNum) {
+    public void insert(Long skuId, Integer skuNum) {
 
-        //1.必须为登录状态，获取当前登录用户的id（作为redis的hash类型的key值）
-        //从ThreadLocal获取用户信息就可以
-        Long userId = AuthContextUtil.getUser().getId();
-        //构建hash类型key名称
-        String cartKey = getCartKey(userId);
+        Long userId = AuthContextUtil.getUser().getId();    //从 ThreadLocal 中获取用户信息
 
-        //2.从redis中获取购物车数据，根据用户id+skuid获取（hash类型key+field+value）
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;    // 构建购物车对应的 key
+
+        // 从redis中获取购物车数据，key field value
         Object cartInfoObj = redisTemplate.opsForHash().get(cartKey, String.valueOf(skuId));
-        CartInfo cartInfo = null ;
-        //3.如果购物车存在添加的商品，那么就将商品数量相加
-        if(cartInfoObj != null) {       //  如果购物车中有该商品，则商品数量 相加！
-            cartInfo = JSON.parseObject(cartInfoObj.toString() , CartInfo.class) ;
-            cartInfo.setSkuNum(cartInfo.getSkuNum() + skuNum);
-            //等于1表示是选中状态
-            cartInfo.setIsChecked(1);
-            cartInfo.setUpdateTime(new Date());
-        }else {
-            //4.当购物车中没用该商品的时候，则直接添加到购物车
-            //远程调用实现：通过nacos+openFeign 实现，根据skuid获取商品的sku信息
-            cartInfo = new CartInfo();
+        CartInfo cartInfo;
 
-            // 根据skuid获取到商品sku信息，购物车数据是从商品详情得到 {skuInfo}
-            ProductSku productSku = productFeignClient.getBySkuId(skuId);
+        if(null != cartInfoObj) {
+            cartInfo = JSON.parseObject(cartInfoObj.toString(), CartInfo.class);
+            cartInfo.setSkuNum(cartInfo.getSkuNum() + skuNum);  // 更新购物车中商品数量
+            cartInfo.setIsChecked(1);   // 将该商品置为选中状态
+            cartInfo.setUpdateTime(new Date()); // 更新购物车修改时间
+        }else {
+            cartInfo = new CartInfo();
+            ProductSku productSku = productFeignClient.getBySkuId(skuId).getData();   // 根据 skuId 获取到商品sku信息
             cartInfo.setCartPrice(productSku.getSalePrice());
             cartInfo.setSkuNum(skuNum);
             cartInfo.setSkuId(skuId);
@@ -76,7 +63,7 @@ public class CartServiceImpl implements CartService {
         }
 
         // 将商品数据存储到购物车中
-        redisTemplate.opsForHash().put(cartKey , String.valueOf(skuId) , JSON.toJSONString(cartInfo));
+        redisTemplate.opsForHash().put(cartKey, String.valueOf(skuId), JSON.toJSONString(cartInfo));
     }
 
     @Override
@@ -89,7 +76,7 @@ public class CartServiceImpl implements CartService {
         // 如果购物车为空，则返回一个空的ArrayList对象作为结果。
         // 获取当前登录的用户信息
         Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = this.getCartKey(userId);
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
 
         // 获取数据
         List<Object> cartInfoList = redisTemplate.opsForHash().values(cartKey);
@@ -110,7 +97,7 @@ public class CartServiceImpl implements CartService {
 
         // 获取当前登录的用户数据
         Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = getCartKey(userId);
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
 
         //获取缓存对象
         redisTemplate.opsForHash().delete(cartKey ,String.valueOf(skuId)) ;
@@ -121,7 +108,7 @@ public class CartServiceImpl implements CartService {
 
         // 获取当前登录的用户数据
         Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = this.getCartKey(userId);
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
 
         //判断key是否包含filed
         Boolean hasKey = redisTemplate.opsForHash().hasKey(cartKey, String.valueOf(skuId));
@@ -139,7 +126,7 @@ public class CartServiceImpl implements CartService {
 
         // 获取当前登录的用户数据
         Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = getCartKey(userId);
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
 
         // 获取所有的购物项数据
         List<Object> objectList = redisTemplate.opsForHash().values(cartKey);
@@ -155,9 +142,9 @@ public class CartServiceImpl implements CartService {
 
     //清空购物车
     @Override
-    public void clearCart() {
+    public void deleteAll() {
         Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = getCartKey(userId);
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
         redisTemplate.delete(cartKey);
     }
 
@@ -165,7 +152,7 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartInfo> getAllCkecked() {
         Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = getCartKey(userId);
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
         List<Object> objectList = redisTemplate.opsForHash().values(cartKey);       // 获取所有的购物项数据
         if(!CollectionUtils.isEmpty(objectList)) {
             List<CartInfo> cartInfoList = objectList.stream().map(cartInfoJSON -> JSON.parseObject(cartInfoJSON.toString(), CartInfo.class))
@@ -180,7 +167,7 @@ public class CartServiceImpl implements CartService {
     public void deleteChecked() {
         //获取userid，构建key
         Long userId = AuthContextUtil.getUser().getId();
-        String cartKey = getCartKey(userId);
+        String cartKey = RedisKeyEnum.USER_CART.getKeyPrefix() + userId;
         //根据key获取redis所有的value
         List<Object> objectList = redisTemplate.opsForHash().values(cartKey);       // 删除选中的购物项数据
         //删除选中商品

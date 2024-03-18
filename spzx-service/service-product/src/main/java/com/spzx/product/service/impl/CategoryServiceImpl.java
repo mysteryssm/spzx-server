@@ -48,28 +48,33 @@ public class CategoryServiceImpl implements CategoryService {
     @Cacheable(value = "category" , key = "'all'")
     @Override
     public List<Category> selectAllCategory() {
-        List<Category> categoryList = categoryMapper.findAll(); //查询所有分类，返回list集合
+        List<Category> categoryList = categoryMapper.selectAllCategory(); //查询所有分类，返回list集合
 
-        //通过条件parentid=0得到所有的一级分类
-        List<Category> oneCategoryList = categoryList.stream()
-                .filter(item -> item.getParentId().longValue() == 0)
+        //通过 parentId = 0 得到所有的一级分类
+        List<Category> firstLevelCategoryList = categoryList.stream()
+                .filter(firstLevelCategory -> firstLevelCategory.getParentId().longValue() == 0)
                 .collect(Collectors.toList());
 
-        //遍历一级分类的集合，通过id=parentid ，得到下面的二级分类
-        //遍历二级分类的集合，通过id=parentid ，得到下面的三级分类
-        if(!CollectionUtils.isEmpty(oneCategoryList)) {
-            oneCategoryList.forEach(oneCategory -> {
-                List<Category> twoCategoryList = categoryList.stream().filter(item -> item.getParentId().longValue() == oneCategory.getId().longValue()).collect(Collectors.toList());
-                oneCategory.setChildren(twoCategoryList);
+        if(!CollectionUtils.isEmpty(firstLevelCategoryList)) {
+            //遍历一级分类的集合，通过 id = parentId ，得到对应的二级分类
+            firstLevelCategoryList.forEach(firstLevelCategory -> {
+                List<Category> secondLevelCategoryList = categoryList.stream()
+                        .filter(secondLevelCategory -> secondLevelCategory.getParentId().longValue() == firstLevelCategory.getId().longValue())
+                        .collect(Collectors.toList());
+                firstLevelCategory.setChildren(secondLevelCategoryList);
 
-                if(!CollectionUtils.isEmpty(twoCategoryList)) {
-                    twoCategoryList.forEach(twoCategory -> {
-                        List<Category> threeCategoryList = categoryList.stream().filter(item -> item.getParentId().longValue() == twoCategory.getId().longValue()).collect(Collectors.toList());
-                        twoCategory.setChildren(threeCategoryList);
+                if(!CollectionUtils.isEmpty(secondLevelCategoryList)) {
+                    //遍历二级分类的集合，通过 id = parentId ，得到对应的三级分类
+                    secondLevelCategoryList.forEach(secondLevelCategory -> {
+                        List<Category> thridLevelCategoryList = categoryList.stream()
+                                .filter(thridLevelCategory -> thridLevelCategory.getParentId().longValue() == secondLevelCategory.getId().longValue())
+                                .collect(Collectors.toList());
+                        secondLevelCategory.setChildren(thridLevelCategoryList);
                     });
                 }
             });
         }
-        return oneCategoryList;
+
+        return firstLevelCategoryList;
     }
 }

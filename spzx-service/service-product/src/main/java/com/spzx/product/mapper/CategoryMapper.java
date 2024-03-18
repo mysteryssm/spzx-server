@@ -10,5 +10,5 @@ public interface CategoryMapper {
 
     List<Category> selectFirstLevelCategory();
 
-    List<Category> findAll();
+    List<Category> selectAllCategory();
 }

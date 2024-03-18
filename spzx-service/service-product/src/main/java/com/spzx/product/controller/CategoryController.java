@@ -23,8 +23,8 @@ public class CategoryController {
    private CategoryService categoryService;
 
    @Operation(summary = "获取分类树形数据")
-   @GetMapping("/findCategoryTree")
-   public Result<List<Category>> findCategoryTree(){
+   @GetMapping(value = "/findCategoryTree")
+   public Result<List<Category>> selectAllCategory(){
       List<Category> list = categoryService.selectAllCategory();
       return Result.build(list,  ResultCodeEnum.SUCCESS);
    }

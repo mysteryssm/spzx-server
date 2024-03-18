@@ -101,7 +101,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         //3、校验商品库存是否充足，遍历List<OrderItem>集合，
         for (OrderItem orderItem : orderItemList) {
-            ProductSku productSku = productFeignClient.getBySkuId(orderItem.getSkuId());
+            ProductSku productSku = productFeignClient.getBySkuId(orderItem.getSkuId()).getData();
             if(null == productSku) {
                 throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
             }
@@ -172,7 +172,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public TradeVo buy(Long skuId) {
         // 查询商品
-        ProductSku productSku = productFeignClient.getBySkuId(skuId);
+        ProductSku productSku = productFeignClient.getBySkuId(skuId).getData();
         List<OrderItem> orderItemList = new ArrayList<>();
         OrderItem orderItem = new OrderItem();
         orderItem.setSkuId(skuId);

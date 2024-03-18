@@ -17,11 +17,11 @@ public interface ProductService {
 
     List<ProductSku> selectProductSkuBySale();
 
-    PageInfo<ProductSku> selectByPage(Integer page, Integer limit, ProductSkuDto productSkuDto);
+    PageInfo<ProductSku> select(Integer page, Integer limit, ProductSkuDto productSkuDto);
 
     ProductItemVo item(String skuId);
 
     ProductSku getBySkuId(Long skuId);
 
-    Boolean updateSkuSaleNum(List<SkuSaleDto> skuSaleDtoList);
+    Boolean update(List<SkuSaleDto> skuSaleDtoList);
 }

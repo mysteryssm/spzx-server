@@ -32,16 +32,16 @@ public class ProductController {
 
 	@Operation(summary = "商品分页查询")
 	@GetMapping(value = "/{page}/{limit}")
-	public Result<PageInfo<ProductSku>> findByPage(@PathVariable(name = "page") Integer page,
-												   @PathVariable(name = "limit") Integer limit,
-												   @RequestBody ProductSkuDto productSkuDto) {
-		PageInfo<ProductSku> pageInfo = productService.selectByPage(page, limit, productSkuDto);
+	public Result<PageInfo<ProductSku>> select(@PathVariable(name = "page") Integer page,
+											   @PathVariable(name = "limit") Integer limit,
+											   @RequestBody ProductSkuDto productSkuDto) {
+		PageInfo<ProductSku> pageInfo = productService.select(page, limit, productSkuDto);
 		return Result.build(pageInfo , ResultCodeEnum.SUCCESS) ;
 	}
 
 	@Operation(summary = "商品详情")
 	@GetMapping(value = "/item/{skuId}")
-	public Result<ProductItemVo> item(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable String skuId) {
+	public Result<ProductItemVo> item(@PathVariable(value = "skuId") String skuId) {
 		ProductItemVo productItemVo;
 		if (!"undefined".equals(skuId)) {
 			// 如果没有传入有效的skuId，可以返回收藏最多的商品信息
@@ -64,15 +64,15 @@ public class ProductController {
 	 */
 	@Operation(summary = "获取商品sku信息")
 	@GetMapping(value = "/getBySkuId/{skuId}")
-	public ProductSku getBySkuId(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable Long skuId) {
+	public Result<ProductSku> getBySkuId(@PathVariable(value = "skuId") Long skuId) {
 		ProductSku productSku = productService.getBySkuId(skuId);
-		return productSku;
+		return Result.build(productSku, ResultCodeEnum.SUCCESS);
 	}
 
 	@Operation(summary = "更新商品sku销量")
-	@PostMapping("updateSkuSaleNum")
-	public Boolean updateSkuSaleNum(@RequestBody List<SkuSaleDto> skuSaleDtoList) {
-		return productService.updateSkuSaleNum(skuSaleDtoList);
+	@PostMapping(value = "/updateSkuSaleNum")
+	public Boolean update(@RequestBody List<SkuSaleDto> skuSaleDtoList) {
+		return productService.update(skuSaleDtoList);
 	}
 
 }

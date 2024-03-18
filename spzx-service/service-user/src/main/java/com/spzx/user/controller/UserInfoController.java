@@ -1,8 +1,5 @@
 package com.spzx.user.controller;
 
-import cn.hutool.core.bean.BeanUtil;
-import com.spzx.common.utils.AuthContextUtil;
-import com.spzx.model.entity.webapp.User;
 import com.spzx.model.entity.webapp.UserBrowseHistory;
 import com.spzx.model.entity.webapp.UserCollect;
 import com.spzx.model.vo.common.Result;

@@ -4,9 +4,8 @@ import com.spzx.model.entity.webapp.CartInfo;
 
 import java.util.List;
 
-//业务接口
 public interface CartService {
-    void addToCart(Long skuId, Integer skuNum);
+    void insert(Long skuId, Integer skuNum);
 
     List<CartInfo> getCartList();
 
@@ -16,7 +15,7 @@ public interface CartService {
 
     void allCheckCart(Integer isChecked);
 
-    void clearCart();
+    void deleteAll();
 
     List<CartInfo> getAllCkecked();
 

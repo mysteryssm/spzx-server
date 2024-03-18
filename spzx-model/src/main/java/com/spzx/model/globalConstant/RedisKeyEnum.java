@@ -14,7 +14,8 @@ public enum RedisKeyEnum {
     ADMINISTRATOR_LOGIN_CAPTCHA(2, "administrator:login:captcha:"),
     USER_LOGIN_TOKEN(3, "user:login:token:"),
     USER_LOGIN_CAPTCHA(4, "user:login:captcha:"),
-    CATEGORY_FIRST(3, "category:first:");
+    USER_CART(5, "user:cart:"),
+    CATEGORY_FIRST(6, "category:first:");
 
     private Integer code;
     private String keyPrefix;

@@ -6,7 +6,6 @@ import com.spzx.model.entity.webapp.CartInfo;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.globalConstant.ResultCodeEnum;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,13 +25,46 @@ public class CartController {
 
     @Operation(summary = "添加购物车")
     @GetMapping("/addToCart/{skuId}/{skuNum}")
-    public Result addToCart(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable("skuId") String skuId,
-                            @Parameter(name = "skuNum", description = "数量", required = true) @PathVariable("skuNum") Integer skuNum) {
+    public Result addToCart(@PathVariable("skuId") String skuId, @PathVariable("skuNum") Integer skuNum) {
         Long id = "undefined".equals(skuId) ? userFeignClient.getByBrowseHistory().getSkuId() : Long.valueOf(skuId);
-        cartService.addToCart(id, skuNum);
+        cartService.insert(id, skuNum);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 
+    @Operation(summary = "购物车商品删除")
+    @DeleteMapping("/deleteCart/{skuId}")
+    public Result delete(@PathVariable("skuId") Long skuId) {
+        cartService.deleteCart(skuId);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "购物车清空")
+    @GetMapping("/clearCart")
+    public Result deleteAll(){
+        cartService.deleteAll();
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "更新购物车商品选中状态")
+    @GetMapping("/checkCart/{skuId}/{isChecked}")
+    public Result checkCart(@PathVariable(value = "skuId") Long skuId, @PathVariable(value = "isChecked") Integer isChecked) {
+        cartService.checkCart(skuId, isChecked);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary="更新购物车商品全部选中状态")
+    @GetMapping("/allCheckCart/{isChecked}")
+    public Result allCheckCart(@PathVariable(value = "isChecked") Integer isChecked){
+        cartService.allCheckCart(isChecked);
+        return Result.build(null, ResultCodeEnum.SUCCESS);
+    }
+
+    //远程调用使用，删除生成订单的购物车商品
+    @GetMapping(value = "/deleteChecked")
+    public Result deleteChecked() {
+        cartService.deleteChecked();
+        return Result.build(null , ResultCodeEnum.SUCCESS);
+    }
 
     @Operation(summary = "查询购物车")
     @GetMapping("/cartList")
@@ -41,47 +73,11 @@ public class CartController {
         return Result.build(cartInfoList, ResultCodeEnum.SUCCESS);
     }
 
-    @Operation(summary = "删除购物车商品")
-    @DeleteMapping("/deleteCart/{skuId}")
-    public Result deleteCart(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable("skuId") Long skuId) {
-        cartService.deleteCart(skuId);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary="更新购物车商品选中状态")
-    @GetMapping("/checkCart/{skuId}/{isChecked}")
-    public Result checkCart(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable(value = "skuId") Long skuId,
-                            @Parameter(name = "isChecked", description = "是否选中 1:选中 0:取消选中", required = true) @PathVariable(value = "isChecked") Integer isChecked) {
-        cartService.checkCart(skuId, isChecked);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary="更新购物车商品全部选中状态")
-    @GetMapping("/allCheckCart/{isChecked}")
-    public Result allCheckCart(@Parameter(name = "isChecked", description = "是否选中 1:选中 0:取消选中", required = true) @PathVariable(value = "isChecked") Integer isChecked){
-        cartService.allCheckCart(isChecked);
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
-    @Operation(summary="清空购物车")
-    @GetMapping("/clearCart")
-    public Result clearCart(){
-        cartService.clearCart();
-        return Result.build(null, ResultCodeEnum.SUCCESS);
-    }
-
     //远程调用订单结算时候使用，获取购物车选中商品列表
     @Operation(summary="选中的购物车")
     @GetMapping(value = "/getAllCkecked")
-    public List<CartInfo> getAllCkecked() {
-        List<CartInfo> cartInfoList = cartService.getAllCkecked() ;
+    public List<CartInfo> getAllChecked() {
+        List<CartInfo> cartInfoList = cartService.getAllCkecked();
         return cartInfoList;
-    }
-
-    //远程调用使用，删除生成订单的购物车商品
-    @GetMapping(value = "/deleteChecked")
-    public Result deleteChecked() {
-        cartService.deleteChecked() ;
-        return Result.build(null , ResultCodeEnum.SUCCESS) ;
     }
 }

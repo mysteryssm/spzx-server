@@ -5,7 +5,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-// com.spzx.product.mapper;
 @Mapper
 public interface BrandMapper {
 

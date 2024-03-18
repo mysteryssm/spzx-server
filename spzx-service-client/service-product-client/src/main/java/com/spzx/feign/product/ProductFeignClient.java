@@ -2,6 +2,7 @@ package com.spzx.feign.product;
 
 import com.spzx.model.dto.webapp.SkuSaleDto;
 import com.spzx.model.entity.common.ProductSku;
+import com.spzx.model.vo.common.Result;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +15,7 @@ import java.util.List;
  * @author ljl
  * @create 2023-11-04-13:59
  */
-@FeignClient(value = "service-product")
+@FeignClient(value = "service-product") // value 指定远程调用的服务名称
 public interface ProductFeignClient {
 
     /**
@@ -22,7 +23,7 @@ public interface ProductFeignClient {
      * @param skuId
      */
     @GetMapping("/api/product/getBySkuId/{skuId}")
-    public abstract ProductSku getBySkuId(@PathVariable Long skuId) ;
+    Result<ProductSku> getBySkuId(@PathVariable Long skuId);
 
     /**
      * 更新商品sku销量

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-//业务接口实现
 @Service
 public class UserAddressServiceImpl implements UserAddressService {
 
@@ -20,16 +19,16 @@ public class UserAddressServiceImpl implements UserAddressService {
    @Autowired
    private UserRegionMapper userRegionMapper;
 
-   //获取用户地址列表
+   //用户收获地址查询
    @Override
-   public List<UserAddress> findUserAddressList() {
+   public List<UserAddress> select() {
       Long userId = AuthContextUtil.getUser().getId();
       return userAddressMapper.findByUserId(userId);
    }
 
    //用户收货地址修改
    @Override
-   public void updateByid(UserAddress userAddress) {
+   public void update(UserAddress userAddress) {
       String provinceCode = userRegionMapper.selectByCode(userAddress.getProvinceCode());
       String cityCode = userRegionMapper.selectByCode(userAddress.getCityCode());
       String districtCode = userRegionMapper.selectByCode(userAddress.getDistrictCode());
@@ -46,7 +45,7 @@ public class UserAddressServiceImpl implements UserAddressService {
 
    //用户收货地址新增
    @Override
-   public void save(UserAddress userAddress) {
+   public void insert(UserAddress userAddress) {
       //获取用户userID
       Long userId = AuthContextUtil.getUser().getId();
       userAddress.setUserId(userId);
@@ -67,13 +66,13 @@ public class UserAddressServiceImpl implements UserAddressService {
 
    //用户收货地址刪除
    @Override
-   public void removeById(Long id) {
+   public void delete(Long id) {
       userAddressMapper.removeById(id);
    }
 
    //获取地址信息
    @Override
-   public UserAddress getById(Long id) {
+   public UserAddress selectByAddressId(Long id) {
       return userAddressMapper.getById(id);
    }
 }

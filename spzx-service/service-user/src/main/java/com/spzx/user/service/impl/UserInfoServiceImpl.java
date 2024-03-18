@@ -84,7 +84,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 
 		for (UserCollect userCollect : userCollects) {
 			ProductSkuVO productSkuVO = new ProductSkuVO();
-			ProductSku productSku = productFeignClient.getBySkuId(userCollect.getSkuId());
+			ProductSku productSku = productFeignClient.getBySkuId(userCollect.getSkuId()).getData();
 			BeanUtils.copyProperties(productSku, productSkuVO);
 			productSkuVO.setSukId(userCollect.getSkuId());
 			productSkus.add(productSkuVO);
@@ -103,7 +103,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		List<ProductSkuVO> productSkus = new ArrayList<>();
 		for (UserBrowseHistory userBrowseHistory : userBrowseHistories) {
 			ProductSkuVO productSkuVO = new ProductSkuVO();
-			ProductSku productSku = productFeignClient.getBySkuId(userBrowseHistory.getSkuId());
+			ProductSku productSku = productFeignClient.getBySkuId(userBrowseHistory.getSkuId()).getData();
 			BeanUtils.copyProperties(productSku, productSkuVO);
 			productSkuVO.setSukId(userBrowseHistory.getSkuId());
 			productSkus.add(productSkuVO);
