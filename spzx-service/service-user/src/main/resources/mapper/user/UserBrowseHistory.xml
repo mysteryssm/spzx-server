@@ -5,5 +5,25 @@
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
 <mapper namespace="com.spzx.user.mapper.UserBrowseHistoryMapper">
 
+    <insert id="insertBrowseHistory">
 
+    </insert>
+
+
+    <delete id="deleteBrowseHistory">
+
+    </delete>
+
+    <update id="updateBrowseHistory">
+
+    </update>
+
+
+    <select id="selectBrowseHistoryBySkuId" resultType="com.spzx.model.entity.webapp.UserBrowseHistory">
+
+    </select>
+
+    <select id="selectBrowseHistory" resultType="com.spzx.model.entity.webapp.UserBrowseHistory">
+
+    </select>
 </mapper>

@@ -5,7 +5,7 @@ import com.spzx.model.entity.webapp.UserCollect;
 import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.common.Result;
 import com.spzx.model.vo.webapp.UserInfoVo;
-import com.spzx.user.service.UserInfoService;
+import com.spzx.user.service.UserCollectService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,15 +26,15 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserCollectController {
 
     @Autowired
-    private UserInfoService userInfoService;
+    private UserCollectService userCollectService;
 
     @Operation(summary = "商品收藏")
     @GetMapping(value = "/auth/collect/{skuId}")
-    public Result<Boolean> insertCollect(@PathVariable(name = "skuId") String skuId) {
+    public Result insertCollect(@PathVariable(name = "skuId") String skuId) {
         if (null ==  skuId || skuId.isEmpty() || "undefined".equals(skuId)) {   // 参数校验，确保 skuId 不为空
             return Result.build(null, ResultCodeEnum.PRODUCT_EXIST_ERROR);
         } else {
-            userInfoService.insertCollect(Long.valueOf(skuId));
+            userCollectService.insertCollect(Long.valueOf(skuId));
             return Result.build(null, ResultCodeEnum.SUCCESS);
         }
     }
@@ -45,16 +45,23 @@ public class UserCollectController {
         if (null ==  skuId || skuId.isEmpty() || "undefined".equals(skuId)) {
             return Result.build(null, ResultCodeEnum.PRODUCT_EXIST_ERROR);
         } else {
-            userInfoService.deleteCollect(Long.valueOf(skuId));
+            userCollectService.deleteCollect(Long.valueOf(skuId));
             return Result.build(null, ResultCodeEnum.SUCCESS);
         }
     }
 
-    @Operation(summary = "收藏商品分页展示")
+    @Operation(summary = "商品收藏分页查询")
     @GetMapping(value = "/auth/findUserCollectPage/{page}/{limit}")
     public Result<UserInfoVo> selectCollect(@PathVariable(name = "page") Integer page,
                                             @PathVariable(name = "limit") Integer limit) {
-        PageInfo<UserCollect> pageInfo = userInfoService.selectCollect(page, limit);
+        PageInfo<UserCollect> pageInfo = userCollectService.selectCollect(page, limit);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
+    }
+
+    @Operation(summary = "商品是否收藏查询")
+    @GetMapping(value = "/auth/select/collect/skuId")
+    public Result<Boolean> selectCollectBySkuId(@PathVariable(value = "productId") Long productId) {
+        Boolean isCollect = userCollectService.selectCollectBySkuId(productId);
+        return Result.build(isCollect, ResultCodeEnum.SUCCESS);
     }
 }

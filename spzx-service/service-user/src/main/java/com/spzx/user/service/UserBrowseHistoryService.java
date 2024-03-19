@@ -15,7 +15,7 @@ public interface UserBrowseHistoryService {
     @Transactional
     void insertBrowseHistory(Long skuId);
 
-    PageInfo<UserBrowseHistory> selectBrowseBySkuId(Integer page, Integer limit);
+    void deleteBrowseHistory(Long skuId);
 
-    PageInfo<UserBrowseHistory> selectBrowse(Integer page, Integer limit);
+    PageInfo<UserBrowseHistory> selectBrowseHistory(Integer page, Integer limit);
 }

@@ -1,6 +1,5 @@
 package com.spzx.user.mapper;
 
-import com.spzx.model.entity.webapp.UserBrowseHistory;
 import com.spzx.model.entity.webapp.UserCollect;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,9 +12,11 @@ import java.util.List;
 
 @Mapper
 public interface UserCollectMapper {
-    void insertBrowse(UserCollect userCollect);
+    void insertCollect(UserCollect userCollect);
 
-    List<UserCollect> findUserBrowseHistoryPage(Long id);
+    void deleteCollect(Long userId, Long skuId);
 
-    List<UserBrowseHistory> findUserCollectPage(Long id);
+    UserCollect selectCollectBySkuId(Long userId, Long skuId);
+
+    List<UserCollect> selectCollect(Long userId);
 }

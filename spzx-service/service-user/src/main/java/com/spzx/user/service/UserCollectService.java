@@ -2,7 +2,6 @@ package com.spzx.user.service;
 
 import com.github.pagehelper.PageInfo;
 import com.spzx.model.entity.webapp.UserCollect;
-import com.spzx.model.vo.webapp.UserInfoVo;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -15,8 +14,10 @@ public interface UserCollectService {
 
     void insertCollect(Long skuId);
 
-    PageInfo<UserCollect> selectCollect(Integer page, Integer limit);
-
     @Transactional
     void deleteCollect(Long skuId);
+
+    PageInfo<UserCollect> selectCollect(Integer page, Integer limit);
+
+    Boolean selectCollectBySkuId(Long productId);
 }

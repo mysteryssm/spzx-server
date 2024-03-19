@@ -1,6 +1,5 @@
 package com.spzx.order.controller;
 
-import com.spzx.feign.user.UserFeignClient;
 import com.spzx.model.dto.webapp.OrderDto;
 import com.spzx.model.entity.webapp.OrderInfo;
 import com.spzx.model.vo.common.Result;
@@ -22,9 +21,6 @@ public class OrderInfoController {
    
    @Autowired
    private OrderInfoService orderInfoService;
-
-   @Autowired
-   private UserFeignClient userFeignClient;
 
    @Operation(summary = "确认下单")
    @GetMapping("/trade")
@@ -49,13 +45,9 @@ public class OrderInfoController {
 
    @Operation(summary = "立即购买")
    @GetMapping("/buy/{skuId}")
-   public Result<TradeVo> buy(@Parameter(name = "skuId", description = "商品skuId", required = true) @PathVariable String skuId) {
+   public Result<TradeVo> buy(@PathVariable(value = "skuId") String skuId) {
       TradeVo tradeVo;
-      if (null == skuId|| skuId.isEmpty() || skuId.equals("NaN")) {
-         tradeVo = orderInfoService.buy(userFeignClient.getByBrowseHistory().getSkuId());
-      } else {
-         tradeVo = orderInfoService.buy(Long.valueOf(skuId));
-      }
+      tradeVo = orderInfoService.buy(Long.valueOf(skuId));
       return Result.build(tradeVo, ResultCodeEnum.SUCCESS);
    }
 

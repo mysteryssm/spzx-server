@@ -5,8 +5,8 @@
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
 <mapper namespace="com.spzx.user.mapper.UserCollectMapper">
 
-    <insert id="insertBrowse" parameterType="com.spzx.model.entity.webapp.UserCollect">
-        INSERT INTO user_browse_history
+    <insert id="insertCollect" parameterType="com.spzx.model.entity.webapp.UserCollect">
+        INSERT INTO user_collect
             (create_time, update_time, is_deleted, user_id, sku_id)
         VALUES
             (
@@ -14,20 +14,21 @@
              )
     </insert>
 
-    <select id="findUserBrowseHistoryPage" resultType="com.spzx.model.entity.webapp.UserCollect">
-        select distinct sku_id, MAX(id) as id, user_id, MAX(create_time) as create_time, MAX(update_time) as update_time, is_deleted
-        from user_browse_history
-        where is_deleted = 0 and user_id = #{id}
-        group by sku_id
-        order by id desc
-    </select>
+    <delete id="deleteCollect">
+        delete from user_collect where user_id = #{userId} and sku_id = #{skuId}
+    </delete>
 
-    <select id="findUserCollectPage" resultType="com.spzx.model.entity.webapp.UserBrowseHistory">
-        select *
+    <select id="selectCollectBySkuId" resultType="com.spzx.model.entity.webapp.UserCollect">
+        select user_id, sku_id
         from user_collect
-        where is_deleted = 0 and user_id = #{id}
-        order by id desc
+        where is_deleted = 0 and user_id = #{userId} and sku_id = #{skuId}
     </select>
 
+    <select id="selectCollect" resultType="com.spzx.model.entity.webapp.UserCollect">
+        select user_id, sku_id
+        from user_collect
+        where is_deleted = 0 and user_id = #{userId}
+        order by id desc
+    </select>
 
 </mapper>

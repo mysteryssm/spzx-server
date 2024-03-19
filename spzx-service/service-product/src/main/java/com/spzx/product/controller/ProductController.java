@@ -27,9 +27,6 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
 
-	@Autowired
-	private UserFeignClient userFeignClient;
-
 	@Operation(summary = "商品分页查询")
 	@PostMapping(value = "/{page}/{limit}")
 	public Result<PageInfo<ProductSku>> select(@PathVariable(name = "page") Integer page,
@@ -42,17 +39,9 @@ public class ProductController {
 	@Operation(summary = "商品详情")
 	@GetMapping(value = "/item/{skuId}")
 	public Result<ProductItemVo> item(@PathVariable(value = "skuId") String skuId) {
-		ProductItemVo productItemVo;
+		ProductItemVo productItemVo = null;
 		if (!"undefined".equals(skuId)) {
-			// 如果没有传入有效的skuId，可以返回收藏最多的商品信息
-			//远程调用查询收藏最多的商品
 			productItemVo = productService.item(skuId);
-		}else {
-			//远程调用获取浏览量最多的商品
-			UserBrowseHistory browseHistory = userFeignClient.getByBrowseHistory();
-			Long id = browseHistory.getSkuId();
-			String skuidString = String.valueOf(id);
-			productItemVo = productService.item(skuidString);
 		}
 
 		return Result.build(productItemVo , ResultCodeEnum.SUCCESS);
