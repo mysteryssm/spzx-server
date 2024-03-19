@@ -20,14 +20,10 @@ public class CartController {
     @Autowired
     private CartService cartService;
 
-    @Autowired
-    private UserFeignClient userFeignClient;
-
     @Operation(summary = "添加购物车")
     @GetMapping("/addToCart/{skuId}/{skuNum}")
     public Result insert(@PathVariable("skuId") String skuId, @PathVariable("skuNum") Integer skuNum) {
-        Long id = "undefined".equals(skuId) ? userFeignClient.getByBrowseHistory().getSkuId() : Long.valueOf(skuId);
-        cartService.insert(id, skuNum);
+        cartService.insert(Long.valueOf(skuId), skuNum);
         return Result.build(null, ResultCodeEnum.SUCCESS);
     }
 

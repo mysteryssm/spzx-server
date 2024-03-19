@@ -28,21 +28,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-// 业务接口实现
 @Service
 public class UserInfoServiceImpl implements UserInfoService {
 
 	@Autowired
 	private RedisTemplate<String, String> redisTemplate;
-
-	@Autowired
-	private UserCollectMapper userCollectMapper;
-
-	@Autowired
-	private UserBrowseHistoryMapper userBrowseHistoryMapper;
-
-	@Autowired
-	private ProductFeignClient productFeignClient;
 
 	@Override
 	public UserInfoVo getCurrentUserInfo(String token) {
@@ -60,104 +50,4 @@ public class UserInfoServiceImpl implements UserInfoService {
 		BeanUtils.copyProperties(user, userInfoVo);
 		return userInfoVo;
 	}
-
-	@Override
-	public void saveUserCollect(Long id) {
-		User user = AuthContextUtil.getUser();
-		UserCollect userCollect = new UserCollect();
-		userCollect.setUserId(user.getId());
-		userCollect.setCreateTime(new Date());
-		userCollect.setUpdateTime(new Date());
-		userCollect.setSkuId(id);
-		userCollect.setIsDeleted(0);
-		userCollectMapper.saveUserCollect(userCollect);
-	}
-
-	@Override
-	public PageInfo<UserCollect> findUserBrowseHistoryPage(Integer page, Integer limit) {
-		PageHelper.startPage(page , limit) ;
-		User user = AuthContextUtil.getUser();
-		//根据条件查询所有数据
-		List<UserCollect> userCollects = userCollectMapper.findUserBrowseHistoryPage(user.getId()) ;
-		//查询商品的suk信息
-		List<ProductSkuVO> productSkus = new ArrayList<>();
-
-		for (UserCollect userCollect : userCollects) {
-			ProductSkuVO productSkuVO = new ProductSkuVO();
-			ProductSku productSku = productFeignClient.getBySkuId(userCollect.getSkuId()).getData();
-			BeanUtils.copyProperties(productSku, productSkuVO);
-			productSkuVO.setSukId(userCollect.getSkuId());
-			productSkus.add(productSkuVO);
-		}
-		PageInfo<UserCollect> pageInfo = new PageInfo(productSkus);
-		return pageInfo;
-	}
-
-	@Override
-	public PageInfo<UserBrowseHistory> findUserCollectPage(Integer page, Integer limit) {
-		PageHelper.startPage(page , limit) ;
-		User user = AuthContextUtil.getUser();
-		//根据条件查询所有数据
-		List<UserBrowseHistory> userBrowseHistories = userCollectMapper.findUserCollectPage(user.getId()) ;
-		//查询商品的suk信息
-		List<ProductSkuVO> productSkus = new ArrayList<>();
-		for (UserBrowseHistory userBrowseHistory : userBrowseHistories) {
-			ProductSkuVO productSkuVO = new ProductSkuVO();
-			ProductSku productSku = productFeignClient.getBySkuId(userBrowseHistory.getSkuId()).getData();
-			BeanUtils.copyProperties(productSku, productSkuVO);
-			productSkuVO.setSukId(userBrowseHistory.getSkuId());
-			productSkus.add(productSkuVO);
-		}
-		PageInfo<UserBrowseHistory> pageInfo = new PageInfo(productSkus);
-		return pageInfo;
-	}
-
-	//取消收藏
-	@Transactional
-	@Override
-	public void updatecancelCollect(Long skuId) {
-		User user = AuthContextUtil.getUser();
-		userBrowseHistoryMapper.updatecancelCollect(skuId , user.getId());
-
-	}
-
-	//添加收藏
-	@Override
-	@Transactional
-	public void savecollect(Long skuId) {
-		User user = AuthContextUtil.getUser();
-		if (user != null) {
-			UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectcollect(skuId, user.getId());
-			if (userBrowseHistory == null) {
-				userBrowseHistoryMapper.savecollect(skuId, user.getId());
-			} else {
-				userBrowseHistoryMapper.updatecollect(skuId, user.getId());
-			}
-		} else {
-			throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
-		}
-	}
-
-	//查询商品是否已经收藏
-	@Override
-	public Boolean findUserisCollect(Long skuId) {
-		User user = AuthContextUtil.getUser();
-		if (user != null) {
-			UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectusercollect(skuId, user.getId());
-			if (userBrowseHistory == null) {
-				return false;
-			} else {
-				return true;
-			}
-		} else {
-			throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
-		}
-	}
-
-	@Override
-	public UserBrowseHistory getMostFrequentSkuId() {
-		UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.getMostFrequentSkuId();
-		return userBrowseHistory;
-	}
-
 }

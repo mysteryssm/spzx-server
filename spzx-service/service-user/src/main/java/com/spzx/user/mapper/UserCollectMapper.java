@@ -13,7 +13,7 @@ import java.util.List;
 
 @Mapper
 public interface UserCollectMapper {
-    void saveUserCollect(UserCollect userCollect);
+    void insertBrowse(UserCollect userCollect);
 
     List<UserCollect> findUserBrowseHistoryPage(Long id);
 

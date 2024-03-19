@@ -23,7 +23,7 @@ public interface ProductFeignClient {
      * @param skuId
      */
     @GetMapping("/api/product/getBySkuId/{skuId}")
-    Result<ProductSku> getBySkuId(@PathVariable Long skuId);
+    Result<ProductSku> getBySkuId(@PathVariable(value = "skuId") Long skuId);
 
     /**
      * 更新商品sku销量

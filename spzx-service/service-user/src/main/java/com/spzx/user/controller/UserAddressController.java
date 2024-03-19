@@ -28,35 +28,35 @@ public class UserAddressController {
    @GetMapping(value = "/userAddress/auth/findUserAddressList")
    public Result<List<UserAddress>> select() {
       List<UserAddress> list = userAddressService.select();
-      return Result.build(list , ResultCodeEnum.SUCCESS) ;
+      return Result.build(list , ResultCodeEnum.SUCCESS);
    }
 
    @Operation(summary = "省市区查询")
    @GetMapping (value = "/region/findByParentCode/{code}")
    public Result selectRegionByParentCode(@PathVariable("code") Integer code) {
       List<Region> regionList = regionService.selectRegionByParentCode(code);
-      return Result.build(regionList , ResultCodeEnum.SUCCESS) ;
+      return Result.build(regionList , ResultCodeEnum.SUCCESS);
    }
 
    @Operation(summary = "用户收货地址修改")
    @PutMapping(value = "/userAddress/auth/updateById")
    public Result update(@RequestBody UserAddress userAddress) {
       userAddressService.update(userAddress);
-      return Result.build(null , ResultCodeEnum.SUCCESS) ;
+      return Result.build(null , ResultCodeEnum.SUCCESS);
    }
 
    @Operation(summary = "用户收货地址新增")
    @PostMapping(value = "/userAddress/auth/save")
    public Result insert(@RequestBody UserAddress userAddress) {
       userAddressService.insert(userAddress);
-      return Result.build(null , ResultCodeEnum.SUCCESS) ;
+      return Result.build(null , ResultCodeEnum.SUCCESS);
    }
 
    @Operation(summary = "用户删除收货地址")
    @DeleteMapping(value = "/userAddress/auth/removeById/{id}")
    public Result delete(@PathVariable(name = "id") Long id) {
       userAddressService.delete(id);
-      return Result.build(null , ResultCodeEnum.SUCCESS) ;
+      return Result.build(null , ResultCodeEnum.SUCCESS);
    }
 
    @Operation(summary = "获取地址信息")
