@@ -55,7 +55,7 @@ public class OrderController {
    @GetMapping("/{page}/{limit}")
    public Result<PageInfo<OrderInfo>> select(@PathVariable(value = "page") Integer page,
                                              @PathVariable(value = "limit") Integer limit,
-                                             @RequestParam(value = "orderStatus") Integer orderStatus) {
+                                             @RequestParam(value = "orderStatus", required = false) Integer orderStatus) {
       PageInfo<OrderInfo> pageInfo = orderInfoService.select(page, limit, orderStatus);
       return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
    }
