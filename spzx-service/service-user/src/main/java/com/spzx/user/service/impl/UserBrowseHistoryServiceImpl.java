@@ -7,7 +7,6 @@ import com.spzx.feign.product.ProductFeignClient;
 import com.spzx.model.entity.common.ProductSku;
 import com.spzx.model.entity.webapp.User;
 import com.spzx.model.entity.webapp.UserBrowseHistory;
-import com.spzx.model.entity.webapp.UserCollect;
 import com.spzx.model.vo.webapp.ProductSkuVO;
 import com.spzx.user.mapper.UserBrowseHistoryMapper;
 import com.spzx.user.service.UserBrowseHistoryService;
@@ -36,32 +35,32 @@ public class UserBrowseHistoryServiceImpl implements UserBrowseHistoryService {
 
     @Override
     @Transactional
-    public void insertBrowseHistory(Long skuId) {
+    public void insert(Long skuId) {
         User user = AuthContextUtil.getUser();
         if (user != null) { // 该方法不需要用户登录，但只有用户才可添加浏览记录，所以需要校验
-            UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectBrowseHistoryBySkuId(skuId, user.getId());
+            UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectBySkuId(user.getId(), skuId);
             if (null == userBrowseHistory) {
-                userBrowseHistoryMapper.insertBrowseHistory(skuId, user.getId());
+                userBrowseHistoryMapper.insert(user.getId(), skuId);
             } else {
-                userBrowseHistoryMapper.updateBrowseHistory(skuId, user.getId());
+                userBrowseHistoryMapper.update(user.getId(), skuId);
             }
         }
     }
 
     @Override
-    public void deleteBrowseHistory(Long skuId) {
+    public void delete(Long skuId) {
         User user = AuthContextUtil.getUser();
-        UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectBrowseHistoryBySkuId(skuId, user.getId());
+        UserBrowseHistory userBrowseHistory = userBrowseHistoryMapper.selectBySkuId(user.getId(), skuId);
         if(null != userBrowseHistory) {
-            userBrowseHistoryMapper.deleteBrowseHistory(skuId, user.getId());
+            userBrowseHistoryMapper.delete(user.getId(), skuId);
         }
     }
 
     @Override
-    public PageInfo<UserBrowseHistory> selectBrowseHistory(Integer page, Integer limit) {
+    public PageInfo<UserBrowseHistory> select(Integer page, Integer limit) {
         User user = AuthContextUtil.getUser();
         PageHelper.startPage(page, limit);
-        List<UserBrowseHistory> userBrowseHistories = userBrowseHistoryMapper.selectBrowseHistory(user.getId());
+        List<UserBrowseHistory> userBrowseHistories = userBrowseHistoryMapper.select(user.getId());
 
         List<ProductSkuVO> productSkus = new ArrayList<>();
 

@@ -31,22 +31,17 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-/**
- * @author ljl
- * @create 2023-11-04-18:15
- */
 @Service
 public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Autowired
-    private CartFeignClient cartFeignClient ;
+    private CartFeignClient cartFeignClient;
 
     @Autowired
     private ProductFeignClient productFeignClient;
 
     @Autowired
     private UserFeignClient userFeignClient;
-
 
     @Autowired
     private OrderInfoMapper orderInfoMapper;
@@ -58,14 +53,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     private OrderLogMapper orderLogMapper;
 
     @Override
-    public TradeVo getTrade() {
+    public TradeVo generateOrder() {
 
-        // 获取当前登录的用户的id
-        //Long userId = AuthContextUtil.getUserInfo().getId();
-
-        // 获取选中的购物项列表数据
-        List<CartInfo> cartInfoList = cartFeignClient.selectChecked();
+        List<CartInfo> cartInfoList = cartFeignClient.selectChecked();  // 远程调用获取购物车中选中的商品
         List<OrderItem> orderItemList = new ArrayList<>();
+
         for (CartInfo cartInfo : cartInfoList) {        // 将购物项数据转换成功订单明细数据
             OrderItem orderItem = new OrderItem();
             orderItem.setSkuId(cartInfo.getSkuId());
@@ -76,10 +68,11 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             orderItemList.add(orderItem);
         }
 
-        // 计算总金额
         BigDecimal totalAmount = new BigDecimal(0);
+
         for(OrderItem orderItem : orderItemList) {
-            totalAmount = totalAmount.add(orderItem.getSkuPrice().multiply(new BigDecimal(orderItem.getSkuNum())));
+            BigDecimal amount = new BigDecimal(orderItem.getSkuNum());
+            totalAmount = totalAmount.add(orderItem.getSkuPrice().multiply(amount));
         }
         TradeVo tradeVo = new TradeVo();
         tradeVo.setTotalAmount(totalAmount);
@@ -91,15 +84,13 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Transactional
     @Override
     public Long submitOrder(OrderDto orderDto) {
-        //1、获取order的InfoDto,获取所有订单项List List<OrderItem>
         List<OrderItem> orderItemList = orderDto.getOrderItemList();
 
-        //2、判断List<OrderItem>为空，抛出异常
         if (CollectionUtils.isEmpty(orderItemList)) {
-            throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
+            throw new GlobalException(ResultCodeEnum.ORDER_EMPTY_ERROR);
         }
 
-        //3、校验商品库存是否充足，遍历List<OrderItem>集合，
+        // 校验商品库存是否充足，遍历List<OrderItem>集合
         for (OrderItem orderItem : orderItemList) {
             ProductSku productSku = productFeignClient.getBySkuId(orderItem.getSkuId()).getData();
             if(null == productSku) {
@@ -111,7 +102,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
             }
         }
 
-        //4、添加数据到order_info表，封装数据到orderInfor对象中，
+        //4、添加数据到order_info表，封装数据到orderInfo对象中，
         User user = AuthContextUtil.getUser();
         OrderInfo orderInfo = new OrderInfo();
         //订单编号
@@ -137,16 +128,16 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         orderInfo.setTotalAmount(totalAmount);
         orderInfo.setCouponAmount(new BigDecimal(0));
         orderInfo.setOriginalTotalAmount(totalAmount);
-        orderInfo.setFeightFee(orderDto.getFeightFee());
+        orderInfo.setFeightFee(orderDto.getFreightFee());
         orderInfo.setPayType(2);
         orderInfo.setOrderStatus(0);
-        orderInfoMapper.save(orderInfo);
+        orderInfoMapper.insert(orderInfo);
 
         //5、添加数据到order_item表
         //添加List<OrderItem>里面的数据，把集合每个OrderItem添加表
         for (OrderItem orderItem : orderItemList) {
             orderItem.setOrderId(orderInfo.getId());
-            orderItemMapper.save(orderItem);
+            orderItemMapper.insert(orderItem);
         }
 
         //记录日志
@@ -163,16 +154,16 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         return orderInfo.getId();
     }
 
-    //获取订单详情信息
     @Override
-    public OrderInfo getOrderInfo(Long orderId) {
-        return orderInfoMapper.getById(orderId);
+    public OrderInfo selectByOrderId(Long orderId) {
+        return orderInfoMapper.selectByOrderId(orderId);
     }
 
     @Override
     public TradeVo buy(Long skuId) {
-        // 查询商品
+
         ProductSku productSku = productFeignClient.getBySkuId(skuId).getData();
+
         List<OrderItem> orderItemList = new ArrayList<>();
         OrderItem orderItem = new OrderItem();
         orderItem.setSkuId(skuId);
@@ -182,26 +173,22 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         orderItem.setThumbImg(productSku.getThumbImg());
         orderItemList.add(orderItem);
 
-        // 计算总金额
         BigDecimal totalAmount = productSku.getSalePrice();
         TradeVo tradeVo = new TradeVo();
         tradeVo.setTotalAmount(totalAmount);
         tradeVo.setOrderItemList(orderItemList);
 
-        // 返回
         return tradeVo;
     }
 
     @Override
-    public PageInfo<OrderInfo> findUserPage(Integer page,
-                                            Integer limit,
-                                            Integer orderStatus) {
+    public PageInfo<OrderInfo> select(Integer page, Integer limit, Integer orderStatus) {
         PageHelper.startPage(page, limit);
         Long userId = AuthContextUtil.getUser().getId();
-        List<OrderInfo> orderInfoList = orderInfoMapper.findUserPage(userId, orderStatus);
+        List<OrderInfo> orderInfoList = orderInfoMapper.select(userId, orderStatus);
 
         orderInfoList.forEach(orderInfo -> {
-            List<OrderItem> orderItem = orderItemMapper.findByOrderId(orderInfo.getId());
+            List<OrderItem> orderItem = orderItemMapper.selectByOrderId(orderInfo.getId());
             orderInfo.setOrderItemList(orderItem);
         });
 
@@ -211,7 +198,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public OrderInfo getByOrderNo(String orderNo) {
         OrderInfo orderInfo = orderInfoMapper.getByOrderNo(orderNo);
-        List<OrderItem> orderItem = orderItemMapper.findByOrderId(orderInfo.getId());
+        List<OrderItem> orderItem = orderItemMapper.selectByOrderId(orderInfo.getId());
         orderInfo.setOrderItemList(orderItem);
         return orderInfo;
     }
@@ -225,7 +212,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         orderInfo.setOrderStatus(1);
         orderInfo.setPayType(orderStatus);
         orderInfo.setPaymentTime(new Date());
-        orderInfoMapper.updateById(orderInfo);
+        orderInfoMapper.update(orderInfo);
 
         // 记录日志
         OrderLog orderLog = new OrderLog();

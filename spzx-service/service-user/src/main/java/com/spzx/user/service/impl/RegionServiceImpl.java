@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Service
-public class RegionServiceimpl implements RegionService {
+public class RegionServiceImpl implements RegionService {
 
     @Autowired
     private UserRegionMapper userRegionMapper;

@@ -28,7 +28,7 @@ public class UserLoginController {
     @PostMapping(value = "/register")
     public Result register(@RequestBody UserRegisterDto userRegisterDto) {
         userLoginService.register(userRegisterDto);
-        return Result.build(null , ResultCodeEnum.SUCCESS) ;
+        return Result.build(null, ResultCodeEnum.SUCCESS) ;
     }
 
     @Operation(summary = "用户登录")

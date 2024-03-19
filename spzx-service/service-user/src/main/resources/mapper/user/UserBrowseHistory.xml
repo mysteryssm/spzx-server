@@ -5,25 +5,32 @@
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
 <mapper namespace="com.spzx.user.mapper.UserBrowseHistoryMapper">
 
-    <insert id="insertBrowseHistory">
-
+    <insert id="insert">
+        insert into user_browse_history(
+                                        user_id, sku_id, is_deleted
+        ) values(
+                 #{userId}, #{skuId}, 0
+                        )
     </insert>
 
-
-    <delete id="deleteBrowseHistory">
-
+    <delete id="delete">
+        delete from user_browse_history where user_id = #{userId} and sku_id = #{skuId}
     </delete>
 
-    <update id="updateBrowseHistory">
-
+    <update id="update">
+        update user_browse_history set update_time = now()
     </update>
 
-
-    <select id="selectBrowseHistoryBySkuId" resultType="com.spzx.model.entity.webapp.UserBrowseHistory">
-
+    <select id="selectBySkuId" resultType="com.spzx.model.entity.webapp.UserBrowseHistory">
+        select user_id, sku_id
+        from user_browse_history
+        where user_id = #{userId} and sku_id = #{skuId}
     </select>
 
-    <select id="selectBrowseHistory" resultType="com.spzx.model.entity.webapp.UserBrowseHistory">
-
+    <select id="select" resultType="com.spzx.model.entity.webapp.UserBrowseHistory">
+        select user_id, sku_id
+        from user_browse_history
+        where user_id = #{userId}
     </select>
+
 </mapper>

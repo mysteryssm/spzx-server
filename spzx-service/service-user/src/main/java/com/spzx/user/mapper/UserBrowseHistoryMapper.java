@@ -1,11 +1,7 @@
 package com.spzx.user.mapper;
 
 import com.spzx.model.entity.webapp.UserBrowseHistory;
-import com.spzx.model.entity.webapp.UserCollect;
-import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
 
@@ -16,13 +12,13 @@ import java.util.List;
 @Mapper
 public interface UserBrowseHistoryMapper {
 
-    void insertBrowseHistory(Long skuId, Long userId);
+    void insert(Long userId, Long skuId);
 
-    void deleteBrowseHistory(Long skuId, Long userId);
+    void delete(Long userId, Long skuId);
 
-    void updateBrowseHistory(Long skuId, Long userId);
+    void update(Long userId, Long skuId);
 
-    UserBrowseHistory selectBrowseHistoryBySkuId(Long skuId, Long userId);
+    UserBrowseHistory selectBySkuId(Long userId, Long skuId);
 
-    List<UserBrowseHistory> selectBrowseHistory(Long userId);
+    List<UserBrowseHistory> select(Long userId);
 }

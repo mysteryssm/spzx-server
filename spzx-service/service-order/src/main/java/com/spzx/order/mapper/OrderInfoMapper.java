@@ -8,13 +8,13 @@ import java.util.List;
 @Mapper
 public interface OrderInfoMapper {
 
-    void save(OrderInfo orderInfo);
+    void insert(OrderInfo orderInfo);
 
-    OrderInfo getById(Long orderId);
+    void update(OrderInfo orderInfo);
 
-    List<OrderInfo> findUserPage(Long userId, Integer orderStatus);
+    OrderInfo selectByOrderId(Long orderId);
+
+    List<OrderInfo> select(Long userId, Integer orderStatus);
 
     OrderInfo getByOrderNo(String orderNo) ;
-
-    void updateById(OrderInfo orderInfo);
 }

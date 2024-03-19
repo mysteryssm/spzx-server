@@ -9,6 +9,6 @@ public interface UserLoginMapper {
 
     void insert(User user);
 
-    User selectUserByUsername(@Param("username") String username);
+    User selectByUsername(@Param("username") String username);
 
 }

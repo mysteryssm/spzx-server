@@ -68,7 +68,7 @@ public class UserLoginServiceImpl implements UserLoginService {
         }
 
         // 根据用户名查询用户信息
-        User user = userLoginMapper.selectUserByUsername(username);
+        User user = userLoginMapper.selectByUsername(username);
 
         // 判断该手机号是否已经注册
         if(user != null) {
@@ -106,7 +106,7 @@ public class UserLoginServiceImpl implements UserLoginService {
             throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
         }
 
-        User user = userLoginMapper.selectUserByUsername(username);
+        User user = userLoginMapper.selectByUsername(username);
 
         // 校验该手机号是否已注册
         if(user == null) {

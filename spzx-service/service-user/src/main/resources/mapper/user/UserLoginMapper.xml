@@ -43,7 +43,7 @@
                  )
     </insert>
 
-    <select id="selectUserByUsername" resultMap="userInfoMap">
+    <select id="selectByUsername" resultMap="userInfoMap">
         select <include refid="columns" />
         from user_info
         where

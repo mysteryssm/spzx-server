@@ -19,6 +19,7 @@ public enum ResultCodeEnum {
     NETWORK_ERROR(404, "您的网络有问题请稍后重试"),
     STOCK_LESS( 501, "库存不足"),
     PRODUCT_EXIST_ERROR( 502, "商品不存在！"),
+    ORDER_EMPTY_ERROR(503, "订单中无商品！"),
     MENU_DELETE_ERROR( 601, "该菜单下有子菜单，无法删除！");
 
     private Integer code ;      // 业务状态码

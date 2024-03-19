@@ -11,7 +11,7 @@
         id,order_id,sku_id,sku_name,thumb_img,sku_price,sku_num,create_time,update_time,is_deleted
     </sql>
 
-    <insert id="save" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
         insert into order_item (
             id,
             order_id,
@@ -31,7 +31,7 @@
                  )
     </insert>
 
-    <select id="findByOrderId" resultMap="orderItemMap">
+    <select id="selectByOrderId" resultMap="orderItemMap">
         select <include refid="columns" />
         from order_item
         where

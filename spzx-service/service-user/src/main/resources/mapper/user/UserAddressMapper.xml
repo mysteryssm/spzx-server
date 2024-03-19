@@ -9,30 +9,51 @@
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
-        id, user_id, name, phone, tag_name, province_code, city_code, district_code,address,full_address,is_default,create_time,update_time,is_deleted
+        id, user_id, name, phone, tag_name, province_code, city_code, district_code, address, full_address, is_default, create_time, update_time, is_deleted
     </sql>
 
-    <update id="removeById" parameterType="Long">
+    <insert id="insert" parameterType="com.spzx.model.entity.webapp.UserAddress">
+        insert into user_address
+        (
+            user_id,
+            name,
+            phone,
+            tag_name,
+            province_code,
+            city_code,
+            district_code,
+            address,
+            full_address,
+            is_default,
+            create_time,
+            update_time,
+            is_deleted
+        )
+        values
+            (
+                #{userId},
+                #{name},
+                #{phone},
+                #{tagName},
+                #{provinceCode},
+                #{cityCode},
+                #{districtCode},
+                #{address},
+                #{fullAddress},
+                #{isDefault},
+                now(),
+                now(),
+                0
+            )
+    </insert>
+
+    <update id="delete" parameterType="Long">
         update user_address set update_time = now(),
                                 is_deleted = 1
         where id = #{id}
     </update>
 
-    <select id="findByUserId" resultMap="userAddressMap">
-        select <include refid="columns" />
-        from user_address
-        where
-        user_id = #{userId} and is_deleted = 0
-    </select>
-
-    <select id="getById" resultMap="userAddressMap">
-        select <include refid="columns" />
-        from user_address
-        where
-        id = #{id}
-    </select>
-
-    <update id="updateByid" parameterType="com.spzx.model.entity.webapp.UserAddress">
+    <update id="update" parameterType="com.spzx.model.entity.webapp.UserAddress">
         UPDATE user_address
         <set>
             <!-- 使用动态SQL判断字段是否为空，如果不为空则进行更新 -->
@@ -68,41 +89,18 @@
         WHERE user_id = #{userId} and id = #{id}
     </update>
 
+    <select id="select" resultMap="userAddressMap">
+        select <include refid="columns" />
+        from user_address
+        where
+        user_id = #{userId} and is_deleted = 0
+    </select>
 
-    <insert id="save" parameterType="com.spzx.model.entity.webapp.UserAddress">
-        insert into user_address
-        (
-            user_id,
-            name,
-            phone,
-            tag_name,
-            province_code,
-            city_code,
-            district_code,
-            address,
-            full_address,
-            is_default,
-            create_time,
-            update_time,
-            is_deleted
-        )
-        values
-            (
-                #{userId},
-                #{name},
-                #{phone},
-                #{tagName},
-                #{provinceCode},
-                #{cityCode},
-                #{districtCode},
-                #{address},
-                #{fullAddress},
-                #{isDefault},
-                now(),
-                now(),
-                0
-            )
-    </insert>
-
+    <select id="selectByAddressId" resultMap="userAddressMap">
+        select <include refid="columns" />
+        from user_address
+        where
+        id = #{id}
+    </select>
 
 </mapper>

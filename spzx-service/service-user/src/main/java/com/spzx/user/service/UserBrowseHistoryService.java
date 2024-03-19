@@ -13,9 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserBrowseHistoryService {
 
     @Transactional
-    void insertBrowseHistory(Long skuId);
+    void insert(Long skuId);
 
-    void deleteBrowseHistory(Long skuId);
+    void delete(Long skuId);
 
-    PageInfo<UserBrowseHistory> selectBrowseHistory(Integer page, Integer limit);
+    PageInfo<UserBrowseHistory> select(Integer page, Integer limit);
 }

@@ -12,12 +12,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface UserCollectService {
 
-    void insertCollect(Long skuId);
+    void insert(Long skuId);
 
     @Transactional
-    void deleteCollect(Long skuId);
+    void delete(Long skuId);
 
-    PageInfo<UserCollect> selectCollect(Integer page, Integer limit);
+    PageInfo<UserCollect> select(Integer page, Integer limit);
 
-    Boolean selectCollectBySkuId(Long productId);
+    Boolean selectBySkuId(Long productId);
 }

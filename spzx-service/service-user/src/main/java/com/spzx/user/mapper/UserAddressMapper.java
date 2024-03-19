@@ -8,14 +8,13 @@ import java.util.List;
 @Mapper
 public interface UserAddressMapper {
 
-    List<UserAddress> findByUserId(Long userId);
+    void insert(UserAddress userAddress);
 
+    void delete(Long id);
 
-    void updateByid(UserAddress userAddress);
+    void update(UserAddress userAddress);
 
-    void save(UserAddress userAddress);
+    UserAddress selectByAddressId(Long id);
 
-    void removeById(Long id);
-
-    UserAddress getById(Long id);
+    List<UserAddress> select(Long userId);
 }

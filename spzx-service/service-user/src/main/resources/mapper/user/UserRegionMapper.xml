@@ -15,7 +15,7 @@
         select <include refid="columns" />
         from region where parent_code = #{code}
     </select>
-    <select id="selectByCode" resultType="java.lang.String">
+    <select id="select" resultType="java.lang.String">
         select name
         from region where code = #{code}
     </select>

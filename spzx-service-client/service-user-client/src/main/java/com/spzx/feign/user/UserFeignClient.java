@@ -10,6 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 public interface UserFeignClient {
 
     @GetMapping("/api/user/userAddress/getUserAddress/{id}")
-    public abstract UserAddress getUserAddress(@PathVariable("id") Long id) ;
+    public abstract UserAddress getUserAddress(@PathVariable("id") Long id);
 
 }

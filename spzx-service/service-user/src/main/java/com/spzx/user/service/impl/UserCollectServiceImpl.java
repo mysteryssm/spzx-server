@@ -35,8 +35,8 @@ public class UserCollectServiceImpl implements UserCollectService {
     private ProductFeignClient productFeignClient;
 
     @Override
-    public void insertCollect(Long skuId) {
-        if(!selectCollectBySkuId(skuId)) {
+    public void insert(Long skuId) {
+        if(!selectBySkuId(skuId)) {
             User user = AuthContextUtil.getUser();
             UserCollect userCollect = new UserCollect();
             userCollect.setUserId(user.getId());
@@ -44,24 +44,24 @@ public class UserCollectServiceImpl implements UserCollectService {
             userCollect.setUpdateTime(new Date());
             userCollect.setSkuId(skuId);
             userCollect.setIsDeleted(0);
-            userCollectMapper.insertCollect(userCollect);
+            userCollectMapper.insert(userCollect);
         }
     }
 
     @Transactional
     @Override
-    public void deleteCollect(Long skuId) {
-        if(selectCollectBySkuId(skuId)) {
+    public void delete(Long skuId) {
+        if(selectBySkuId(skuId)) {
             User user = AuthContextUtil.getUser();
-            userCollectMapper.deleteCollect(user.getId(), skuId);
+            userCollectMapper.delete(user.getId(), skuId);
         }
     }
 
     @Override
-    public PageInfo<UserCollect> selectCollect(Integer page, Integer limit) {
+    public PageInfo<UserCollect> select(Integer page, Integer limit) {
         PageHelper.startPage(page, limit);
         User user = AuthContextUtil.getUser();
-        List<UserCollect> userCollects = userCollectMapper.selectCollect(user.getId());
+        List<UserCollect> userCollects = userCollectMapper.select(user.getId());
 
         List<ProductSkuVO> productSkus = new ArrayList<>();
         for (UserCollect userCollect : userCollects) {
@@ -77,9 +77,9 @@ public class UserCollectServiceImpl implements UserCollectService {
     }
 
     @Override
-    public Boolean selectCollectBySkuId(Long skuId) {
+    public Boolean selectBySkuId(Long skuId) {
         User user = AuthContextUtil.getUser();
-        UserCollect userCollect = userCollectMapper.selectCollectBySkuId(user.getId(), skuId);
+        UserCollect userCollect = userCollectMapper.selectBySkuId(user.getId(), skuId);
         return null != userCollect;
     }
 }

@@ -14,5 +14,5 @@ public interface UserRegionMapper {
 
     List<Region> selectByParentCode(Integer code);
 
-    String selectByCode(String Code);
+    String select(String Code);
 }

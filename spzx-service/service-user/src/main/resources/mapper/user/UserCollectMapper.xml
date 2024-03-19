@@ -5,7 +5,7 @@
 <!--保证映射文件的命名空间和mapper接口的全类名保持一致-->
 <mapper namespace="com.spzx.user.mapper.UserCollectMapper">
 
-    <insert id="insertCollect" parameterType="com.spzx.model.entity.webapp.UserCollect">
+    <insert id="insert" parameterType="com.spzx.model.entity.webapp.UserCollect">
         INSERT INTO user_collect
             (create_time, update_time, is_deleted, user_id, sku_id)
         VALUES
@@ -14,17 +14,17 @@
              )
     </insert>
 
-    <delete id="deleteCollect">
+    <delete id="delete">
         delete from user_collect where user_id = #{userId} and sku_id = #{skuId}
     </delete>
 
-    <select id="selectCollectBySkuId" resultType="com.spzx.model.entity.webapp.UserCollect">
+    <select id="selectBySkuId" resultType="com.spzx.model.entity.webapp.UserCollect">
         select user_id, sku_id
         from user_collect
         where is_deleted = 0 and user_id = #{userId} and sku_id = #{skuId}
     </select>
 
-    <select id="selectCollect" resultType="com.spzx.model.entity.webapp.UserCollect">
+    <select id="select" resultType="com.spzx.model.entity.webapp.UserCollect">
         select user_id, sku_id
         from user_collect
         where is_deleted = 0 and user_id = #{userId}

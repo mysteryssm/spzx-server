@@ -27,31 +27,31 @@ public class UserBrowseHistoryController {
 
     @Operation(summary = "商品浏览信息添加")
     @GetMapping(value = "/isCollect/{id}")
-    public Result insertBrowseHistory(@PathVariable("id") String id) {
+    public Result insert(@PathVariable("id") String id) {
         if (null ==  id || id.isEmpty() || "undefined".equals(id)){
             return Result.build(null, ResultCodeEnum.PRODUCT_EXIST_ERROR);
         }else {
-            userBrowseHistoryService.insertBrowseHistory(Long.valueOf(id));   //保存商品浏览信息
+            userBrowseHistoryService.insert(Long.valueOf(id));   //保存商品浏览信息
             return Result.build(null, ResultCodeEnum.SUCCESS);
         }
     }
 
     @Operation(summary = "商品浏览信息删除")
     @DeleteMapping(value = "/auth/browse_history/delete/{id}")
-    public Result<Boolean> deleteBrowseHistory(@PathVariable("id") String id) {
+    public Result<Boolean> delete(@PathVariable("id") String id) {
         if (null ==  id || id.isEmpty() || "undefined".equals(id)){
             return Result.build(null, ResultCodeEnum.PRODUCT_EXIST_ERROR);
         }else {
-            userBrowseHistoryService.deleteBrowseHistory(Long.valueOf(id));
+            userBrowseHistoryService.delete(Long.valueOf(id));
             return Result.build(null, ResultCodeEnum.SUCCESS);
         }
     }
 
     @Operation(summary = "商品浏览信息分页展示")
     @GetMapping(value = "/auth/findUserBrowseHistoryPage/{page}/{limit}")
-    public Result<UserInfoVo> selectBrowse(@PathVariable(name = "page") Integer page,
-                                           @PathVariable(name = "limit") Integer limit) {
-        PageInfo<UserBrowseHistory> pageInfo = userBrowseHistoryService.selectBrowseHistory(page, limit);
+    public Result<UserInfoVo> select(@PathVariable(name = "page") Integer page,
+                                     @PathVariable(name = "limit") Integer limit) {
+        PageInfo<UserBrowseHistory> pageInfo = userBrowseHistoryService.select(page, limit);
         return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
     }
 }

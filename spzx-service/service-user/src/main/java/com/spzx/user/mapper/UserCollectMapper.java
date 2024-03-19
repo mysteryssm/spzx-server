@@ -12,11 +12,11 @@ import java.util.List;
 
 @Mapper
 public interface UserCollectMapper {
-    void insertCollect(UserCollect userCollect);
+    void insert(UserCollect userCollect);
 
-    void deleteCollect(Long userId, Long skuId);
+    void delete(Long userId, Long skuId);
 
-    UserCollect selectCollectBySkuId(Long userId, Long skuId);
+    UserCollect selectBySkuId(Long userId, Long skuId);
 
-    List<UserCollect> selectCollect(Long userId);
+    List<UserCollect> select(Long userId);
 }

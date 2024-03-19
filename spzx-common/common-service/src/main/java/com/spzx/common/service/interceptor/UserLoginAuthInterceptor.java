@@ -47,7 +47,6 @@ public class UserLoginAuthInterceptor implements HandlerInterceptor {
                 oldExpire, TimeUnit.SECONDS);
 
         return true;
-
     }
 
 }

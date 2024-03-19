@@ -17,33 +17,33 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping(value="/api/order/orderInfo/auth")
 @SuppressWarnings({"unchecked", "rawtypes"})
-public class OrderInfoController {
+public class OrderController {
    
    @Autowired
    private OrderInfoService orderInfoService;
 
-   @Operation(summary = "确认下单")
+   @Operation(summary = "从购物车下单")
    @GetMapping("/trade")
-   public Result<TradeVo> trade() {
-      TradeVo tradeVo = orderInfoService.getTrade();
+   public Result<TradeVo> generateOrder() {
+      TradeVo tradeVo = orderInfoService.generateOrder();
       return Result.build(tradeVo, ResultCodeEnum.SUCCESS);
    }
 
-   @Operation(summary = "提交订单")
+   @Operation(summary = "订单提交")
    @PostMapping("/submitOrder")
-   public Result<Long> submitOrder(@Parameter(name = "orderInfoDto", description = "请求参数实体类", required = true) @RequestBody OrderDto orderDto) {
+   public Result<Long> submitOrder(@RequestBody OrderDto orderDto) {
       Long orderId = orderInfoService.submitOrder(orderDto);
       return Result.build(orderId, ResultCodeEnum.SUCCESS);
    }
 
-   @Operation(summary = "获取订单信息")
+   @Operation(summary = "订单获取")
    @GetMapping("/{orderId}")
-   public Result<OrderInfo> getOrderInfo(@Parameter(name = "orderId", description = "订单id", required = true) @PathVariable Long orderId) {
-      OrderInfo orderInfo = orderInfoService.getOrderInfo(orderId);
+   public Result<OrderInfo> selectByOrderId(@PathVariable(value = "orderId") Long orderId) {
+      OrderInfo orderInfo = orderInfoService.selectByOrderId(orderId);
       return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
    }
 
-   @Operation(summary = "立即购买")
+   @Operation(summary = "商品界面下单购买")
    @GetMapping("/buy/{skuId}")
    public Result<TradeVo> buy(@PathVariable(value = "skuId") String skuId) {
       TradeVo tradeVo;
@@ -53,16 +53,10 @@ public class OrderInfoController {
 
    @Operation(summary = "获取订单分页列表")
    @GetMapping("/{page}/{limit}")
-   public Result<PageInfo<OrderInfo>> list(
-           @Parameter(name = "page", description = "当前页码", required = true)
-           @PathVariable Integer page,
-
-           @Parameter(name = "limit", description = "每页记录数", required = true)
-           @PathVariable Integer limit,
-
-           @Parameter(name = "orderStatus", description = "订单状态", required = false)
-           @RequestParam(required = false, defaultValue = "") Integer orderStatus) {
-      PageInfo<OrderInfo> pageInfo = orderInfoService.findUserPage(page, limit, orderStatus);
+   public Result<PageInfo<OrderInfo>> select(@PathVariable(value = "page") Integer page,
+                                             @PathVariable(value = "limit") Integer limit,
+                                             @RequestParam(value = "orderStatus") Integer orderStatus) {
+      PageInfo<OrderInfo> pageInfo = orderInfoService.select(page, limit, orderStatus);
       return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
    }
 
@@ -79,7 +73,7 @@ public class OrderInfoController {
    @GetMapping("/updateOrderStatusPayed/{orderNo}/{orderStatus}")
    public Result updateOrderStatus(@PathVariable(value = "orderNo") String orderNo , @PathVariable(value = "orderStatus") Integer orderStatus) {
       orderInfoService.updateOrderStatus(orderNo , orderStatus);
-      return Result.build(null , ResultCodeEnum.SUCCESS) ;
+      return Result.build(null, ResultCodeEnum.SUCCESS) ;
    }
 
 }
