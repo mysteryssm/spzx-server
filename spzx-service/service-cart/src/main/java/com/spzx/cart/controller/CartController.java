@@ -68,7 +68,7 @@ public class CartController {
      * @return
      */
     @Operation(summary = "选中的购物车")
-    @GetMapping(value = "/getAllChecked")
+    @GetMapping(value = "/selectChecked")
     public List<CartInfo> selectChecked() {
         List<CartInfo> cartInfoList = cartService.selectChecked();
         return cartInfoList;

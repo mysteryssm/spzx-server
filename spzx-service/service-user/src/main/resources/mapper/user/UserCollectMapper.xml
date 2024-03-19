@@ -10,7 +10,7 @@
             (create_time, update_time, is_deleted, user_id, sku_id)
         VALUES
             (
-             #{createTime}, #{updateTime}, #{isDeleted}, #{userId}, #{skuId}
+             now(), now(), 0, #{userId}, #{skuId}
              )
     </insert>
 
