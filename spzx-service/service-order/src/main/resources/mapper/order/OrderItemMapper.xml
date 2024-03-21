@@ -8,7 +8,7 @@
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
-        id,order_id,sku_id,sku_name,thumb_img,sku_price,sku_num,create_time,update_time,is_deleted
+        id, order_id, sku_id, sku_name, thumb_img, sku_price, sku_num, create_time, update_time, is_deleted
     </sql>
 
     <insert id="insert" useGeneratedKeys="true" keyProperty="id">

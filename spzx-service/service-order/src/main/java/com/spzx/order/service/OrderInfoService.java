@@ -16,7 +16,7 @@ public interface OrderInfoService {
 
     OrderInfo selectByOrderId(Long orderId);
 
-    OrderInfo getByOrderNo(String orderNo);
+    OrderInfo selectByOrderNo(String orderNo);
 
     void updateOrderStatus(String orderNo, Integer orderStatus);
 

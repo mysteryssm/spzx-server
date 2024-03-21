@@ -16,5 +16,5 @@ public interface OrderInfoMapper {
 
     List<OrderInfo> select(Long userId, Integer orderStatus);
 
-    OrderInfo getByOrderNo(String orderNo) ;
+    OrderInfo selectByOrderNo(String orderNo);
 }

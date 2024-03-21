@@ -8,7 +8,6 @@ import com.spzx.model.vo.webapp.TradeVo;
 import com.spzx.order.service.OrderInfoService;
 import com.github.pagehelper.PageInfo;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -36,13 +35,6 @@ public class OrderController {
       return Result.build(orderId, ResultCodeEnum.SUCCESS);
    }
 
-   @Operation(summary = "订单获取")
-   @GetMapping("/{orderId}")
-   public Result<OrderInfo> selectByOrderId(@PathVariable(value = "orderId") Long orderId) {
-      OrderInfo orderInfo = orderInfoService.selectByOrderId(orderId);
-      return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
-   }
-
    @Operation(summary = "商品界面下单购买")
    @GetMapping("/buy/{skuId}")
    public Result<TradeVo> buy(@PathVariable(value = "skuId") String skuId) {
@@ -61,19 +53,27 @@ public class OrderController {
    }
 
    //远程调用：根据订单编号获取订单信息
-   @Operation(summary = "获取订单信息")
+   @Operation(summary = "根据订单编号获取订单信息")
    @GetMapping("/getOrderInfoByOrderNo/{orderNo}")
-   public Result<OrderInfo> getOrderInfoByOrderNo(@Parameter(name = "orderId", description = "订单id", required = true) @PathVariable String orderNo) {
-      OrderInfo orderInfo = orderInfoService.getByOrderNo(orderNo) ;
+   public Result<OrderInfo> selectByOrderNo(@PathVariable(value = "orderNo") String orderNo) {
+      OrderInfo orderInfo = orderInfoService.selectByOrderNo(orderNo) ;
+      return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
+   }
+
+   @Operation(summary = "订单获取")
+   @GetMapping("/{orderId}")
+   public Result<OrderInfo> selectByOrderId(@PathVariable(value = "orderId") Long orderId) {
+      OrderInfo orderInfo = orderInfoService.selectByOrderId(orderId);
       return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
    }
 
    //远程调用：更新订单状态
-   @Operation(summary = "获取订单分页列表")
+   @Operation(summary = "更新订单状态")
    @GetMapping("/updateOrderStatusPayed/{orderNo}/{orderStatus}")
-   public Result updateOrderStatus(@PathVariable(value = "orderNo") String orderNo , @PathVariable(value = "orderStatus") Integer orderStatus) {
+   public Result updateOrderStatus(@PathVariable(value = "orderNo") String orderNo,
+                                   @PathVariable(value = "orderStatus") Integer orderStatus) {
       orderInfoService.updateOrderStatus(orderNo , orderStatus);
-      return Result.build(null, ResultCodeEnum.SUCCESS) ;
+      return Result.build(null, ResultCodeEnum.SUCCESS);
    }
 
 }
