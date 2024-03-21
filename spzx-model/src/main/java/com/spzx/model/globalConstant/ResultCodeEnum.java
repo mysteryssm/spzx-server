@@ -18,14 +18,15 @@ public enum ResultCodeEnum {
     ACCOUNT_STOP( 310, "该账号已停用！"),
     NETWORK_ERROR(404, "您的网络有问题请稍后重试"),
     STOCK_LESS( 501, "库存不足"),
-    PRODUCT_EXIST_ERROR( 502, "商品不存在！"),
+    PRODUCT_NOT_EXIST_ERROR( 502, "商品不存在！"),
     ORDER_EMPTY_ERROR(503, "订单中无商品！"),
-    MENU_DELETE_ERROR( 601, "该菜单下有子菜单，无法删除！");
+    MENU_DELETE_ERROR( 601, "该菜单下有子菜单，无法删除！"),
+    USER_ADDRESS_NOT_EXIST_ERROR(701, "用户收获地址不存在！");
 
     private Integer code ;      // 业务状态码
     private String message ;    // 响应消息
 
-    private ResultCodeEnum(Integer code , String message) {
+    ResultCodeEnum(Integer code , String message) {
         this.code = code ;
         this.message = message ;
     }

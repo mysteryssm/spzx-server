@@ -1,7 +1,6 @@
 package com.spzx.model.entity.webapp;
 
 import com.spzx.model.entity.base.BaseEntity;
-import com.spzx.model.entity.webapp.OrderItem;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -37,7 +36,7 @@ public class OrderInfo extends BaseEntity {
 	private BigDecimal originalTotalAmount;
 
 	@Schema(description = "运费")
-	private BigDecimal feightFee;
+	private BigDecimal freightFee;
 
 	@Schema(description = "支付方式【1->微信】")
 	private Integer payType;

@@ -59,6 +59,11 @@ public class UserAddressController {
       return Result.build(null, ResultCodeEnum.SUCCESS);
    }
 
+   /**
+    * 远程调用获取地址信息
+    * @param addressId
+    * @return
+    */
    @Operation(summary = "获取地址信息")
    @GetMapping(value = "/userAddress/getUserAddress/{id}")
    public UserAddress selectByAddressId(@PathVariable(name = "id") Long addressId) {

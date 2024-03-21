@@ -32,7 +32,7 @@ public class UserCollectController {
     @GetMapping(value = "/auth/collect/{skuId}")
     public Result insert(@PathVariable(name = "skuId") String skuId) {
         if (null ==  skuId || skuId.isEmpty() || "undefined".equals(skuId)) {   // 参数校验，确保 skuId 不为空
-            return Result.build(null, ResultCodeEnum.PRODUCT_EXIST_ERROR);
+            return Result.build(null, ResultCodeEnum.PRODUCT_NOT_EXIST_ERROR);
         } else {
             userCollectService.insert(Long.valueOf(skuId));
             return Result.build(null, ResultCodeEnum.SUCCESS);
@@ -43,7 +43,7 @@ public class UserCollectController {
     @GetMapping("/auth/cancelCollect/{skuId}")
     public Result delete(@PathVariable(name = "skuId") String skuId) {
         if (null ==  skuId || skuId.isEmpty() || "undefined".equals(skuId)) {
-            return Result.build(null, ResultCodeEnum.PRODUCT_EXIST_ERROR);
+            return Result.build(null, ResultCodeEnum.PRODUCT_NOT_EXIST_ERROR);
         } else {
             userCollectService.delete(Long.valueOf(skuId));
             return Result.build(null, ResultCodeEnum.SUCCESS);

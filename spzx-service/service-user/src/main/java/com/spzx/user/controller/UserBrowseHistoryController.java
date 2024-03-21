@@ -29,7 +29,7 @@ public class UserBrowseHistoryController {
     @GetMapping(value = "/isCollect/{id}")
     public Result insert(@PathVariable("id") String id) {
         if (null ==  id || id.isEmpty() || "undefined".equals(id)){
-            return Result.build(null, ResultCodeEnum.PRODUCT_EXIST_ERROR);
+            return Result.build(null, ResultCodeEnum.PRODUCT_NOT_EXIST_ERROR);
         }else {
             userBrowseHistoryService.insert(Long.valueOf(id));   //保存商品浏览信息
             return Result.build(null, ResultCodeEnum.SUCCESS);
@@ -40,7 +40,7 @@ public class UserBrowseHistoryController {
     @DeleteMapping(value = "/auth/browse_history/delete/{id}")
     public Result<Boolean> delete(@PathVariable("id") String id) {
         if (null ==  id || id.isEmpty() || "undefined".equals(id)){
-            return Result.build(null, ResultCodeEnum.PRODUCT_EXIST_ERROR);
+            return Result.build(null, ResultCodeEnum.PRODUCT_NOT_EXIST_ERROR);
         }else {
             userBrowseHistoryService.delete(Long.valueOf(id));
             return Result.build(null, ResultCodeEnum.SUCCESS);

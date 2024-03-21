@@ -12,6 +12,8 @@ import com.spzx.model.entity.webapp.OrderLog;
 import com.spzx.model.entity.common.ProductSku;
 import com.spzx.model.entity.webapp.UserAddress;
 import com.spzx.model.entity.webapp.User;
+import com.spzx.model.globalConstant.PayStatusEnum;
+import com.spzx.model.globalConstant.PayTypeEnum;
 import com.spzx.model.globalConstant.ResultCodeEnum;
 import com.spzx.model.vo.webapp.TradeVo;
 import com.spzx.order.mapper.OrderInfoMapper;
@@ -69,9 +71,10 @@ public class OrderInfoServiceImpl implements OrderInfoService {
         }
 
         BigDecimal totalAmount = new BigDecimal(0);
+        BigDecimal amount = new BigDecimal(0);
 
         for(OrderItem orderItem : orderItemList) {
-            BigDecimal amount = new BigDecimal(orderItem.getSkuNum());
+            amount = new BigDecimal(orderItem.getSkuNum());
             totalAmount = totalAmount.add(orderItem.getSkuPrice().multiply(amount));
         }
         TradeVo tradeVo = new TradeVo();
@@ -84,57 +87,63 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Transactional
     @Override
     public Long submitOrder(OrderDto orderDto) {
-        List<OrderItem> orderItemList = orderDto.getOrderItemList();
+        List<OrderItem> orderItemList = orderDto.getOrderItemList();    // 获取订单中的商品列表
 
-        if (CollectionUtils.isEmpty(orderItemList)) {
+        if (CollectionUtils.isEmpty(orderItemList)) {   // 判断商品列表是否为空
             throw new GlobalException(ResultCodeEnum.ORDER_EMPTY_ERROR);
         }
 
-        // 校验商品库存是否充足，遍历List<OrderItem>集合
         for (OrderItem orderItem : orderItemList) {
-            ProductSku productSku = productFeignClient.getBySkuId(orderItem.getSkuId()).getData();
-            if(null == productSku) {
-                throw new GlobalException(ResultCodeEnum.USER_REGISTER_DATA_ERROR);
+            ProductSku productSku = productFeignClient.getBySkuId(orderItem.getSkuId()).getData();  // 远程调用获取商品信息
+
+            if(null == productSku) { // 判断商品是否存在
+                throw new GlobalException(ResultCodeEnum.PRODUCT_NOT_EXIST_ERROR);
             }
-            // 校验每一个OrderItem库存量是否充足，远程调用service-product模块的sku表（库存量）
+
+            // 校验商品库存量是否充足
             if(orderItem.getSkuNum().intValue() > productSku.getStockNum().intValue()) {
                 throw new GlobalException(ResultCodeEnum.STOCK_LESS);
             }
         }
 
-        //4、添加数据到order_info表，封装数据到orderInfo对象中，
-        User user = AuthContextUtil.getUser();
-        OrderInfo orderInfo = new OrderInfo();
-        //订单编号
-        orderInfo.setOrderNo(String.valueOf(System.currentTimeMillis()));
-        //用户id
-        orderInfo.setUserId(user.getId());
-        //用户昵称
-        orderInfo.setNickName(user.getNickName());
         // 远程调用service-user模块的用户收货地址信息
         UserAddress userAddress = userFeignClient.getUserAddress(orderDto.getUserAddressId());
-        orderInfo.setReceiverName(userAddress.getName());
-        orderInfo.setReceiverPhone(userAddress.getPhone());
-        orderInfo.setReceiverTagName(userAddress.getTagName());
-        orderInfo.setReceiverProvince(userAddress.getProvinceCode());
-        orderInfo.setReceiverCity(userAddress.getCityCode());
-        orderInfo.setReceiverDistrict(userAddress.getDistrictCode());
-        orderInfo.setReceiverAddress(userAddress.getFullAddress());
-        //订单金额
-        BigDecimal totalAmount = new BigDecimal(0);
+
+        if(null == userAddress) {
+            throw new GlobalException(ResultCodeEnum.USER_ADDRESS_NOT_EXIST_ERROR);
+        }
+
+        User user = AuthContextUtil.getUser();
+
+        OrderInfo orderInfo = new OrderInfo(); // 定义 orderInfo 用于存储订单信息
+        orderInfo.setUserId(user.getId());  //传入用户id
+        orderInfo.setOrderNo(String.valueOf(System.currentTimeMillis()));   // 获取当前时间戳作为订单编号
+        orderInfo.setNickName(user.getNickName());  //传入用户昵称
+
+        orderInfo.setReceiverName(userAddress.getName());   // 传入收货人姓名
+        orderInfo.setReceiverPhone(userAddress.getPhone()); // 传入收货人手机号
+        orderInfo.setReceiverTagName(userAddress.getTagName()); // 传入收货地址标签
+        orderInfo.setReceiverProvince(userAddress.getProvinceCode());   // 传入收获地址省级行政区区域码
+        orderInfo.setReceiverCity(userAddress.getCityCode());   // 传入收获地址市级行政区区域码
+        orderInfo.setReceiverDistrict(userAddress.getDistrictCode());   // 传入收获地址县级行政区区域码
+        orderInfo.setReceiverAddress(userAddress.getFullAddress()); // 传入详细收获地址
+
+        BigDecimal totalAmount = new BigDecimal(0);  //订单金额
+        BigDecimal couponAmount = new BigDecimal(0);  //优惠券金额
+
         for (OrderItem orderItem : orderItemList) {
             totalAmount = totalAmount.add(orderItem.getSkuPrice().multiply(new BigDecimal(orderItem.getSkuNum())));
         }
-        orderInfo.setTotalAmount(totalAmount);
-        orderInfo.setCouponAmount(new BigDecimal(0));
-        orderInfo.setOriginalTotalAmount(totalAmount);
-        orderInfo.setFeightFee(orderDto.getFreightFee());
-        orderInfo.setPayType(2);
-        orderInfo.setOrderStatus(0);
-        orderInfoMapper.insert(orderInfo);
 
-        //5、添加数据到order_item表
-        //添加List<OrderItem>里面的数据，把集合每个OrderItem添加表
+        orderInfo.setTotalAmount(totalAmount.add(couponAmount.negate()));   // 传入订单总金额
+        orderInfo.setCouponAmount(couponAmount);   // 暂时不考虑优惠券功能，传入 0 作为优惠券金额
+        orderInfo.setOriginalTotalAmount(totalAmount);  // 传入初始订单金额，不考虑优惠券
+        orderInfo.setFreightFee(orderDto.getFreightFee());   // 传入运费
+        orderInfo.setPayType(PayTypeEnum.ALI_PAY.getPayTypeCode()); // 传入支付方式码
+        orderInfo.setOrderStatus(PayStatusEnum.UNPAID.getPayStatusCode());    // 传入订单状态
+        orderInfoMapper.insert(orderInfo);  // 将订单信息存入数据库
+
+        // 添加List<OrderItem>里面的数据，把集合每个OrderItem添加表
         for (OrderItem orderItem : orderItemList) {
             orderItem.setOrderId(orderInfo.getId());
             orderItemMapper.insert(orderItem);
