@@ -30,7 +30,7 @@ public class PaymentInfoServiceImpl implements PaymentInfoService {
     private ProductFeignClient productFeignClient ;
 
     @Override
-    public PaymentInfo savePaymentInfo(String orderNo) {
+    public PaymentInfo insertPaymentInfo(String orderNo) {
 
         // 根据订单号查询支付信息数据，如果已经已经存在了就不用进行保存(一个订单支付失败以后可以继续支付)
         PaymentInfo paymentInfo = paymentInfoMapper.getByOrderNo(orderNo);

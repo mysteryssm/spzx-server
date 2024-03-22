@@ -117,8 +117,8 @@
         <if test="originalTotalAmount != null and originalTotalAmount != ''">
             original_total_amount = #{originalTotalAmount},
         </if>
-        <if test="feightFee != null and feightFee != ''">
-            feight_fee = #{feightFee},
+        <if test="freightFee != null and freightFee != ''">
+            freight_fee = #{feightFee},
         </if>
         <if test="payType != null">
             pay_type = #{payType},
@@ -169,4 +169,5 @@
         where
         id = #{id}
     </update>
+
 </mapper>

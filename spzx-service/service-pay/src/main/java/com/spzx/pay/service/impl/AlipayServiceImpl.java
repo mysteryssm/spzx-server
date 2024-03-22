@@ -29,27 +29,20 @@ public class AlipayServiceImpl implements AlipayService {
     private PaymentInfoService paymentInfoService;
 
     @Autowired
-    private AlipayProperties alipayProperties ;
+    private AlipayProperties alipayProperties;
 
     @SneakyThrows  // lombok的注解，对外声明异常
     @Override
-    public String submitAlipay(String orderNo) {
+    public String pay(String orderNo) {
 
-        //保存支付记录
-        PaymentInfo paymentInfo = paymentInfoService.savePaymentInfo(orderNo);
+        PaymentInfo paymentInfo = paymentInfoService.insertPaymentInfo(orderNo);  //保存支付记录
 
-        //创建API对应的request
-        AlipayTradeWapPayRequest alipayRequest = new AlipayTradeWapPayRequest();
+        AlipayTradeWapPayRequest alipayRequest = new AlipayTradeWapPayRequest();     //创建 AliPay 支付API对应的 request
+        alipayRequest.setReturnUrl(alipayProperties.getReturnPaymentUrl());  // 同步回调
+        alipayRequest.setNotifyUrl(alipayProperties.getNotifyPaymentUrl()); // 异步回调
 
-        // 同步回调
-        alipayRequest.setReturnUrl(alipayProperties.getReturnPaymentUrl());
-
-        // 异步回调
-        alipayRequest.setNotifyUrl(alipayProperties.getNotifyPaymentUrl());
-
-        // 准备请求参数 ，声明一个map 集合
-        HashMap<String, Object> map = new HashMap<>();
-        map.put("out_trade_no",paymentInfo.getOrderNo());
+        HashMap<String, Object> map = new HashMap<>();  // 声明 map 集合储存支付参数
+        map.put("out_trade_no", paymentInfo.getOrderNo());
         map.put("product_code","QUICK_WAP_WAY");
         //map.put("total_amount",paymentInfo.getAmount());
         map.put("total_amount",new BigDecimal("0.01"));

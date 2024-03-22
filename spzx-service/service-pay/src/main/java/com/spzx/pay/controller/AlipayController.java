@@ -8,7 +8,6 @@ import com.spzx.pay.properties.AlipayProperties;
 import com.spzx.pay.service.AlipayService;
 import com.spzx.pay.service.PaymentInfoService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-// com.spzx.pay.controller
 @Controller
 @Slf4j
 @RequestMapping("/api/order/alipay")
@@ -35,8 +33,8 @@ public class AlipayController {
     @Operation(summary="支付宝下单")
     @GetMapping(value = "/submitAlipay/{orderNo}")
     @ResponseBody
-    public Result<String> submitAlipay(@Parameter(name = "orderNo", description = "订单号", required = true) @PathVariable(value = "orderNo") String orderNo) {
-        String form = alipayService.submitAlipay(orderNo);
+    public Result<String> pay(@PathVariable(value = "orderNo") String orderNo) {
+        String form = alipayService.pay(orderNo);
         return Result.build(form, ResultCodeEnum.SUCCESS);
     }
 

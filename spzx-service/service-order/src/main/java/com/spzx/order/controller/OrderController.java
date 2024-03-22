@@ -28,19 +28,19 @@ public class OrderController {
       return Result.build(tradeVo, ResultCodeEnum.SUCCESS);
    }
 
-   @Operation(summary = "订单提交")
-   @PostMapping("/submitOrder")
-   public Result<Long> submitOrder(@RequestBody OrderDto orderDto) {
-      Long orderId = orderInfoService.submitOrder(orderDto);
-      return Result.build(orderId, ResultCodeEnum.SUCCESS);
-   }
-
-   @Operation(summary = "商品界面下单购买")
+   @Operation(summary = "商品界面直接下单")
    @GetMapping("/buy/{skuId}")
    public Result<TradeVo> buy(@PathVariable(value = "skuId") String skuId) {
       TradeVo tradeVo;
       tradeVo = orderInfoService.buy(Long.valueOf(skuId));
       return Result.build(tradeVo, ResultCodeEnum.SUCCESS);
+   }
+
+   @Operation(summary = "订单提交")
+   @PostMapping("/submitOrder")
+   public Result<Long> submitOrder(@RequestBody OrderDto orderDto) {
+      Long orderId = orderInfoService.submitOrder(orderDto);
+      return Result.build(orderId, ResultCodeEnum.SUCCESS);
    }
 
    @Operation(summary = "获取订单分页列表")
@@ -52,18 +52,19 @@ public class OrderController {
       return Result.build(pageInfo, ResultCodeEnum.SUCCESS);
    }
 
+   @Operation(summary = "订单获取")
+   @GetMapping("/{orderId}")
+   public Result<OrderInfo> selectByOrderId(@PathVariable(value = "orderId") Long orderId) {
+      OrderInfo orderInfo = orderInfoService.selectByOrderId(orderId);
+      return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
+   }
+
+
    //远程调用：根据订单编号获取订单信息
    @Operation(summary = "根据订单编号获取订单信息")
    @GetMapping("/getOrderInfoByOrderNo/{orderNo}")
    public Result<OrderInfo> selectByOrderNo(@PathVariable(value = "orderNo") String orderNo) {
       OrderInfo orderInfo = orderInfoService.selectByOrderNo(orderNo) ;
-      return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
-   }
-
-   @Operation(summary = "订单获取")
-   @GetMapping("/{orderId}")
-   public Result<OrderInfo> selectByOrderId(@PathVariable(value = "orderId") Long orderId) {
-      OrderInfo orderInfo = orderInfoService.selectByOrderId(orderId);
       return Result.build(orderInfo, ResultCodeEnum.SUCCESS);
    }
 

@@ -1,5 +1,6 @@
 package com.spzx.pay.service;
 
 public interface AlipayService {
-    String submitAlipay(String orderNo);
+
+    String pay(String orderNo);
 }

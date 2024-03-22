@@ -192,7 +192,7 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
         orderInfoList.forEach(orderInfo -> {
             List<OrderItem> orderItem = orderItemMapper.selectByOrderId(orderInfo.getId());
-            orderInfo.setOrderItemList(orderItem);
+            orderInfo.setOrderItemList(orderItem);  // 传入商品列表
         });
 
         PageInfo<OrderInfo> pageInfo = new PageInfo<>(orderInfoList);
@@ -202,12 +202,14 @@ public class OrderInfoServiceImpl implements OrderInfoService {
 
     @Override
     public OrderInfo selectByOrderId(Long orderId) {
-        return orderInfoMapper.selectByOrderId(orderId);
+        OrderInfo orderInfo = orderInfoMapper.selectByOrderId(orderId);
+        List<OrderItem> orderItems = orderItemMapper.selectByOrderId(orderInfo.getId());
+        orderInfo.setOrderItemList(orderItems);
+        return orderInfo;
     }
 
     @Override
     public OrderInfo selectByOrderNo(String orderNo) {
-
         OrderInfo orderInfo = orderInfoMapper.selectByOrderNo(orderNo);
         List<OrderItem> orderItem = orderItemMapper.selectByOrderId(orderInfo.getId());
         orderInfo.setOrderItemList(orderItem);
@@ -218,19 +220,17 @@ public class OrderInfoServiceImpl implements OrderInfoService {
     @Override
     public void updateOrderStatus(String orderNo, Integer orderStatus) {
 
-        // 更新订单状态
         OrderInfo orderInfo = orderInfoMapper.selectByOrderNo(orderNo);
-        orderInfo.setOrderStatus(1);
-        orderInfo.setPayType(orderStatus);
+        orderInfo.setOrderStatus(orderStatus);
+        orderInfo.setPayType(PayTypeEnum.ALI_PAY.getPayTypeCode());
         orderInfo.setPaymentTime(new Date());
-        orderInfoMapper.update(orderInfo);
+        orderInfoMapper.update(orderInfo);  // 更新订单状态
 
-        // 记录日志
         OrderLog orderLog = new OrderLog();
         orderLog.setOrderId(orderInfo.getId());
         orderLog.setProcessStatus(1);
         orderLog.setNote("支付宝支付成功");
-        orderLogMapper.save(orderLog);
+        orderLogMapper.save(orderLog);  // 记录日志
     }
 }
 

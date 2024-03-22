@@ -11,17 +11,18 @@ import org.springframework.context.annotation.Configuration;
 public class AlipayConfiguration {
 
     @Autowired
-    private AlipayProperties alipayProperties ;
+    private AlipayProperties alipayProperties;
 
     @Bean
     public AlipayClient alipayClient(){
-        AlipayClient alipayClient = new DefaultAlipayClient(alipayProperties.getAlipayUrl() ,
-                alipayProperties.getAppId() ,
-                alipayProperties.getAppPrivateKey() ,
-                AlipayProperties.format ,
-                AlipayProperties.charset ,
-                alipayProperties.getAlipayPublicKey() ,
+        AlipayClient alipayClient = new DefaultAlipayClient(alipayProperties.getAlipayUrl(),
+                alipayProperties.getAppId(),
+                alipayProperties.getAppPrivateKey(),
+                AlipayProperties.format,
+                AlipayProperties.charset,
+                alipayProperties.getAlipayPublicKey(),
                 AlipayProperties.sign_type );
+
         return alipayClient;
     }
 
